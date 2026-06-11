@@ -169,3 +169,29 @@ PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/ru
 The first baseline treats World Cup 2026 fixtures as venue-neutral. Host-country
 advantage should be added explicitly in the next modeling layer because FIFA
 fixture ordering is not the same as true home advantage.
+
+## Generate Final Reports
+
+After `scripts/run_baselines.py` has produced the processed outputs, run:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/generate_final_reports.py
+```
+
+This writes:
+
+```text
+reports/final_group_advancement_probabilities.csv
+reports/final_round_by_round_probabilities.csv
+reports/final_winner_probabilities.csv
+reports/final_top_scorer_probabilities.csv
+reports/final_group_match_forecasts.csv
+reports/final_knockout_match_forecasts.csv
+reports/final_full_match_forecasts.csv
+reports/final_report.md
+```
+
+Top-scorer probabilities are computed from the Transfermarkt-adjusted top-100
+expected-goals table using an independent Poisson approximation. Tied top-scorer
+outcomes are split evenly. Group advancement currently means probability of
+reaching the round of 32, not exact group-position probabilities.

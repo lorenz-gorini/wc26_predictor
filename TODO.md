@@ -41,11 +41,18 @@
    - Added team availability burden outputs and an optional historical availability-impact estimator.
    - Transfermarkt-adjusted scorer rankings now consume the availability-adjusted scorer baseline.
 
+8. Generate final reports.
+   - Added a deterministic report-generation module and CLI script.
+   - Writes group advancement probabilities, round-by-round probabilities, winner probabilities, top-scorer probabilities, and match-by-match forecast tables.
+   - Writes `reports/final_report.md` as a compact model-summary artifact.
+
 ## Next
 
-8. Generate final reports.
-   - Group advancement probabilities.
-   - Round-by-round probabilities.
-   - Winner probabilities.
-   - Top-scorer probabilities.
-   - Match-by-match forecast tables.
+1. Refresh raw data before final use.
+   - Re-run public data downloads, Transfermarkt updates, odds ingestion, and current injury/suspension feeds.
+   - Re-run `scripts/run_baselines.py` and `scripts/generate_final_reports.py`.
+
+2. Improve the remaining model realism.
+   - Add exact group-position probabilities instead of only round-of-32 advancement probabilities.
+   - Improve group-stage tiebreaker handling.
+   - Separate 90-minute knockout win probabilities from extra-time and penalty-shootout advancement probabilities.

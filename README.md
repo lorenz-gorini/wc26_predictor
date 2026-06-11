@@ -118,6 +118,15 @@ This writes:
 - `data/processed/world_cup_2026_top_scorer_transfermarkt_adjusted_top100.csv`;
 - `reports/baseline_summary.md`.
 
+Generate final report tables after the processed outputs exist:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/generate_final_reports.py
+```
+
+This writes final group-advancement, round-by-round, winner, top-scorer, and
+match-forecast tables under `reports/`, plus `reports/final_report.md`.
+
 ## Local Secrets
 
 Put API keys in a local `.env` file at the project root. The file is ignored by
