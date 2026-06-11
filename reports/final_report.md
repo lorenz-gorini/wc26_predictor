@@ -2,6 +2,8 @@
 
 This report summarizes the current model outputs generated from the processed pipeline artifacts. Group advancement means probability of reaching the round of 32, not exact group-position probabilities.
 
+Group match score predictions use the form-adjusted Poisson exact-score distribution. Aggregate 1X2 probabilities remain shown as secondary outcome diagnostics.
+
 Top-scorer probabilities use 100,000 independent Poisson simulations over the Transfermarkt-adjusted top-100 scorer list, with tied top-scorer outcomes split evenly.
 
 Market benchmark: not using model+market ensemble. Reason: LOWO model+market does not improve over both model-only and market-only log loss. Log loss model=0.971, market=0.961, model+market=0.962.
@@ -122,23 +124,23 @@ Availability: current nonzero burdens are Morocco (0.809, 2 players); Argentina 
 | 20 | Netherlands | Cody Gakpo | Liverpool | 1.199 | 0.2% | player_country_club | available | 1.000 | 0.998 |
 
 ## Most decisive group matches
-| match_number | date | time_local | group | home_team | away_team | ensemble_home_win | ensemble_draw | ensemble_away_win | form_poisson_home_expected_goals | form_poisson_away_expected_goals | most_likely_outcome | most_likely_probability |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 14 | 2026-06-15 | 12:00 p.m. | H | Spain | Cape Verde | 74.3% | 21.6% | 4.1% | 2.100 | 0.813 | home_win | 74.3% |
-| 38 | 2026-06-21 | 12:00 p.m. | H | Spain | Saudi Arabia | 74.1% | 21.7% | 4.3% | 2.014 | 0.681 | home_win | 74.1% |
-| 70 | 2026-06-27 | 9:00 p.m. | J | Jordan | Argentina | 5.4% | 21.1% | 73.5% | 0.560 | 2.301 | away_win | 73.5% |
-| 45 | 2026-06-23 | 4:00 p.m. | L | England | Ghana | 72.9% | 21.7% | 5.4% | 1.946 | 0.564 | home_win | 72.9% |
-| 8 | 2026-06-13 | 12:00 p.m. | B | Qatar | Switzerland | 5.8% | 21.7% | 72.5% | 0.914 | 2.079 | away_win | 72.5% |
-| 10 | 2026-06-14 | 12:00 p.m. | E | Germany | Curaçao | 71.8% | 21.7% | 6.5% | 2.301 | 1.414 | home_win | 71.8% |
-| 64 | 2026-06-26 | 8:00 p.m. | G | New Zealand | Belgium | 8.6% | 21.2% | 70.3% | 0.951 | 2.528 | away_win | 70.3% |
-| 42 | 2026-06-22 | 5:00 p.m. | I | France | Iraq | 69.7% | 22.6% | 7.7% | 1.513 | 0.837 | home_win | 69.7% |
-| 27 | 2026-06-18 | 3:00 p.m. | B | Canada | Qatar | 69.5% | 22.7% | 7.8% | 1.468 | 0.661 | home_win | 69.5% |
-| 50 | 2026-06-24 | 6:00 p.m. | C | Morocco | Haiti | 68.7% | 22.0% | 9.3% | 1.777 | 0.598 | home_win | 68.7% |
-| 34 | 2026-06-20 | 7:00 p.m. | E | Ecuador | Curaçao | 68.6% | 23.3% | 8.1% | 1.103 | 0.857 | home_win | 68.6% |
-| 68 | 2026-06-27 | 5:00 p.m. | L | Croatia | Ghana | 67.9% | 22.1% | 10.0% | 1.805 | 0.985 | home_win | 67.9% |
-| 29 | 2026-06-19 | 8:30 p.m. | C | Brazil | Haiti | 67.7% | 22.2% | 10.0% | 1.677 | 1.501 | home_win | 67.7% |
-| 18 | 2026-06-16 | 6:00 p.m. | I | Iraq | Norway | 10.9% | 22.1% | 67.0% | 0.786 | 1.777 | away_win | 67.0% |
-| 67 | 2026-06-27 | 5:00 p.m. | L | Panama | England | 11.7% | 21.7% | 66.6% | 0.743 | 2.004 | away_win | 66.6% |
+| match_number | date | time_local | group | home_team | away_team | predicted_score | predicted_score_outcome | predicted_score_probability | top_scorelines | ensemble_home_win | ensemble_draw | ensemble_away_win | form_poisson_home_expected_goals | form_poisson_away_expected_goals | most_likely_outcome | most_likely_probability |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 14 | 2026-06-15 | 12:00 p.m. | H | Spain | Cape Verde | 2-0 | home_win | 12.0% | 2-0 (0.120); 1-0 (0.114); 2-1 (0.097); 1-1 (0.093); 3-0 (0.084) | 74.3% | 21.6% | 4.1% | 2.100 | 0.813 | home_win | 74.3% |
+| 38 | 2026-06-21 | 12:00 p.m. | H | Spain | Saudi Arabia | 2-0 | home_win | 13.7% | 2-0 (0.137); 1-0 (0.136); 2-1 (0.093); 1-1 (0.093); 3-0 (0.092) | 74.1% | 21.7% | 4.3% | 2.014 | 0.681 | home_win | 74.1% |
+| 70 | 2026-06-27 | 9:00 p.m. | J | Jordan | Argentina | 0-2 | away_win | 15.2% | 0-2 (0.152); 0-1 (0.132); 0-3 (0.116); 1-2 (0.085); 1-1 (0.074) | 5.4% | 21.1% | 73.5% | 0.560 | 2.301 | away_win | 73.5% |
+| 45 | 2026-06-23 | 4:00 p.m. | L | England | Ghana | 1-0 | home_win | 15.8% | 1-0 (0.158); 2-0 (0.154); 3-0 (0.100); 1-1 (0.089); 2-1 (0.087) | 72.9% | 21.7% | 5.4% | 1.946 | 0.564 | home_win | 72.9% |
+| 8 | 2026-06-13 | 12:00 p.m. | B | Qatar | Switzerland | 0-2 | away_win | 10.8% | 0-2 (0.108); 0-1 (0.104); 1-2 (0.099); 1-1 (0.095); 0-3 (0.075) | 5.8% | 21.7% | 72.5% | 0.914 | 2.079 | away_win | 72.5% |
+| 10 | 2026-06-14 | 12:00 p.m. | E | Germany | Curaçao | 2-1 | home_win | 9.1% | 2-1 (0.091); 1-1 (0.079); 3-1 (0.070); 2-0 (0.065); 2-2 (0.064) | 71.8% | 21.7% | 6.5% | 2.301 | 1.414 | home_win | 71.8% |
+| 64 | 2026-06-26 | 8:00 p.m. | G | New Zealand | Belgium | 0-2 | away_win | 9.9% | 0-2 (0.099); 1-2 (0.094); 0-3 (0.083); 1-3 (0.079); 0-1 (0.078) | 8.6% | 21.2% | 70.3% | 0.951 | 2.528 | away_win | 70.3% |
+| 42 | 2026-06-22 | 5:00 p.m. | I | France | Iraq | 1-0 | home_win | 14.4% | 1-0 (0.144); 1-1 (0.121); 2-0 (0.109); 0-0 (0.095); 2-1 (0.091) | 69.7% | 22.6% | 7.7% | 1.513 | 0.837 | home_win | 69.7% |
+| 27 | 2026-06-18 | 3:00 p.m. | B | Canada | Qatar | 1-0 | home_win | 17.5% | 1-0 (0.175); 2-0 (0.128); 0-0 (0.119); 1-1 (0.115); 2-1 (0.085) | 69.5% | 22.7% | 7.8% | 1.468 | 0.661 | home_win | 69.5% |
+| 50 | 2026-06-24 | 6:00 p.m. | C | Morocco | Haiti | 1-0 | home_win | 16.5% | 1-0 (0.165); 2-0 (0.147); 1-1 (0.099); 0-0 (0.093); 2-1 (0.088) | 68.7% | 22.0% | 9.3% | 1.777 | 0.598 | home_win | 68.7% |
+| 34 | 2026-06-20 | 7:00 p.m. | E | Ecuador | Curaçao | 1-0 | home_win | 15.5% | 1-0 (0.155); 0-0 (0.141); 1-1 (0.133); 0-1 (0.121); 2-0 (0.086) | 68.6% | 23.3% | 8.1% | 1.103 | 0.857 | home_win | 68.6% |
+| 68 | 2026-06-27 | 5:00 p.m. | L | Croatia | Ghana | 1-0 | home_win | 11.1% | 1-0 (0.111); 1-1 (0.109); 2-0 (0.100); 2-1 (0.099); 0-0 (0.061) | 67.9% | 22.1% | 10.0% | 1.805 | 0.985 | home_win | 67.9% |
+| 29 | 2026-06-19 | 8:30 p.m. | C | Brazil | Haiti | 1-1 | draw | 10.5% | 1-1 (0.105); 2-1 (0.088); 1-2 (0.079); 1-0 (0.070); 2-2 (0.066) | 67.7% | 22.2% | 10.0% | 1.677 | 1.501 | home_win | 67.7% |
+| 18 | 2026-06-16 | 6:00 p.m. | I | Iraq | Norway | 0-1 | away_win | 13.7% | 0-1 (0.137); 0-2 (0.122); 1-1 (0.108); 1-2 (0.096); 0-0 (0.077) | 10.9% | 22.1% | 67.0% | 0.786 | 1.777 | away_win | 67.0% |
+| 67 | 2026-06-27 | 5:00 p.m. | L | Panama | England | 0-2 | away_win | 12.9% | 0-2 (0.129); 0-1 (0.129); 1-2 (0.096); 1-1 (0.095); 0-3 (0.086) | 11.7% | 21.7% | 66.6% | 0.743 | 2.004 | away_win | 66.6% |
 
 ## Most likely knockout pairings
 | match_number | round | first_team | second_team | pairing_probability | first_advancement_probability | second_advancement_probability | simulation_count | most_likely_advancing_team | most_likely_advancement_probability |

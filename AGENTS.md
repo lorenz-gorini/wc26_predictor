@@ -4,9 +4,11 @@
 
 This is a reproducible research codebase for forecasting FIFA World Cup 2026
 matches, group advancement, tournament paths, and top-scorer probabilities.
-The project values transparent, backtestable probabilistic models over opaque
-winner picks. Forecasts should be treated as calibrated scenarios and model
-diagnostics, not as betting advice.
+The primary match-level prediction target is the final exact score. Win/draw/loss
+probabilities remain important secondary diagnostics and evaluation targets, but
+do not replace the exact-score forecast. The project values transparent,
+backtestable probabilistic models over opaque winner picks. Forecasts should be
+treated as calibrated scenarios and model diagnostics, not as betting advice.
 
 The owner has a computer vision and PyTorch background and is now a PhD student
 in Economics. Be precise, consistent, readable, and explicit about assumptions.
@@ -85,8 +87,10 @@ Open `reports/model_performance_dashboard.html` directly in a browser, or serve 
 
 ## Modeling Context
 
-Current match-outcome validation uses 2014, 2018, and 2022 FIFA World Cup holdout windows.
-The core metrics are multiclass log loss and multiclass Brier score. Lower is better.
+Current validation uses 2014, 2018, and 2022 FIFA World Cup holdout windows.
+For exact scores, use exact-score log loss, exact-score accuracy, goal MAE, goal
+RMSE, and total-goal MAE. For 1X2 probabilities, use multiclass log loss and
+multiclass Brier score. Lower is better for loss/error metrics.
 
 Important current conclusions:
 

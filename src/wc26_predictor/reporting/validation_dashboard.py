@@ -90,6 +90,7 @@ def generate_validation_dashboard(
     per_match = _per_match_internal_scores(validation_predictions)
 
     metric_summary = _metric_summary(per_match, dashboard_config)
+    score_metric_summary = _score_metric_summary(per_match, dashboard_config)
     delta_summary = _paired_delta_summary(
         per_match=per_match,
         baseline_model="elo",
@@ -127,6 +128,7 @@ def generate_validation_dashboard(
 
     html = _build_dashboard_html(
         metric_summary=metric_summary,
+        score_metric_summary=score_metric_summary,
         delta_summary=delta_summary,
         window_summary=window_summary,
         market_metrics=market_metrics,
@@ -273,8 +275,9 @@ def _score_rows(
     )
     brier_scores = np.sum((probabilities - observed_matrix) ** 2, axis=1)
     output_model = model_name or prefix
-    return [
-        {
+    rows = []
+    for position, row in enumerate(frame.itertuples(index=False)):
+        item = {
             "match_id": row.match_id,
             "window": row.window,
             "date": row.date,
@@ -284,8 +287,41 @@ def _score_rows(
             "log_loss": float(log_losses[position]),
             "brier_score": float(brier_scores[position]),
         }
-        for position, row in enumerate(frame.itertuples(index=False))
-    ]
+        if f"{prefix}_observed_score_probability" in frame.columns:
+            probability = float(getattr(row, f"{prefix}_observed_score_probability"))
+            predicted_home = int(getattr(row, f"{prefix}_predicted_home_score"))
+            predicted_away = int(getattr(row, f"{prefix}_predicted_away_score"))
+            observed_home = int(row.home_score)
+            observed_away = int(row.away_score)
+            item.update(
+                {
+                    "exact_score_log_loss": float(-np.log(np.clip(probability, 1e-15, 1.0))),
+                    "exact_score_hit": float(
+                        predicted_home == observed_home and predicted_away == observed_away
+                    ),
+                    "goal_abs_error": float(
+                        (
+                            abs(predicted_home - observed_home)
+                            + abs(predicted_away - observed_away)
+                        )
+                        / 2.0
+                    ),
+                    "total_goal_abs_error": float(
+                        abs(predicted_home + predicted_away - observed_home - observed_away)
+                    ),
+                }
+            )
+        else:
+            item.update(
+                {
+                    "exact_score_log_loss": np.nan,
+                    "exact_score_hit": np.nan,
+                    "goal_abs_error": np.nan,
+                    "total_goal_abs_error": np.nan,
+                }
+            )
+        rows.append(item)
+    return rows
 
 
 def _metric_summary(
@@ -319,6 +355,30 @@ def _window_metric_summary(per_match: pd.DataFrame) -> pd.DataFrame:
         )
         .sort_values(["window", "log_loss"], ignore_index=True)
     )
+
+
+def _score_metric_summary(
+    per_match: pd.DataFrame,
+    config: ValidationDashboardConfig,
+) -> pd.DataFrame:
+    score_frame = per_match.dropna(subset=["exact_score_log_loss"]).copy()
+    rows = []
+    for model, frame in score_frame.groupby("model", sort=False):
+        row = {
+            "model": model,
+            "label": MODEL_LABELS.get(model, model),
+            "n_matches": len(frame),
+            "color": MODEL_COLORS.get(model, "#555555"),
+            "exact_score_accuracy": float(frame["exact_score_hit"].mean()),
+            "goal_mae": float(frame["goal_abs_error"].mean()),
+            "total_goal_mae": float(frame["total_goal_abs_error"].mean()),
+        }
+        lower, upper = _bootstrap_ci(frame["exact_score_log_loss"].to_numpy(dtype=float), config)
+        row["exact_score_log_loss"] = float(frame["exact_score_log_loss"].mean())
+        row["exact_score_log_loss_lower"] = lower
+        row["exact_score_log_loss_upper"] = upper
+        rows.append(row)
+    return pd.DataFrame(rows).sort_values("exact_score_log_loss", ignore_index=True)
 
 
 def _paired_delta_summary(
@@ -377,6 +437,9 @@ def _future_prediction_uncertainty(
         "group",
         "home_team",
         "away_team",
+        "predicted_score",
+        "predicted_score_outcome",
+        "predicted_score_probability",
         "ensemble_home_win",
         "ensemble_draw",
         "ensemble_away_win",
@@ -421,6 +484,9 @@ def _future_prediction_uncertainty(
                 "group": row.group,
                 "home_team": row.home_team,
                 "away_team": row.away_team,
+                "predicted_score": row.predicted_score,
+                "predicted_score_outcome": row.predicted_score_outcome,
+                "predicted_score_probability": float(row.predicted_score_probability),
                 "most_likely_outcome": most_likely_outcome,
                 "most_likely_probability": most_likely_probability,
                 "model_disagreement_sd": disagreement_sd,
@@ -437,6 +503,7 @@ def _future_prediction_uncertainty(
 
 def _build_dashboard_html(
     metric_summary: pd.DataFrame,
+    score_metric_summary: pd.DataFrame,
     delta_summary: pd.DataFrame,
     window_summary: pd.DataFrame,
     market_metrics: pd.DataFrame | None,
@@ -521,6 +588,12 @@ def _build_dashboard_html(
         ),
         "</section>",
         '<section class="grid two">',
+        _panel(
+            "Exact-score backtest performance",
+            "Only score-distribution models are shown here. Lower exact-score log loss "
+            "is better; intervals use match-level bootstrap resampling.",
+            _score_metric_panel(score_metric_summary),
+        ),
         _panel(
             "Feature and approach contribution",
             "Paired log-loss deltas versus Elo on the same matches. Negative means the "
@@ -724,6 +797,36 @@ def _market_section(
     return chart + _delta_chart(market_delta_summary)
 
 
+def _score_metric_panel(frame: pd.DataFrame) -> str:
+    if frame.empty:
+        return '<p class="empty">No exact-score validation data available.</p>'
+    chart = _horizontal_bar_chart(
+        frame,
+        value_column="exact_score_log_loss",
+        lower_column="exact_score_log_loss_lower",
+        upper_column="exact_score_log_loss_upper",
+        title="Exact-score log loss",
+        x_format="{:.3f}",
+    )
+    rows = []
+    for row in frame.itertuples(index=False):
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(row.label))}</td>"
+            f"<td>{row.exact_score_accuracy:.1%}</td>"
+            f"<td>{row.goal_mae:.3f}</td>"
+            f"<td>{row.total_goal_mae:.3f}</td>"
+            "</tr>"
+        )
+    table = (
+        '<div class="table-wrap compact score-table"><table>'
+        "<thead><tr><th>Model</th><th>Exact hit</th><th>Goal MAE</th>"
+        "<th>Total-goal MAE</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+    )
+    return chart + table
+
+
 def _window_table(window_summary: pd.DataFrame) -> str:
     rows = []
     display = window_summary.copy()
@@ -773,6 +876,9 @@ def _future_uncertainty_table(frame: pd.DataFrame) -> str:
             f"<td>{escape(str(row.group))}</td>"
             f"<td>{escape(str(row.home_team))}</td>"
             f"<td>{escape(str(row.away_team))}</td>"
+            f"<td>{escape(str(row.predicted_score))}</td>"
+            f"<td>{escape(str(row.predicted_score_outcome))}</td>"
+            f"<td>{row.predicted_score_probability:.1%}</td>"
             f"<td>{escape(str(row.most_likely_outcome))}</td>"
             f"<td>{row.most_likely_probability:.1%}</td>"
             f"<td>{row.model_disagreement_sd:.3f}</td>"
@@ -783,7 +889,9 @@ def _future_uncertainty_table(frame: pd.DataFrame) -> str:
     return (
         '<div class="table-wrap compact"><table>'
         "<thead><tr><th>#</th><th>Group</th><th>Home</th><th>Away</th>"
-        "<th>Outcome</th><th>Prob.</th><th>Model SD</th><th>Backtest SE</th>"
+        "<th>Score</th><th>Score outcome</th><th>Score prob.</th>"
+        "<th>Aggregate outcome</th><th>Outcome prob.</th>"
+        "<th>Model SD</th><th>Backtest SE</th>"
         "<th>Total SD</th></tr></thead>"
         f"<tbody>{''.join(rows)}</tbody></table></div>"
     )

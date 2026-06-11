@@ -1,9 +1,11 @@
 # World Cup 2026 Predictor
 
 This project is a reproducible research codebase for forecasting FIFA World Cup
-2026 matches and tournament paths. The goal is not to produce a single dramatic
-winner pick, but to estimate calibrated probabilities for scorelines, match
-outcomes, group advancement, and later full tournament progression.
+2026 matches and tournament paths. The primary match-level target is the final
+exact score. Win/draw/loss probabilities remain useful diagnostics, but they are
+not a substitute for the scoreline forecast. The goal is not to produce a single
+dramatic winner pick, but to estimate calibrated probabilities for scorelines,
+match outcomes, group advancement, and later full tournament progression.
 
 The project starts with transparent models that can be audited and backtested,
 then leaves a clean path toward richer state-of-the-art layers.
@@ -16,6 +18,7 @@ The implemented preliminary model contains:
 - dynamic Elo ratings for interpretable team strength;
 - a regularized independent-Poisson score model;
 - proper scoring-rule evaluation with log loss, Brier score, and calibration tables;
+- exact-score evaluation with score log loss, exact-score hit rate, and goal errors;
 - Monte Carlo simulation for matches and group-stage advancement;
 - a CLI demo and pytest test suite.
 
@@ -125,7 +128,9 @@ PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/ge
 ```
 
 This writes final group-advancement, round-by-round, winner, top-scorer, and
-match-forecast tables under `reports/`, plus `reports/final_report.md`.
+match-forecast tables under `reports/`, plus `reports/final_report.md`. Group
+match forecasts include the modal predicted final score, its probability, and
+the top exact-score alternatives.
 
 Generate the local model-performance dashboard:
 
@@ -134,9 +139,9 @@ PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/ge
 ```
 
 This writes `reports/model_performance_dashboard.html`, a standalone dashboard
-with backtest plots, bookmaker comparisons, model contribution diagnostics, and
-future-match probability uncertainty. Open it directly in a browser or serve the
-reports directory locally:
+with backtest plots, exact-score diagnostics, bookmaker comparisons, model
+contribution diagnostics, and future-match probability uncertainty. Open it
+directly in a browser or serve the reports directory locally:
 
 ```bash
 /Users/lorenzogorini/anaconda3/envs/general/bin/python -m http.server 8000 --directory reports

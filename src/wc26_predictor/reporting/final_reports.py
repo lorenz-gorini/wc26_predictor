@@ -267,6 +267,10 @@ def _build_group_match_forecasts(group_forecasts: pd.DataFrame) -> pd.DataFrame:
         "group",
         "home_team",
         "away_team",
+        "predicted_score",
+        "predicted_score_outcome",
+        "predicted_score_probability",
+        "top_scorelines",
         "ensemble_home_win",
         "ensemble_draw",
         "ensemble_away_win",
@@ -321,6 +325,10 @@ def _build_full_match_forecasts(full_forecasts: pd.DataFrame) -> pd.DataFrame:
         "group",
         "first_team",
         "second_team",
+        "predicted_score",
+        "predicted_score_outcome",
+        "predicted_score_probability",
+        "top_scorelines",
         "pairing_probability",
         "first_win_probability",
         "draw_probability",
@@ -363,6 +371,10 @@ def _build_markdown_report(
             "This report summarizes the current model outputs generated from the processed "
             "pipeline artifacts. Group advancement means probability of reaching the "
             "round of 32, not exact group-position probabilities.",
+            "",
+            "Group match score predictions use the form-adjusted Poisson exact-score "
+            "distribution. Aggregate 1X2 probabilities remain shown as secondary outcome "
+            "diagnostics.",
             "",
             f"Top-scorer probabilities use {config.top_scorer_simulations:,} independent "
             "Poisson simulations over the Transfermarkt-adjusted top-100 scorer list, "

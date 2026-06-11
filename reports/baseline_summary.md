@@ -12,18 +12,18 @@
 
 ## Most Decisive 2026 Group Forecasts
 
-| match_number | group | home_team | away_team | ensemble_home_win | ensemble_draw | ensemble_away_win |
-| --- | --- | --- | --- | --- | --- | --- |
-| 14 | H | Spain | Cape Verde | 0.743 | 0.216 | 0.041 |
-| 38 | H | Spain | Saudi Arabia | 0.741 | 0.217 | 0.043 |
-| 70 | J | Jordan | Argentina | 0.054 | 0.211 | 0.735 |
-| 45 | L | England | Ghana | 0.729 | 0.217 | 0.054 |
-| 8 | B | Qatar | Switzerland | 0.058 | 0.217 | 0.725 |
-| 10 | E | Germany | Curaçao | 0.718 | 0.217 | 0.065 |
-| 64 | G | New Zealand | Belgium | 0.086 | 0.212 | 0.703 |
-| 42 | I | France | Iraq | 0.697 | 0.226 | 0.077 |
-| 27 | B | Canada | Qatar | 0.695 | 0.227 | 0.078 |
-| 50 | C | Morocco | Haiti | 0.687 | 0.220 | 0.093 |
+| match_number | group | home_team | away_team | predicted_score | predicted_score_outcome | predicted_score_probability | ensemble_home_win | ensemble_draw | ensemble_away_win |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 14 | H | Spain | Cape Verde | 2-0 | home_win | 0.120 | 0.743 | 0.216 | 0.041 |
+| 38 | H | Spain | Saudi Arabia | 2-0 | home_win | 0.137 | 0.741 | 0.217 | 0.043 |
+| 70 | J | Jordan | Argentina | 0-2 | away_win | 0.152 | 0.054 | 0.211 | 0.735 |
+| 45 | L | England | Ghana | 1-0 | home_win | 0.158 | 0.729 | 0.217 | 0.054 |
+| 8 | B | Qatar | Switzerland | 0-2 | away_win | 0.108 | 0.058 | 0.217 | 0.725 |
+| 10 | E | Germany | Curaçao | 2-1 | home_win | 0.091 | 0.718 | 0.217 | 0.065 |
+| 64 | G | New Zealand | Belgium | 0-2 | away_win | 0.099 | 0.086 | 0.212 | 0.703 |
+| 42 | I | France | Iraq | 1-0 | home_win | 0.144 | 0.697 | 0.226 | 0.077 |
+| 27 | B | Canada | Qatar | 1-0 | home_win | 0.175 | 0.695 | 0.227 | 0.078 |
+| 50 | C | Morocco | Haiti | 1-0 | home_win | 0.165 | 0.687 | 0.220 | 0.093 |
 
 Notes:
 

@@ -25,6 +25,21 @@ class PoissonConfig:
 
 
 @dataclass(frozen=True, slots=True)
+class ScorelineProbability:
+    """Probability assigned to one exact scoreline."""
+
+    home_score: int
+    away_score: int
+    probability: float
+
+    @property
+    def label(self) -> str:
+        """Return a compact score label such as ``2-1``."""
+
+        return f"{self.home_score}-{self.away_score}"
+
+
+@dataclass(frozen=True, slots=True)
 class ScorePrediction:
     """Predicted score distribution and derived 1X2 probabilities."""
 
@@ -34,6 +49,16 @@ class ScorePrediction:
     away_expected_goals: float
     score_matrix: np.ndarray
     outcome_probabilities: OutcomeProbabilities
+
+    def most_likely_scoreline(self) -> ScorelineProbability:
+        """Return the modal exact scoreline."""
+
+        return most_likely_scoreline(self.score_matrix)
+
+    def top_scorelines(self, n: int = 5) -> list[ScorelineProbability]:
+        """Return the ``n`` most likely exact scorelines."""
+
+        return top_scorelines(self.score_matrix, n=n)
 
 
 class IndependentPoissonModel:
@@ -46,7 +71,7 @@ class IndependentPoissonModel:
         self.attack_: dict[str, float] = {}
         self.defense_: dict[str, float] = {}
 
-    def fit(self, results: pd.DataFrame, as_of: date | None = None) -> "IndependentPoissonModel":
+    def fit(self, results: pd.DataFrame, as_of: date | None = None) -> IndependentPoissonModel:
         """Fit team attack and defense multipliers from match results."""
 
         validated = validate_results_frame(results)
@@ -126,8 +151,20 @@ class IndependentPoissonModel:
         home_lambda *= home_multiplier
         away_lambda /= home_multiplier
         return (
-            float(np.clip(home_lambda, self.config.min_expected_goals, self.config.max_expected_goals)),
-            float(np.clip(away_lambda, self.config.min_expected_goals, self.config.max_expected_goals)),
+            float(
+                np.clip(
+                    home_lambda,
+                    self.config.min_expected_goals,
+                    self.config.max_expected_goals,
+                )
+            ),
+            float(
+                np.clip(
+                    away_lambda,
+                    self.config.min_expected_goals,
+                    self.config.max_expected_goals,
+                )
+            ),
         )
 
     def _attack(self, team: str) -> float:
@@ -198,7 +235,55 @@ def _recency_weights(
     return 0.5 ** (age_days / half_life_days)
 
 
-def _independent_poisson_matrix(home_lambda: float, away_lambda: float, max_goals: int) -> np.ndarray:
+def independent_poisson_score_matrix(
+    home_lambda: float,
+    away_lambda: float,
+    max_goals: int = 10,
+) -> np.ndarray:
+    """Return a normalized independent-Poisson exact-score matrix."""
+
+    return _independent_poisson_matrix(home_lambda, away_lambda, max_goals)
+
+
+def most_likely_scoreline(score_matrix: np.ndarray) -> ScorelineProbability:
+    """Return the exact scoreline with the highest probability."""
+
+    _validate_score_matrix(score_matrix)
+    home_score, away_score = np.unravel_index(np.argmax(score_matrix), score_matrix.shape)
+    return ScorelineProbability(
+        home_score=int(home_score),
+        away_score=int(away_score),
+        probability=float(score_matrix[home_score, away_score]),
+    )
+
+
+def top_scorelines(score_matrix: np.ndarray, n: int = 5) -> list[ScorelineProbability]:
+    """Return the most likely exact scorelines from a score matrix."""
+
+    _validate_score_matrix(score_matrix)
+    if n <= 0:
+        raise ValueError("n must be positive.")
+
+    flat = score_matrix.ravel()
+    top_indices = np.argsort(flat)[::-1][:n]
+    rows = []
+    for index in top_indices:
+        home_score, away_score = np.unravel_index(index, score_matrix.shape)
+        rows.append(
+            ScorelineProbability(
+                home_score=int(home_score),
+                away_score=int(away_score),
+                probability=float(score_matrix[home_score, away_score]),
+            )
+        )
+    return rows
+
+
+def _independent_poisson_matrix(
+    home_lambda: float,
+    away_lambda: float,
+    max_goals: int,
+) -> np.ndarray:
     if max_goals < 1:
         raise ValueError("max_goals must be at least 1.")
 
@@ -207,6 +292,17 @@ def _independent_poisson_matrix(home_lambda: float, away_lambda: float, max_goal
     away_probs = _poisson_pmf(goals, away_lambda)
     matrix = np.outer(home_probs, away_probs)
     return matrix / matrix.sum()
+
+
+def _validate_score_matrix(score_matrix: np.ndarray) -> None:
+    if score_matrix.ndim != 2:
+        raise ValueError("score_matrix must be two-dimensional.")
+    if score_matrix.shape[0] < 1 or score_matrix.shape[1] < 1:
+        raise ValueError("score_matrix must not be empty.")
+    if (score_matrix < 0).any():
+        raise ValueError("score_matrix probabilities must be non-negative.")
+    if not np.isclose(score_matrix.sum(), 1.0, atol=1e-8):
+        raise ValueError("score_matrix probabilities must sum to one.")
 
 
 def _poisson_pmf(goals: np.ndarray, expected_goals: float) -> np.ndarray:

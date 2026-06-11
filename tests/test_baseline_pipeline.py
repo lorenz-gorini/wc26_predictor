@@ -19,8 +19,13 @@ from wc26_predictor.pipelines.baselines import (
 )
 
 
+def _sample_results() -> pd.DataFrame:
+    path = Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv"
+    return load_results_csv(path)
+
+
 def test_forecast_2026_group_fixtures_returns_probability_columns() -> None:
-    results = load_results_csv(Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv")
+    results = _sample_results()
     fixtures = pd.DataFrame(
         {
             "date": ["2026-06-11"],
@@ -40,6 +45,13 @@ def test_forecast_2026_group_fixtures_returns_probability_columns() -> None:
     assert len(forecasts) == 1
     assert forecasts.loc[0, "poisson_home_expected_goals"] > 0
     assert forecasts.loc[0, "form_poisson_home_expected_goals"] > 0
+    assert forecasts.loc[0, "predicted_score_probability"] > 0
+    assert forecasts.loc[0, "predicted_score"] == (
+        f"{forecasts.loc[0, 'predicted_home_score']}-"
+        f"{forecasts.loc[0, 'predicted_away_score']}"
+    )
+    assert forecasts.loc[0, "predicted_score_outcome"] in {"home_win", "draw", "away_win"}
+    assert ";" in forecasts.loc[0, "top_scorelines"]
     assert forecasts.loc[0, "ensemble_home_win"] == pytest.approx(
         (
             forecasts.loc[0, "elo_home_win"]
@@ -51,7 +63,7 @@ def test_forecast_2026_group_fixtures_returns_probability_columns() -> None:
 
 
 def test_forecast_2026_group_fixtures_accepts_calibrated_weights() -> None:
-    results = load_results_csv(Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv")
+    results = _sample_results()
     fixtures = pd.DataFrame(
         {
             "date": ["2026-06-11"],
@@ -87,6 +99,10 @@ def test_build_full_match_forecast_table_combines_group_and_knockout_rows() -> N
             "group": ["A"],
             "home_team": ["A1"],
             "away_team": ["A2"],
+            "predicted_score": ["1-0"],
+            "predicted_score_outcome": ["home_win"],
+            "predicted_score_probability": [0.14],
+            "top_scorelines": ["1-0 (0.140); 1-1 (0.120)"],
             "ensemble_home_win": [0.5],
             "ensemble_draw": [0.25],
             "ensemble_away_win": [0.25],
@@ -110,6 +126,8 @@ def test_build_full_match_forecast_table_combines_group_and_knockout_rows() -> N
     assert len(full) == 2
     assert full.loc[0, "round"] == "group"
     assert full.loc[0, "pairing_probability"] == 1.0
+    assert full.loc[0, "predicted_score"] == "1-0"
+    assert full.loc[0, "predicted_score_outcome"] == "home_win"
     assert full.loc[1, "round"] == "round_of_32"
     assert full.loc[1, "first_advancement_probability"] == 0.7
 
@@ -124,7 +142,7 @@ def test_model_configs_to_frame_contains_expected_parameters() -> None:
 
 
 def test_tune_baseline_model_configs_returns_ranked_results(monkeypatch) -> None:
-    results = load_results_csv(Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv")
+    results = _sample_results()
     window = EvaluationWindow(
         name="sample",
         train_until=date(2022, 11, 24),
@@ -143,7 +161,7 @@ def test_tune_baseline_model_configs_returns_ranked_results(monkeypatch) -> None
 
 
 def test_evaluate_window_rejects_empty_holdout() -> None:
-    results = load_results_csv(Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv")
+    results = _sample_results()
     window = EvaluationWindow(
         name="empty",
         train_until=date(2022, 12, 31),

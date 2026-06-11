@@ -7,10 +7,17 @@ from datetime import date
 from itertools import product
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from wc26_predictor.data.schema import Fixture, OutcomeProbabilities, validate_results_frame
 from wc26_predictor.evaluation.metrics import brier_score, multiclass_log_loss, observed_outcome
+from wc26_predictor.evaluation.score_metrics import (
+    exact_score_accuracy,
+    goal_mae,
+    goal_rmse,
+    total_goal_mae,
+)
 from wc26_predictor.models.elo import EloConfig, EloRatings
 from wc26_predictor.models.ensemble import (
     MODEL_NAMES,
@@ -24,7 +31,7 @@ from wc26_predictor.models.form_adjusted_poisson import (
     FormAdjustedPoissonConfig,
     FormAdjustedPoissonModel,
 )
-from wc26_predictor.models.poisson import IndependentPoissonModel, PoissonConfig
+from wc26_predictor.models.poisson import IndependentPoissonModel, PoissonConfig, ScorePrediction
 from wc26_predictor.simulation.abstract_tournament import simulate_abstract_tournament
 from wc26_predictor.simulation.official_tournament import simulate_official_tournament
 
@@ -207,14 +214,15 @@ def evaluate_world_cup_baselines(
         window = _window_by_name(str(window_name))
         observed = frame["observed"].tolist()
         for model in MODEL_NAMES:
-            rows.append(
-                _score_predictions(
-                    window,
-                    model,
-                    prediction_frame_to_probabilities(frame, model),
-                    observed,
-                )
+            row = _score_predictions(
+                window,
+                model,
+                prediction_frame_to_probabilities(frame, model),
+                observed,
             )
+            if model in {"poisson", "form_adjusted_poisson"}:
+                row.update(_score_metric_summary(frame, model))
+            rows.append(row)
         rows.append(
             _score_predictions(
                 window,
@@ -298,11 +306,14 @@ def forecast_2026_group_fixtures(
                 "elo_away_win": elo_probs.away_win,
                 "poisson_home_expected_goals": poisson_prediction.home_expected_goals,
                 "poisson_away_expected_goals": poisson_prediction.away_expected_goals,
+                **_score_prediction_columns("poisson", poisson_prediction),
                 "poisson_home_win": poisson_probs.home_win,
                 "poisson_draw": poisson_probs.draw,
                 "poisson_away_win": poisson_probs.away_win,
                 "form_poisson_home_expected_goals": form_prediction.home_expected_goals,
                 "form_poisson_away_expected_goals": form_prediction.away_expected_goals,
+                **_score_prediction_columns("form_poisson", form_prediction),
+                **_primary_score_columns(form_prediction),
                 "form_poisson_home_win": form_probs.home_win,
                 "form_poisson_draw": form_probs.draw,
                 "form_poisson_away_win": form_probs.away_win,
@@ -368,6 +379,9 @@ def write_baseline_summary(
                     "group",
                     "home_team",
                     "away_team",
+                    "predicted_score",
+                    "predicted_score_outcome",
+                    "predicted_score_probability",
                     "ensemble_home_win",
                     "ensemble_draw",
                     "ensemble_away_win",
@@ -379,8 +393,14 @@ def write_baseline_summary(
         "Notes:",
         "",
         "- World Cup 2026 fixtures are treated as venue-neutral in this first baseline.",
-        "- Host-country advantage is not hard-coded; it should be retained only if it improves backtests.",
-        "- The primary ensemble uses weights learned from historical World Cup holdout predictions.",
+        (
+            "- Host-country advantage is not hard-coded; it should be retained only if it "
+            "improves backtests."
+        ),
+        (
+            "- The primary ensemble uses weights learned from historical World Cup holdout "
+            "predictions."
+        ),
         "",
     ]
     if ensemble_weights is not None:
@@ -398,7 +418,10 @@ def write_baseline_summary(
                     float_digits=3,
                 ),
                 "",
-                "Weights are fit by minimizing multiclass log loss over the 2014, 2018, and 2022 World Cup validation predictions.",
+                (
+                    "Weights are fit by minimizing multiclass log loss over the 2014, 2018, "
+                    "and 2022 World Cup validation predictions."
+                ),
                 "",
             ]
         )
@@ -409,7 +432,10 @@ def write_baseline_summary(
                 "",
                 _markdown_table(selected_configs, float_digits=3),
                 "",
-                "Hyperparameters are selected by minimizing validation log loss across the 2014, 2018, and 2022 World Cup holdout windows.",
+                (
+                    "Hyperparameters are selected by minimizing validation log loss across the "
+                    "2014, 2018, and 2022 World Cup holdout windows."
+                ),
                 "",
             ]
         )
@@ -444,7 +470,10 @@ def write_baseline_summary(
                 if availability_impact is not None
                 else "",
                 "",
-                "Availability burden is neutral unless current injury/suspension overrides are provided in `data/raw/world_cup_2026_player_availability.csv`.",
+                (
+                    "Availability burden is neutral unless current injury/suspension overrides "
+                    "are provided in `data/raw/world_cup_2026_player_availability.csv`."
+                ),
                 "",
             ]
         )
@@ -459,7 +488,13 @@ def write_baseline_summary(
                 "",
                 _markdown_table(injury_burden, float_digits=3),
                 "",
-                "Transfermarkt injury history is joined by player ID where possible and otherwise by normalized player, country, and club signals. Historical recurrence burden is diagnostic; verified current overrides should still be supplied through `data/raw/world_cup_2026_player_availability.csv` before the tournament.",
+                (
+                    "Transfermarkt injury history is joined by player ID where possible and "
+                    "otherwise by normalized player, country, and club signals. Historical "
+                    "recurrence burden is diagnostic; verified current overrides should still "
+                    "be supplied through `data/raw/world_cup_2026_player_availability.csv` "
+                    "before the tournament."
+                ),
                 "",
             ]
         )
@@ -485,7 +520,10 @@ def write_baseline_summary(
                     float_digits=3,
                 ),
                 "",
-                "This scorer table uses national-team goalscorer history, 2026 squad filtering, and official-bracket expected-match exposure.",
+                (
+                    "This scorer table uses national-team goalscorer history, 2026 squad "
+                    "filtering, and official-bracket expected-match exposure."
+                ),
                 "",
             ]
         )
@@ -508,7 +546,10 @@ def write_baseline_summary(
                     float_digits=3,
                 ),
                 "",
-                "These probabilities use group-stage simulation, FIFA Annex C third-place assignments, and the official 2026 knockout bracket.",
+                (
+                    "These probabilities use group-stage simulation, FIFA Annex C third-place "
+                    "assignments, and the official 2026 knockout bracket."
+                ),
                 "",
             ]
         )
@@ -532,7 +573,10 @@ def write_baseline_summary(
                     float_digits=3,
                 ),
                 "",
-                "This table applies expected-minutes, penalty-role, and injury/suspension status adjustments before club-form enrichment.",
+                (
+                    "This table applies expected-minutes, penalty-role, and injury/suspension "
+                    "status adjustments before club-form enrichment."
+                ),
                 "",
             ]
         )
@@ -556,7 +600,10 @@ def write_baseline_summary(
                     float_digits=3,
                 ),
                 "",
-                "Club form is sourced from curated public top-scorer tables and currently covers only matched top-100 candidates.",
+                (
+                    "Club form is sourced from curated public top-scorer tables and currently "
+                    "covers only matched top-100 candidates."
+                ),
                 "",
             ]
         )
@@ -595,7 +642,10 @@ def write_baseline_summary(
                 "",
                 _markdown_table(coverage, float_digits=0),
                 "",
-                "Transfermarkt features are preferred over sparse public top-scorer tables when the local Kaggle dump is available.",
+                (
+                    "Transfermarkt features are preferred over sparse public top-scorer tables "
+                    "when the local Kaggle dump is available."
+                ),
                 "",
             ]
         )
@@ -701,6 +751,10 @@ def build_full_match_forecast_table(
         "group",
         "home_team",
         "away_team",
+        "predicted_score",
+        "predicted_score_outcome",
+        "predicted_score_probability",
+        "top_scorelines",
         "ensemble_home_win",
         "ensemble_draw",
         "ensemble_away_win",
@@ -730,6 +784,10 @@ def build_full_match_forecast_table(
             "group": group_forecasts["group"],
             "first_team": group_forecasts["home_team"],
             "second_team": group_forecasts["away_team"],
+            "predicted_score": group_forecasts["predicted_score"],
+            "predicted_score_outcome": group_forecasts["predicted_score_outcome"],
+            "predicted_score_probability": group_forecasts["predicted_score_probability"],
+            "top_scorelines": group_forecasts["top_scorelines"],
             "pairing_probability": 1.0,
             "first_win_probability": group_forecasts["ensemble_home_win"],
             "draw_probability": group_forecasts["ensemble_draw"],
@@ -746,6 +804,10 @@ def build_full_match_forecast_table(
             "group": "",
             "first_team": knockout_forecasts["first_team"],
             "second_team": knockout_forecasts["second_team"],
+            "predicted_score": "",
+            "predicted_score_outcome": "",
+            "predicted_score_probability": float("nan"),
+            "top_scorelines": "",
             "pairing_probability": knockout_forecasts["pairing_probability"],
             "first_win_probability": float("nan"),
             "draw_probability": float("nan"),
@@ -950,8 +1012,10 @@ def _window_prediction_frame(
             country=match.country,
         )
         elo_probs = elo.predict_outcome(fixture)
-        poisson_probs = poisson.predict_outcome(fixture)
-        form_poisson_probs = form_poisson.predict_outcome(fixture)
+        poisson_prediction = poisson.predict(fixture)
+        poisson_probs = poisson_prediction.outcome_probabilities
+        form_poisson_prediction = form_poisson.predict(fixture)
+        form_poisson_probs = form_poisson_prediction.outcome_probabilities
         equal_weight_probs = _average_probabilities([elo_probs, poisson_probs, form_poisson_probs])
         rows.append(
             {
@@ -959,13 +1023,26 @@ def _window_prediction_frame(
                 "date": match.date,
                 "home_team": match.home_team,
                 "away_team": match.away_team,
+                "home_score": int(match.home_score),
+                "away_score": int(match.away_score),
+                "observed_score": f"{int(match.home_score)}-{int(match.away_score)}",
                 "observed": observed_outcome(int(match.home_score), int(match.away_score)),
                 "elo_home_win": elo_probs.home_win,
                 "elo_draw": elo_probs.draw,
                 "elo_away_win": elo_probs.away_win,
+                **_score_prediction_columns(
+                    "poisson",
+                    poisson_prediction,
+                    observed_score=(int(match.home_score), int(match.away_score)),
+                ),
                 "poisson_home_win": poisson_probs.home_win,
                 "poisson_draw": poisson_probs.draw,
                 "poisson_away_win": poisson_probs.away_win,
+                **_score_prediction_columns(
+                    "form_adjusted_poisson",
+                    form_poisson_prediction,
+                    observed_score=(int(match.home_score), int(match.away_score)),
+                ),
                 "form_adjusted_poisson_home_win": form_poisson_probs.home_win,
                 "form_adjusted_poisson_draw": form_poisson_probs.draw,
                 "form_adjusted_poisson_away_win": form_poisson_probs.away_win,
@@ -1050,6 +1127,106 @@ def _score_predictions(
         "n_matches": len(observed),
         "log_loss": multiclass_log_loss(predictions, observed),
         "brier_score": brier_score(predictions, observed),
+        "exact_score_log_loss": float("nan"),
+        "exact_score_accuracy": float("nan"),
+        "goal_mae": float("nan"),
+        "goal_rmse": float("nan"),
+        "total_goal_mae": float("nan"),
+    }
+
+
+def _score_prediction_columns(
+    prefix: str,
+    prediction: ScorePrediction,
+    observed_score: tuple[int, int] | None = None,
+) -> dict[str, object]:
+    modal = prediction.most_likely_scoreline()
+    columns: dict[str, object] = {
+        f"{prefix}_predicted_home_score": modal.home_score,
+        f"{prefix}_predicted_away_score": modal.away_score,
+        f"{prefix}_predicted_score": modal.label,
+        f"{prefix}_predicted_score_outcome": _scoreline_outcome(
+            modal.home_score,
+            modal.away_score,
+        ),
+        f"{prefix}_predicted_score_probability": modal.probability,
+        f"{prefix}_top_scorelines": _format_top_scorelines(prediction),
+    }
+    if observed_score is None:
+        return columns
+
+    home_score, away_score = observed_score
+    probability = (
+        float(prediction.score_matrix[home_score, away_score])
+        if home_score < prediction.score_matrix.shape[0]
+        and away_score < prediction.score_matrix.shape[1]
+        else 0.0
+    )
+    columns.update(
+        {
+            f"{prefix}_observed_score_probability": probability,
+            f"{prefix}_home_goal_error": modal.home_score - home_score,
+            f"{prefix}_away_goal_error": modal.away_score - away_score,
+            f"{prefix}_total_goal_error": (
+                modal.home_score + modal.away_score - home_score - away_score
+            ),
+        }
+    )
+    return columns
+
+
+def _primary_score_columns(prediction: ScorePrediction) -> dict[str, object]:
+    modal = prediction.most_likely_scoreline()
+    return {
+        "predicted_home_score": modal.home_score,
+        "predicted_away_score": modal.away_score,
+        "predicted_score": modal.label,
+        "predicted_score_outcome": _scoreline_outcome(modal.home_score, modal.away_score),
+        "predicted_score_probability": modal.probability,
+        "top_scorelines": _format_top_scorelines(prediction),
+    }
+
+
+def _format_top_scorelines(prediction: ScorePrediction, n: int = 5) -> str:
+    return "; ".join(
+        f"{scoreline.label} ({scoreline.probability:.3f})"
+        for scoreline in prediction.top_scorelines(n=n)
+    )
+
+
+def _scoreline_outcome(home_score: int, away_score: int) -> str:
+    if home_score > away_score:
+        return "home_win"
+    if home_score < away_score:
+        return "away_win"
+    return "draw"
+
+
+def _score_metric_summary(frame: pd.DataFrame, prefix: str) -> dict[str, float]:
+    required = {
+        "home_score",
+        "away_score",
+        f"{prefix}_predicted_home_score",
+        f"{prefix}_predicted_away_score",
+        f"{prefix}_observed_score_probability",
+    }
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(f"Missing score metric columns: {sorted(missing)}")
+
+    predicted_scores = list(
+        frame[
+            [f"{prefix}_predicted_home_score", f"{prefix}_predicted_away_score"]
+        ].itertuples(index=False, name=None)
+    )
+    observed_scores = list(frame[["home_score", "away_score"]].itertuples(index=False, name=None))
+    observed_probabilities = frame[f"{prefix}_observed_score_probability"].to_numpy(dtype=float)
+    return {
+        "exact_score_log_loss": float(-np.log(np.clip(observed_probabilities, 1e-15, 1.0)).mean()),
+        "exact_score_accuracy": exact_score_accuracy(predicted_scores, observed_scores),
+        "goal_mae": goal_mae(predicted_scores, observed_scores),
+        "goal_rmse": goal_rmse(predicted_scores, observed_scores),
+        "total_goal_mae": total_goal_mae(predicted_scores, observed_scores),
     }
 
 

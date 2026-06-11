@@ -35,6 +35,10 @@ def test_poisson_score_matrix_is_valid_probability_distribution() -> None:
     assert prediction.home_expected_goals > 0
     assert prediction.away_expected_goals > 0
     assert np.isclose(prediction.score_matrix.sum(), 1.0)
+    modal = prediction.most_likely_scoreline()
+    assert modal.home_score >= 0
+    assert modal.away_score >= 0
+    assert modal.probability > 0
+    assert len(prediction.top_scorelines(n=3)) == 3
     outcomes = prediction.outcome_probabilities
     assert np.isclose(outcomes.home_win + outcomes.draw + outcomes.away_win, 1.0)
-

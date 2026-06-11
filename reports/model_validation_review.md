@@ -9,10 +9,12 @@ historical World Cup holdout windows, proper probabilistic metrics, tuned baseli
 hyperparameters, leave-one-window-out ensemble fitting, bookmaker-implied probabilities,
 official-bracket simulation, player availability adjustments, and top-scorer enrichment.
 
-The evidence does not support treating the current forecasts as highly precise probabilities.
-It supports using them as ranked probabilistic scenarios with useful relative strength signals.
-The strongest external check is the bookmaker benchmark, and it remains slightly better than the
-internal model on the matched historical World Cup sample.
+The primary match-level target is now the final exact score. Win/draw/loss remains useful for
+secondary evaluation, but the scoreline distribution is the object that should drive match
+predictions. The evidence does not support treating the current forecasts as highly precise
+probabilities. It supports using them as ranked probabilistic scenarios with useful relative
+strength signals. The strongest external 1X2 check is the bookmaker benchmark, and it remains
+slightly better than the internal model on the matched historical World Cup sample.
 
 ## Backtesting Evidence
 
@@ -42,6 +44,29 @@ Interpretation:
 The ensemble improvement is therefore mostly architectural rather than empirical at this stage:
 it gives a clean way to include model families, but the data currently says the simple Elo signal
 should dominate.
+
+## Exact-Score Evidence
+
+Exact-score validation is available only for score-distribution models. Elo and bookmaker 1X2 odds
+do not produce exact-score matrices without an additional score model.
+
+Average score validation scores:
+
+| model | exact_score_log_loss | exact_score_accuracy | goal_mae | total_goal_mae |
+| --- | ---: | ---: | ---: | ---: |
+| poisson | 2.9634 | 0.0365 | 0.9792 | 1.6771 |
+| form_adjusted_poisson | 2.9704 | 0.0469 | 1.0130 | 1.7240 |
+
+Interpretation:
+
+- Exact-score prediction is a materially harder target than 1X2 prediction.
+- The modal exact score is often a draw or low-scoring result even when the aggregate 1X2
+  probability favors one team, because many separate winning scorelines can jointly dominate one
+  individual draw scoreline.
+- The form-adjusted Poisson model has a slightly higher exact-score hit rate, while the simpler
+  Poisson model has slightly better exact-score log loss and goal-error metrics on this sample.
+- Current exact-score forecasts should be read as modal scoreline probabilities plus nearby
+  alternatives, not as high-confidence point predictions.
 
 ## Bookmaker Odds Benchmark
 
@@ -100,6 +125,8 @@ Low confidence:
 
 - Small probability gaps should not be over-interpreted. A difference such as 3.8% versus 3.5%
   winner probability is not decision-grade.
+- Exact-score predictions are sensitive to the Poisson goal-rate assumptions and should always be
+  shown with top alternative scorelines.
 - Top-scorer probabilities are sensitive to squad assumptions, player availability, penalty roles,
   and the Transfermarkt multiplier. They are useful rankings, not calibrated betting probabilities.
 - Current injury and availability adjustments are incomplete unless verified current overrides are
