@@ -143,6 +143,15 @@ cached copy under `data/raw/soccerdata_api/`, and writes preview CSVs under
 `data/raw/`. Increase `--max-match-requests` only after confirming that the
 filtered previews contain relevant World Cup matches.
 
+Fetch public club-level injury rows and map them to World Cup squad players:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/fetch_sportsgambler_injuries.py
+```
+
+This writes `data/raw/sportsgambler_player_availability_overrides.csv`, which
+the baseline pipeline consumes automatically before manual overrides.
+
 ## Data Strategy
 
 Recommended raw sources:

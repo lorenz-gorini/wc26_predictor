@@ -69,6 +69,15 @@ soccerdata_api:
     - data/raw/soccerdata_current_sidelined_players.csv
   note: Use sparingly; the account has a low daily request budget.
 
+sportsgambler_injuries:
+  name: Sportsgambler football injuries
+  url: https://www.sportsgambler.com/injuries/football/
+  destination: data/raw/sportsgambler_all_football_injuries.csv
+  outputs:
+    - data/raw/sportsgambler_squad_injury_matches.csv
+    - data/raw/sportsgambler_player_availability_overrides.csv
+  note: Public current club injury feed matched to World Cup squads by player and club.
+
 sample_results:
   name: local smoke-test sample
   destination: data/raw/sample_results.csv

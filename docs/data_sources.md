@@ -318,6 +318,24 @@ The default league filter is `World Cup`. If those previews are absent, do not
 spend match-detail requests; use the Transfermarkt recurrence features plus
 manual verified overrides instead.
 
+Sportsgambler public injury feed:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/fetch_sportsgambler_injuries.py
+```
+
+Outputs:
+
+```text
+data/raw/sportsgambler_all_football_injuries.csv
+data/raw/sportsgambler_squad_injury_matches.csv
+data/raw/sportsgambler_player_availability_overrides.csv
+```
+
+The mapper requires both player-name and club-token agreement before producing
+model-ready overrides. Club red-card suspensions are excluded by default because
+they usually do not transfer to international tournaments.
+
 ## Future Sources
 
 Useful next additions:

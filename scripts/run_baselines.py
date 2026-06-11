@@ -77,6 +77,9 @@ def main() -> None:
     availability_path = (
         args.project_root / "data" / "raw" / "world_cup_2026_player_availability.csv"
     )
+    sportsgambler_availability_path = (
+        args.project_root / "data" / "raw" / "sportsgambler_player_availability_overrides.csv"
+    )
     soccerdata_availability_path = (
         args.project_root / "data" / "raw" / "soccerdata_player_availability_overrides.csv"
     )
@@ -161,6 +164,10 @@ def main() -> None:
     if squads is not None:
         default_availability = build_default_player_availability(squads, goalscorers)
         availability_override_frames = []
+        if sportsgambler_availability_path.exists():
+            availability_override_frames.append(
+                load_player_availability_csv(sportsgambler_availability_path)
+            )
         if soccerdata_availability_path.exists():
             availability_override_frames.append(load_player_availability_csv(soccerdata_availability_path))
         if availability_path.exists():
