@@ -79,6 +79,12 @@ Generate the local validation dashboard:
 PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/generate_validation_dashboard.py
 ```
 
+Backtest exact-score selection strategies:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/run_score_strategy_backtest.py
+```
+
 Open `reports/model_performance_dashboard.html` directly in a browser, or serve reports locally:
 
 ```bash

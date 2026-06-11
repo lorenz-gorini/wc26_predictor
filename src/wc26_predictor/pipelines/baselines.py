@@ -180,13 +180,15 @@ def model_configs_to_frame(configs: BaselineModelConfigs) -> pd.DataFrame:
 def collect_world_cup_validation_predictions(
     results: pd.DataFrame,
     configs: BaselineModelConfigs | None = None,
+    windows: list[EvaluationWindow] | None = None,
 ) -> pd.DataFrame:
     """Collect model predictions on historical World Cup holdout windows."""
 
     validated = validate_results_frame(results)
     model_configs = configs or default_model_configs()
+    validation_windows = windows or WORLD_CUP_WINDOWS
     frames = []
-    for window in WORLD_CUP_WINDOWS:
+    for window in validation_windows:
         frames.append(_window_prediction_frame(validated, window, model_configs))
     return pd.concat(frames, ignore_index=True)
 

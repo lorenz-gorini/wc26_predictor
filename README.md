@@ -147,6 +147,17 @@ directly in a browser or serve the reports directory locally:
 /Users/lorenzogorini/anaconda3/envs/general/bin/python -m http.server 8000 --directory reports
 ```
 
+Backtest score-selection strategies:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/run_score_strategy_backtest.py
+```
+
+This compares the raw modal scoreline against a scoreline constrained to match
+the 1X2 ensemble's most likely outcome. It writes
+`reports/score_strategy_backtest_report.md` and
+`reports/score_strategy_backtest_summary.csv`.
+
 ## Local Secrets
 
 Put API keys in a local `.env` file at the project root. The file is ignored by

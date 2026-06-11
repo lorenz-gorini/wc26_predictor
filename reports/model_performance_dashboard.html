@@ -119,6 +119,10 @@ h2 {
   margin: 0 0 18px;
   line-height: 1.5;
 }
+.panel-note {
+  margin-top: 14px !important;
+  font-size: 0.9rem;
+}
 svg {
   display: block;
   width: 100%;
@@ -322,6 +326,7 @@ tr:nth-child(even) td {
 <rect x="440.00" y="148" width="107.36" height="18" rx="4" fill="#b75d3b" />
 <text x="555.36" y="162" class="value-label">+0.0460</text>
 </svg></section>
+<section class="panel"><h2>Exact-score selection strategy</h2><p>Rolling World Cup backtest comparing raw score-modal picks against picks gated by the 1X2 ensemble&#x27;s most likely outcome.</p><div class="table-wrap compact"><table><thead><tr><th>Strategy</th><th>Exact hit</th><th>Outcome hit</th><th>Goal MAE</th><th>Total-goal MAE</th><th>Score log loss</th></tr></thead><tbody><tr><td>1x2_compatible</td><td>10.9%</td><td>56.8%</td><td>1.008</td><td>1.745</td><td>16.197</td></tr><tr><td>score_only</td><td>4.7%</td><td>38.0%</td><td>1.003</td><td>1.714</td><td>2.974</td></tr></tbody></table></div><p class="panel-note">The compatible strategy is best for single score-pick hit rate, but score-only remains better for calibrated log loss and slightly better for goal-error metrics.</p></section>
 <section class="panel"><h2>Bookmaker comparison</h2><p>Historical bookmaker odds are margin-adjusted and matched to the same World Cup validation matches.</p><svg viewBox="0 0 760 166" role="img" xmlns="http://www.w3.org/2000/svg">
 <text x="190" y="18" class="chart-title">Market validation log loss</text>
 <text x="8" y="54" class="axis-label">Market only</text>

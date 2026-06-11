@@ -106,6 +106,9 @@ def generate_validation_dashboard(
 
     market_matches = _read_optional_csv(processed_dir / "world_cup_market_validation_matches.csv")
     market_metrics = _read_optional_csv(processed_dir / "world_cup_market_validation_metrics.csv")
+    score_strategy_summary = _read_optional_csv(
+        reports_dir / "score_strategy_backtest_summary.csv"
+    )
     market_per_match = (
         _per_match_market_scores(market_matches) if market_matches is not None else pd.DataFrame()
     )
@@ -133,6 +136,7 @@ def generate_validation_dashboard(
         window_summary=window_summary,
         market_metrics=market_metrics,
         market_delta_summary=market_delta_summary,
+        score_strategy_summary=score_strategy_summary,
         future_uncertainty=future_uncertainty,
         validation_match_count=validation_predictions["match_id"].nunique(),
         config=dashboard_config,
@@ -508,6 +512,7 @@ def _build_dashboard_html(
     window_summary: pd.DataFrame,
     market_metrics: pd.DataFrame | None,
     market_delta_summary: pd.DataFrame,
+    score_strategy_summary: pd.DataFrame | None,
     future_uncertainty: pd.DataFrame,
     validation_match_count: int,
     config: ValidationDashboardConfig,
@@ -599,6 +604,12 @@ def _build_dashboard_html(
             "Paired log-loss deltas versus Elo on the same matches. Negative means the "
             "approach improved on Elo.",
             _delta_chart(delta_summary),
+        ),
+        _panel(
+            "Exact-score selection strategy",
+            "Rolling World Cup backtest comparing raw score-modal picks against picks gated "
+            "by the 1X2 ensemble's most likely outcome.",
+            _score_strategy_section(score_strategy_summary),
         ),
         _panel(
             "Bookmaker comparison",
@@ -827,6 +838,38 @@ def _score_metric_panel(frame: pd.DataFrame) -> str:
     return chart + table
 
 
+def _score_strategy_section(summary: pd.DataFrame | None) -> str:
+    if summary is None or summary.empty:
+        return (
+            '<p class="empty">Run `scripts/run_score_strategy_backtest.py` to populate '
+            "this panel.</p>"
+        )
+    average = summary[summary["window"] == "all_windows"].copy()
+    if average.empty:
+        return '<p class="empty">No all-window strategy summary was found.</p>'
+    rows = []
+    for row in average.sort_values("exact_score_accuracy", ascending=False).itertuples(index=False):
+        rows.append(
+            "<tr>"
+            f"<td>{escape(str(row.strategy))}</td>"
+            f"<td>{row.exact_score_accuracy:.1%}</td>"
+            f"<td>{row.outcome_accuracy:.1%}</td>"
+            f"<td>{row.goal_mae:.3f}</td>"
+            f"<td>{row.total_goal_mae:.3f}</td>"
+            f"<td>{row.exact_score_log_loss:.3f}</td>"
+            "</tr>"
+        )
+    return (
+        '<div class="table-wrap compact"><table>'
+        "<thead><tr><th>Strategy</th><th>Exact hit</th><th>Outcome hit</th>"
+        "<th>Goal MAE</th><th>Total-goal MAE</th><th>Score log loss</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+        "<p class=\"panel-note\">The compatible strategy is best for single score-pick hit "
+        "rate, but score-only remains better for calibrated log loss and slightly better "
+        "for goal-error metrics.</p>"
+    )
+
+
 def _window_table(window_summary: pd.DataFrame) -> str:
     rows = []
     display = window_summary.copy()
@@ -1019,6 +1062,10 @@ h2 {
 .notes p {
   margin: 0 0 18px;
   line-height: 1.5;
+}
+.panel-note {
+  margin-top: 14px !important;
+  font-size: 0.9rem;
 }
 svg {
   display: block;
