@@ -1,0 +1,74 @@
+historical_results:
+  name: martj42 international_results
+  url: https://raw.githubusercontent.com/martj42/international_results/master/results.csv
+  license: CC0-1.0
+  destination: data/raw/international_results.csv
+
+historical_goalscorers:
+  name: martj42 international_results goalscorers
+  url: https://raw.githubusercontent.com/martj42/international_results/master/goalscorers.csv
+  license: CC0-1.0
+  destination: data/raw/goalscorers.csv
+
+world_cup_2026_group_fixtures:
+  name: Wikipedia World Cup 2026 group pages
+  url_template: https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_Group_{group}
+  groups: [A, B, C, D, E, F, G, H, I, J, K, L]
+  destination: data/raw/world_cup_2026_fixtures.csv
+  note: Audit against FIFA before final forecasts.
+
+world_cup_2026_squads:
+  name: Wikipedia World Cup 2026 squads
+  url: https://en.wikipedia.org/wiki/2026_FIFA_World_Cup_squads
+  destination: data/raw/world_cup_2026_squads.csv
+  note: Used to filter top-scorer candidates to listed squad players.
+
+club_top_scorers:
+  name: Curated Wikipedia club top-scorer tables
+  destination: data/raw/club_top_scorers.csv
+  sources:
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_Premier_League
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_La_Liga
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_Bundesliga
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_Serie_A
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_Ligue_1
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_Saudi_Pro_League
+    - https://en.wikipedia.org/wiki/2026_Major_League_Soccer_season
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_S%C3%BCper_Lig
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_UEFA_Champions_League
+    - https://en.wikipedia.org/wiki/2025%E2%80%9326_UEFA_Europa_League
+  note: Sparse signal used only for top-100 scorer enrichment.
+
+transfermarkt_kaggle:
+  name: Kaggle Football Data from Transfermarkt
+  url: https://www.kaggle.com/datasets/davidcariboo/player-scores
+  destination: data/raw/transfermarkt_kaggle
+  files:
+    - competitions.csv
+    - games.csv
+    - clubs.csv
+    - players.csv
+    - player_valuations.csv
+    - appearances.csv
+    - game_events.csv
+    - game_lineups.csv
+    - club_games.csv
+    - transfers.csv
+    - countries.csv
+    - national_teams.csv
+  note: Preferred source for top-100 scorer club-form and market-value enrichment.
+
+soccerdata_api:
+  name: SoccerDataAPI
+  documentation: https://soccerdataapi.com/docs/
+  auth_env_var: SOCCERDATA_API_KEY
+  cache_destination: data/raw/soccerdata_api
+  outputs:
+    - data/raw/soccerdata_upcoming_match_previews.csv
+    - data/raw/soccerdata_filtered_match_previews.csv
+    - data/raw/soccerdata_current_sidelined_players.csv
+  note: Use sparingly; the account has a low daily request budget.
+
+sample_results:
+  name: local smoke-test sample
+  destination: data/raw/sample_results.csv

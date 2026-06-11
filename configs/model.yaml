@@ -1,0 +1,16 @@
+elo:
+  initial_rating: 1500.0
+  k_factor: 30.0
+  home_advantage: 60.0
+  neutral_home_advantage: 0.0
+  goal_margin_weight: true
+
+poisson:
+  prior_strength: 6.0
+  max_goals: 10
+  recency_half_life_days: 730
+
+simulation:
+  n_simulations: 10000
+  random_seed: 2026
+

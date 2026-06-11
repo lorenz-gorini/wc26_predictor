@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wc26-predictor"
+version = "0.1.0"
+description = "Probabilistic forecasting tools for the FIFA World Cup 2026."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+  { name = "Lorenzo Gorini" }
+]
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "numpy>=2.0",
+  "openpyxl>=3.1",
+  "pandas>=2.2",
+  "pyyaml>=6.0",
+  "requests>=2.32",
+]
+
+[project.optional-dependencies]
+modeling = [
+  "catboost>=1.2",
+  "lightgbm>=4.0",
+  "pymc>=5.0",
+  "scikit-learn>=1.5",
+  "scipy>=1.13",
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.8",
+]
+
+[project.scripts]
+wc26-demo = "wc26_predictor.cli:run_demo"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"wc26_predictor.simulation" = ["data/*.csv"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
