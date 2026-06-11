@@ -1,101 +1,101 @@
 rank,team,scorer,club,expected_tournament_goals,top_scorer_probability,transfermarkt_match_quality,status,availability_multiplier,transfermarkt_multiplier
-1,Norway,Erling Haaland,Manchester City,5.183591257913589,0.3896612115107128,player_country_club,available,1.0,1.4489322393505446
-2,England,Harry Kane,Bayern Munich,4.688584889895516,0.2903135892163397,player_country,available,1.0,1.45
-3,Argentina,Lionel Messi,Inter Miami CF,3.284127513355348,0.09255912445887468,player_country,available,1.0,1.400852746252188
-4,France,Kylian Mbappé,Real Madrid,2.766809468041974,0.052982405233655175,player_country_club,available,1.0,1.45
-5,Portugal,Cristiano Ronaldo,Al-Nassr,2.527978191763625,0.03764172341547338,player_country_club,available,1.0,1.2069874566388166
-6,Argentina,Lautaro Martínez,Inter Milan,2.257663892615066,0.02524145346320348,player_country,available,1.0,1.3895968795027245
-7,Belgium,Romelu Lukaku,Napoli,1.9134473181886984,0.014557136835386834,player_country_club,available,1.0,0.987188257017562
-8,Spain,Mikel Oyarzabal,Real Sociedad,1.8639182051908132,0.012871263347763345,player_country_club,available,1.0,1.216996009592437
-9,Iran,Mehdi Taremi,Olympiacos,1.6350700902195472,0.007540882034632037,player_country,available,1.0,1.038715043739293
-10,Morocco,Ayoub El Kaabi,Olympiacos,1.5721144523280786,0.006697925685425688,player_country,available,1.0,1.1118839224632318
-11,Norway,Alexander Sørloth,Atlético Madrid,1.5587857160261946,0.006503227272727274,player_country,available,1.0,1.3299623606947504
-12,Egypt,Mohamed Salah,Liverpool,1.519192812352415,0.005945013347763349,player_country_club,available,1.0,1.0504849004710546
-13,Croatia,Andrej Kramarić,TSG Hoffenheim,1.351907630908231,0.0038561479076479077,player_country,available,1.0,1.097843322168479
-14,Spain,Ferran Torres,Barcelona,1.3732413791851903,0.0038322147574647567,player_country_club,available,1.0,1.2979990146319444
-15,Sweden,Viktor Gyökeres,Arsenal,1.3219020541265931,0.0033952748917748916,player_country_club,available,1.0,1.2893273153031866
-16,Turkey,Kerem Aktürkoğlu,Fenerbahçe,1.2411431660953156,0.002808833694083694,player_country_club,available,1.0,1.1486345420430113
-17,Colombia,Luis Díaz,Bayern Munich,1.2437855076930662,0.0027232788600288597,player_country,available,1.0,1.2094384123738318
-18,Japan,Ayase Ueda,Feyenoord,1.2489325858804814,0.002601143217893217,player_country_club,available,1.0,1.1215503861334308
-19,Haiti,Duckens Nazon,Esteghlal,1.2022735623377587,0.00248982215007215,player_country,available,1.0,1.0
-20,Austria,Marko Arnautović,Red Star Belgrade,1.178284311184142,0.002432889249639249,player_country,available,1.0,0.8124607328165518
-21,Switzerland,Breel Embolo,Rennes,1.180511290670614,0.002357603285603285,player_country,available,1.0,1.0380207988881875
-22,Netherlands,Memphis Depay,Corinthians,1.1777369854276671,0.002204239177489177,player_country_club,available,1.0,0.7
-23,Netherlands,Cody Gakpo,Liverpool,1.187834385928795,0.002091286075036075,player_country_club,available,1.0,0.9979080000835064
-24,Belgium,Kevin De Bruyne,Napoli,1.171912492669635,0.002054511904761904,player_country_club,available,1.0,0.9597929069754648
-25,Czech Republic,Patrik Schick,Bayer Leverkusen,1.144230465043209,0.001959468614718615,player_country,available,1.0,1.3119260344619372
-26,Bosnia and Herzegovina,Edin Džeko,Schalke 04,1.053098103115134,0.0016364253246753245,player_country,available,1.0,0.8648432366644019
-27,Algeria,Mohamed Amoura,VfL Wolfsburg,1.085805131887254,0.0015510804473304472,player_country,available,1.0,0.97062605996288
-28,South Korea,Son Heung-min,Los Angeles FC,1.075875688011125,0.0015173416305916305,unmatched,available,1.0,1.0
-29,Morocco,Brahim Díaz,Real Madrid,1.036164141484451,0.0013953142135642136,player_country_club,available,1.0,0.9062051953124338
-30,Canada,Jonathan David,Juventus,0.9989940445142874,0.0012841154401154401,player_country_club,available,1.0,1.0435675957804469
-31,Ecuador,Enner Valencia,Pachuca,1.0114809439753163,0.0012301280663780663,player_country_club,available,1.0,0.9026130152434813
-32,Senegal,Sadio Mané,Al-Nassr,0.9921916972165074,0.0011785952380952381,player_country_club,available,1.0,0.8932925429861164
-33,Spain,Mikel Merino,Arsenal,0.9855376983205544,0.0011080396825396824,player_country_club,available,1.0,0.9481491050684414
-34,Brazil,Raphinha,Barcelona,0.962957837961525,0.0009796035353535353,player_country_club,available,1.0,1.45
-35,Austria,Michael Gregoritsch,FC Augsburg,0.9334511421477456,0.0008167021312021312,player_country,available,1.0,1.0855911949143962
-36,Portugal,Bruno Fernandes,Manchester United,0.900721231648568,0.0007241630591630591,player_country_club,available,1.0,1.0212416785001344
-37,Scotland,Scott McTominay,Napoli,0.8526862919324328,0.0006356352813852813,player_country_club,available,1.0,1.1172036728445232
-38,Germany,Kai Havertz,Arsenal,0.8142789957372663,0.0006063495670995672,player_country_club,available,1.0,1.3828855353812406
-39,Netherlands,Donyell Malen,Roma,0.8727176905744016,0.0005500122655122655,player_country_club,available,1.0,1.45
-40,Iraq,Aymen Hussein,Al-Karma,0.7713917220230178,0.000429520202020202,player_country,available,1.0,1.0
-41,Qatar,Almoez Ali,Al-Duhail,0.7296380381214154,0.0004210202020202021,player_country,available,1.0,1.0
-42,Turkey,Hakan Çalhanoğlu,Inter Milan,0.7368755425867132,0.00033606746031746037,player_country,available,1.0,1.148405840601492
-43,Mexico,Raúl Jiménez,Fulham,0.698962119928715,0.0003283134920634921,player_country_club,available,1.0,0.957655506961937
-44,Morocco,Ismael Saibari,PSV Eindhoven,0.7363668985101891,0.0003206944444444444,player_country,available,1.0,1.1224634198272725
-45,England,Bukayo Saka,Arsenal,0.7111194843386646,0.00030957478632478633,player_country_club,available,1.0,1.090648888067367
-46,Algeria,Riyad Mahrez,Al-Ahli,0.6641228264277255,0.00027546861471861473,player_country_club,available,1.0,0.7
-47,New Zealand,Chris Wood,Nottingham Forest,0.6794048239537469,0.0002618654401154401,player_country_club,available,1.0,1.030701467182555
-48,Brazil,Neymar,Santos,0.6686927059419133,0.0002560876623376623,player_country_club,available,1.0,0.9471295097541772
-49,Argentina,Julián Alvarez,Atlético Madrid,0.6266512450997459,0.00024835714285714283,player_country,available,1.0,1.1993027544153416
-50,Senegal,Nicolas Jackson,Bayern Munich,0.6362435638620793,0.0002180515873015873,player_country,available,1.0,1.3824640170822715
-51,Croatia,Ivan Perišić,PSV Eindhoven,0.6391409446859931,0.0002135079365079365,player_country,available,1.0,0.8499872599374906
-52,Brazil,Vinícius Júnior,Real Madrid,0.6478307663433037,0.00021209126984126983,player_country_club,available,1.0,1.2989423037830772
-53,Spain,Lamine Yamal,Barcelona,0.5997661651551537,0.00018786904761904766,player_country_club,available,1.0,1.326191307076522
-54,England,Marcus Rashford,Barcelona,0.6256425660095765,0.0001848015873015873,player_country_club,available,1.0,1.1801459041379898
-55,Ghana,Jordan Ayew,Leicester City,0.6157792283010015,0.00018399938949938949,player_country_club,available,1.0,0.8708103990827554
-56,Canada,Cyle Larin,Southampton,0.6177799219941477,0.00016479401154401152,player_country,available,1.0,0.8490415044658616
-57,Spain,Dani Olmo,Barcelona,0.5919087186854082,0.00016324603174603172,player_country_club,available,1.0,1.0079338812742096
-58,Senegal,Ismaïla Sarr,Crystal Palace,0.6048334561480357,0.00015829401154401153,player_country_club,available,1.0,1.1193299777844783
-59,Austria,Marcel Sabitzer,Borussia Dortmund,0.6096407707922086,0.00015545634920634922,player_country_club,available,1.0,0.7494450709730971
-60,Switzerland,Zeki Amdouni,Burnley,0.6026355207139864,0.0001478333333333333,player_country_club,available,1.0,0.9551751836169956
-61,Belgium,Jérémy Doku,Manchester City,0.5914161750487238,0.00014381349206349207,player_country_club,available,1.0,1.0645153754441774
-62,Qatar,Akram Afif,Al-Sadd,0.5748654939557376,0.00014066666666666668,player_country,available,1.0,1.0
-63,Panama,Ismael Díaz,León,0.5907612135921262,0.00011167460317460318,player_country_club,available,1.0,0.8050941928929418
-64,Netherlands,Denzel Dumfries,Inter Milan,0.5402774954786033,0.00010628968253968253,player_country,available,1.0,0.9773085673110188
-65,Czech Republic,Tomáš Souček,West Ham United,0.5576908592776345,0.00010142929292929294,player_country_club,available,1.0,0.9142951150048452
-66,Haiti,Frantzdy Pierrot,Çaykur Rizespor,0.548653367219702,9.572655122655123e-05,player_country_club,available,1.0,0.7608116262830349
-67,Germany,Florian Wirtz,Liverpool,0.5175284582254067,9.088888888888887e-05,player_country_club,available,1.0,1.010691345735371
-68,South Africa,Oswin Appollis,Orlando Pirates,0.5351987114364075,9.014682539682539e-05,player_country,available,1.0,1.0
-69,Ivory Coast,Amad Diallo,Manchester United,0.4233616884308025,8.366666666666668e-05,player_country_club,available,1.0,0.8604620519109444
-70,Belgium,Youri Tielemans,Aston Villa,0.5085017826805058,7.416666666666666e-05,player_country_club,available,1.0,0.8851170657420153
-71,Canada,Tajon Buchanan,Villarreal,0.4966725964682674,7.357081807081807e-05,player_country_club,available,1.0,0.9105495646246156
-72,Uzbekistan,Eldor Shomurodov,İstanbul Başakşehir,0.5547460574876683,7.277380952380951e-05,player_country_club,available,1.0,1.1208028762842133
-73,Japan,Daichi Kamada,Crystal Palace,0.4909764600477134,7.274999999999999e-05,player_country_club,available,1.0,0.7482395246405945
-74,Scotland,John McGinn,Aston Villa,0.5134527528594466,6.801623376623377e-05,player_country_club,available,1.0,1.0596061967121522
-75,Japan,Ritsu Dōan,Eintracht Frankfurt,0.4571451036380169,6.662301587301588e-05,player_country_club,available,1.0,0.8676732968889478
-76,United States,Christian Pulisic,Milan,0.4693812366570327,6.213131313131312e-05,player_country_club,available,1.0,1.065358896640466
-77,South Korea,Lee Kang-in,Paris Saint-Germain,0.4596477275893712,6.116666666666666e-05,unmatched,available,1.0,1.0
-78,South Korea,Hwang Hee-chan,Wolverhampton Wanderers,0.4492129246927557,5.863492063492064e-05,unmatched,available,1.0,1.0
-79,Norway,Antonio Nusa,RB Leipzig,0.4260960751434369,5.326190476190477e-05,player_country,available,1.0,0.935856656079388
-80,South Africa,Lyle Foster,Burnley,0.4335487766914993,4.7781135531135524e-05,player_country_club,available,1.0,0.8454281663784694
-81,Morocco,Azzedine Ounahi,Girona,0.4720934334712069,4.711111111111111e-05,player_country_club,available,1.0,0.9374178066750112
-82,Netherlands,Wout Weghorst,Ajax,0.4061992374684398,4.527777777777778e-05,player_country_club,available,1.0,0.8780508174672221
-83,Jordan,Ali Olwan,Al-Sailiya,0.4611710191610858,4.4789682539682536e-05,player_country,available,1.0,1.0
-84,Iran,Mohammad Mohebi,Rostov,0.4125313022138026,4.061111111111111e-05,player_country_club,available,1.0,0.8226445041099578
-85,Switzerland,Remo Freuler,Bologna,0.4007639299068082,3.7928571428571426e-05,player_country_club,available,1.0,0.7451052112633623
-86,Croatia,Luka Modrić,Milan,0.4089926674188646,3.748484848484848e-05,player_country_club,available,1.0,0.7466930639300913
-87,Colombia,James Rodríguez,Minnesota United FC,0.4653323356564779,3.679761904761905e-05,player_country_club,available,1.0,0.9070206514108692
-88,Curaçao,Gervane Kastaneer,Terengganu,0.4286170961107056,3.6e-05,player_country,available,1.0,1.0
-89,Japan,Takefusa Kubo,Real Sociedad,0.4289220297678999,3.347222222222222e-05,player_country_club,available,1.0,0.837334019352297
-90,Paraguay,Antonio Sanabria,Cremonese,0.3728281273128175,3.283333333333333e-05,player_country_club,available,1.0,0.7665300061804721
-91,Germany,Joshua Kimmich,Bayern Munich,0.392933597807106,2.8583333333333335e-05,player_country,available,1.0,0.8467651942397592
-92,Ivory Coast,Franck Kessié,Al-Ahli,0.3881922863309663,2.8166666666666666e-05,player_country_club,available,1.0,0.7542075934675889
-93,Paraguay,Julio Enciso,Strasbourg,0.4587163327987181,2.749242424242424e-05,player_country_club,available,1.0,0.9335931543796028
-94,Jordan,Musa Al-Taamari,Rennes,0.4320083803077194,2.4023809523809518e-05,unmatched,available,1.0,1.0
-95,Switzerland,Granit Xhaka,Sunderland,0.4072364471557133,2.077777777777778e-05,player_country_club,available,1.0,0.7626303035856519
-96,Norway,Thelo Aasgaard,Rangers,0.4119221172288274,1.998015873015873e-05,player_country_club,available,1.0,0.9316794270039396
-97,Australia,Jackson Irvine,FC St. Pauli,0.4010245561205286,1.9873015873015875e-05,player_country,available,1.0,0.7
-98,Brazil,Lucas Paquetá,Flamengo,0.4097952138894332,1.9297008547008545e-05,player_country_club,available,1.0,0.9095560051815614
-99,Germany,Leroy Sané,Galatasaray,0.4113896618975873,1.6318181818181816e-05,player_country_club,available,1.0,0.8934608194034881
-100,Turkey,Merih Demiral,Al-Ahli,0.3146288128538075,1.5912698412698415e-05,player_country_club,available,1.0,0.7
+1,Norway,Erling Haaland,Manchester City,5.19812566160091,0.39272212878788004,player_country_club,available,1.0,1.4489322393505446
+2,England,Harry Kane,Bayern Munich,4.658283640379533,0.2863759152236657,player_country,available,1.0,1.45
+3,Argentina,Lionel Messi,Inter Miami CF,3.2928329540799477,0.09371543362193384,player_country,available,1.0,1.400852746252188
+4,France,Kylian Mbappé,Real Madrid,2.7455011012857264,0.0511160367965367,player_country_club,available,1.0,1.45
+5,Portugal,Cristiano Ronaldo,Al-Nassr,2.5274757115028876,0.03816322438672435,player_country_club,available,1.0,1.2069874566388166
+6,Argentina,Lautaro Martínez,Inter Milan,2.263648422482832,0.025908325757575776,player_country,available,1.0,1.3895968795027245
+7,Belgium,Romelu Lukaku,Napoli,1.8931738443878168,0.0134614816017316,player_country_club,available,1.0,0.987188257017562
+8,Spain,Mikel Oyarzabal,Real Sociedad,1.8598573812143624,0.01330529473304473,player_country_club,available,1.0,1.216996009592437
+9,Iran,Mehdi Taremi,Olympiacos,1.6456118938247866,0.008054866161616164,player_country,available,1.0,1.038715043739293
+10,Norway,Alexander Sørloth,Atlético Madrid,1.563156435037684,0.006887588383838388,player_country,available,1.0,1.3299623606947504
+11,Morocco,Ayoub El Kaabi,Olympiacos,1.563072496681085,0.006549802308802312,player_country,available,1.0,1.1118839224632318
+12,Egypt,Mohamed Salah,Liverpool,1.518450656606273,0.005719774170274173,player_country_club,available,1.0,1.0504849004710546
+13,Spain,Ferran Torres,Barcelona,1.3702495679015625,0.003920670995670996,player_country_club,available,1.0,1.2979990146319444
+14,Croatia,Andrej Kramarić,TSG Hoffenheim,1.349077502549124,0.003878921717171717,player_country,available,1.0,1.097843322168479
+15,Sweden,Viktor Gyökeres,Arsenal,1.3134233820593089,0.003221019841269841,player_country_club,available,1.0,1.2893273153031866
+16,Japan,Ayase Ueda,Feyenoord,1.2609786177659026,0.002933476911976911,player_country_club,available,1.0,1.1215503861334308
+17,Turkey,Kerem Aktürkoğlu,Fenerbahçe,1.2311190555083609,0.0026767460317460314,player_country_club,available,1.0,1.1486345420430113
+18,Switzerland,Breel Embolo,Rennes,1.191611764785669,0.002660876984126984,player_country,available,1.0,1.0380207988881875
+19,Colombia,Luis Díaz,Bayern Munich,1.2448540519436615,0.002624045093795093,player_country,available,1.0,1.2094384123738318
+20,Netherlands,Cody Gakpo,Liverpool,1.1993773755629231,0.0024373582251082247,player_country_club,available,1.0,0.9979080000835064
+21,Netherlands,Memphis Depay,Corinthians,1.189181851795878,0.0023871349206349203,player_country_club,available,1.0,0.7
+22,Haiti,Duckens Nazon,Esteghlal,1.2048288727784342,0.0022411154401154394,player_country,available,1.0,1.0
+23,Austria,Marko Arnautović,Red Star Belgrade,1.1708186688366784,0.0021537662337662335,player_country,available,1.0,0.8124607328165518
+24,Belgium,Kevin De Bruyne,Napoli,1.1594957739070018,0.0021188293650793648,player_country_club,available,1.0,0.9597929069754648
+25,Czech Republic,Patrik Schick,Bayer Leverkusen,1.14519571127788,0.002032813852813853,player_country,available,1.0,1.3119260344619372
+26,South Korea,Son Heung-min,Los Angeles FC,1.0766526805638534,0.001670345238095238,unmatched,available,1.0,1.0
+27,Algeria,Mohamed Amoura,VfL Wolfsburg,1.0868797136100363,0.0016566554834054833,player_country,available,1.0,0.97062605996288
+28,Morocco,Brahim Díaz,Real Madrid,1.0302046833823812,0.0014568650793650793,player_country_club,available,1.0,0.9062051953124338
+29,Bosnia and Herzegovina,Edin Džeko,Schalke 04,1.0421254375722566,0.001408138888888889,player_country,available,1.0,0.8648432366644019
+30,Canada,Jonathan David,Juventus,1.0098861601978684,0.0013355039682539684,player_country_club,available,1.0,1.0435675957804469
+31,Ecuador,Enner Valencia,Pachuca,1.013655433445279,0.0012025281385281386,player_country_club,available,1.0,0.9026130152434813
+32,Senegal,Sadio Mané,Al-Nassr,1.005981480126974,0.0011765003607503606,player_country_club,available,1.0,0.8932925429861164
+33,Spain,Mikel Merino,Arsenal,0.9833905573656077,0.0010028134920634921,player_country_club,available,1.0,0.9481491050684414
+34,Brazil,Raphinha,Barcelona,0.9601184509077212,0.0009282777777777779,player_country_club,available,1.0,1.45
+35,Portugal,Bruno Fernandes,Manchester United,0.9005421974144895,0.0008187698412698412,player_country_club,available,1.0,1.0212416785001344
+36,Austria,Michael Gregoritsch,FC Augsburg,0.9275367696062806,0.000800170634920635,player_country,available,1.0,1.0855911949143962
+37,Scotland,Scott McTominay,Napoli,0.8609096995291732,0.0006892424242424242,player_country_club,available,1.0,1.1172036728445232
+38,Netherlands,Donyell Malen,Roma,0.8811984782794516,0.0006632579365079364,player_country_club,available,1.0,1.45
+39,Germany,Kai Havertz,Arsenal,0.8081362754918132,0.0004946789321789322,player_country_club,available,1.0,1.3828855353812406
+40,Morocco,Ismael Saibari,PSV Eindhoven,0.7321317126899813,0.0004047424242424242,player_country,available,1.0,1.1224634198272725
+41,Qatar,Almoez Ali,Al-Duhail,0.7286824586186371,0.00038502417027417023,player_country,available,1.0,1.0
+42,Iraq,Aymen Hussein,Al-Karma,0.7697215609620557,0.0003654246031746032,player_country,available,1.0,1.0
+43,England,Bukayo Saka,Arsenal,0.7065236821005393,0.00032410750360750354,player_country_club,available,1.0,1.090648888067367
+44,Brazil,Neymar,Santos,0.6667209919816802,0.0003084682539682539,player_country_club,available,1.0,0.9471295097541772
+45,New Zealand,Chris Wood,Nottingham Forest,0.6791036693332001,0.00029074603174603173,player_country_club,available,1.0,1.030701467182555
+46,Brazil,Vinícius Júnior,Real Madrid,0.6459205661055601,0.00027274603174603173,player_country_club,available,1.0,1.2989423037830772
+47,Mexico,Raúl Jiménez,Fulham,0.688399417746709,0.000259484126984127,player_country_club,available,1.0,0.957655506961937
+48,Turkey,Hakan Çalhanoğlu,Inter Milan,0.7309241566954707,0.0002483730158730159,player_country,available,1.0,1.148405840601492
+49,Switzerland,Zeki Amdouni,Burnley,0.6083021670657534,0.0002464134199134199,player_country_club,available,1.0,0.9551751836169956
+50,Senegal,Nicolas Jackson,Bayern Munich,0.6450862710208404,0.00021031349206349206,player_country,available,1.0,1.3824640170822715
+51,England,Marcus Rashford,Barcelona,0.6215991815032337,0.00020959559884559887,player_country_club,available,1.0,1.1801459041379898
+52,Algeria,Riyad Mahrez,Al-Ahli,0.6647800845581245,0.00020583333333333337,player_country_club,available,1.0,0.7
+53,Argentina,Julián Alvarez,Atlético Madrid,0.6283123484664781,0.0001915634920634921,player_country,available,1.0,1.1993027544153416
+54,Canada,Cyle Larin,Southampton,0.6245156281921015,0.00019000396825396824,player_country,available,1.0,0.8490415044658616
+55,Spain,Lamine Yamal,Barcelona,0.5984594850567765,0.00018651190476190476,player_country_club,available,1.0,1.326191307076522
+56,Austria,Marcel Sabitzer,Borussia Dortmund,0.6057780698193062,0.0001784011544011544,player_country_club,available,1.0,0.7494450709730971
+57,Senegal,Ismaïla Sarr,Crystal Palace,0.6132396160470422,0.00016990079365079367,player_country_club,available,1.0,1.1193299777844783
+58,Ghana,Jordan Ayew,Leicester City,0.615421736731596,0.0001668015873015873,player_country_club,available,1.0,0.8708103990827554
+59,Qatar,Akram Afif,Al-Sadd,0.574112614234317,0.00016374999999999997,player_country,available,1.0,1.0
+60,Panama,Ismael Díaz,León,0.5885691497197991,0.00015070238095238095,player_country_club,available,1.0,0.8050941928929418
+61,Croatia,Ivan Perišić,PSV Eindhoven,0.6378029457934157,0.0001487063492063492,player_country,available,1.0,0.8499872599374906
+62,Netherlands,Denzel Dumfries,Inter Milan,0.5455277370979228,0.0001473531746031746,player_country,available,1.0,0.9773085673110188
+63,South Africa,Oswin Appollis,Orlando Pirates,0.5386133907151034,0.00012622619047619046,player_country,available,1.0,1.0
+64,Spain,Dani Olmo,Barcelona,0.5906191572067907,0.00012367857142857143,player_country_club,available,1.0,1.0079338812742096
+65,Haiti,Frantzdy Pierrot,Çaykur Rizespor,0.5498194742701158,0.00011451623376623376,player_country_club,available,1.0,0.7608116262830349
+66,Belgium,Jérémy Doku,Manchester City,0.5851499662974853,9.634523809523809e-05,player_country_club,available,1.0,1.0645153754441774
+67,Uzbekistan,Eldor Shomurodov,İstanbul Başakşehir,0.550295455059584,8.56111111111111e-05,player_country_club,available,1.0,1.1208028762842133
+68,Japan,Ritsu Dōan,Eintracht Frankfurt,0.4615542963814391,8.242857142857142e-05,player_country_club,available,1.0,0.8676732968889478
+69,Japan,Daichi Kamada,Crystal Palace,0.4957119583120625,7.119444444444445e-05,player_country_club,available,1.0,0.7482395246405945
+70,Ivory Coast,Amad Diallo,Manchester United,0.4249966608759011,7.033333333333334e-05,player_country_club,available,1.0,0.8604620519109444
+71,Scotland,John McGinn,Aston Villa,0.518404552024486,7.033333333333333e-05,player_country_club,available,1.0,1.0596061967121522
+72,Belgium,Youri Tielemans,Aston Villa,0.5031140735594449,6.974242424242424e-05,player_country_club,available,1.0,0.8851170657420153
+73,Canada,Tajon Buchanan,Villarreal,0.502087859359276,6.686111111111111e-05,player_country_club,available,1.0,0.9105495646246156
+74,Germany,Florian Wirtz,Liverpool,0.5136243509666153,6.542857142857144e-05,player_country_club,available,1.0,1.010691345735371
+75,Germany,Joshua Kimmich,Bayern Munich,0.3899694034965515,6.467099567099566e-05,player_country,available,1.0,0.8467651942397592
+76,South Africa,Lyle Foster,Burnley,0.4363149082094529,5.7357142857142856e-05,player_country_club,available,1.0,0.8454281663784694
+77,Morocco,Azzedine Ounahi,Girona,0.4693782062939728,5.72979797979798e-05,player_country_club,available,1.0,0.9374178066750112
+78,Jordan,Musa Al-Taamari,Rennes,0.4331427860020708,5.536904761904761e-05,unmatched,available,1.0,1.0
+79,Czech Republic,Tomáš Souček,West Ham United,0.5581613143288447,5.4206349206349203e-05,player_country_club,available,1.0,0.9142951150048452
+80,South Korea,Hwang Hee-chan,Wolverhampton Wanderers,0.4495373442339397,4.997222222222222e-05,unmatched,available,1.0,1.0
+81,Jordan,Ali Olwan,Al-Sailiya,0.4623820026837515,4.875e-05,player_country,available,1.0,1.0
+82,Colombia,James Rodríguez,Minnesota United FC,0.4657321057042928,4.553968253968254e-05,player_country_club,available,1.0,0.9070206514108692
+83,Paraguay,Julio Enciso,Strasbourg,0.4602813240781678,4.527777777777778e-05,player_country_club,available,1.0,0.9335931543796028
+84,Croatia,Luka Modrić,Milan,0.40813646857786,4.344444444444445e-05,player_country_club,available,1.0,0.7466930639300913
+85,Japan,Takefusa Kubo,Real Sociedad,0.4330590092216798,4.233333333333334e-05,player_country_club,available,1.0,0.837334019352297
+86,South Korea,Lee Kang-in,Paris Saint-Germain,0.4599796830979817,4.1777777777777774e-05,unmatched,available,1.0,1.0
+87,United States,Christian Pulisic,Milan,0.469618417676061,3.9095238095238096e-05,player_country_club,available,1.0,1.065358896640466
+88,Ivory Coast,Franck Kessié,Al-Ahli,0.3896914387316084,3.895238095238095e-05,player_country_club,available,1.0,0.7542075934675889
+89,Curaçao,Gervane Kastaneer,Terengganu,0.4308014414476231,3.5511904761904766e-05,player_country,available,1.0,1.0
+90,Germany,Leroy Sané,Galatasaray,0.4082862395839363,3.144444444444445e-05,player_country_club,available,1.0,0.8934608194034881
+91,Switzerland,Remo Freuler,Bologna,0.4045323560670112,3.062301587301587e-05,player_country_club,available,1.0,0.7451052112633623
+92,Brazil,Lucas Paquetá,Flamengo,0.4085868876479732,2.8492424242424235e-05,player_country_club,available,1.0,0.9095560051815614
+93,Australia,Jackson Irvine,FC St. Pauli,0.4030156507345326,2.816666666666667e-05,player_country,available,1.0,0.7
+94,Norway,Antonio Nusa,RB Leipzig,0.4272908167921467,2.3599567099567097e-05,player_country,available,1.0,0.935856656079388
+95,Norway,Thelo Aasgaard,Rangers,0.4130771161555656,2.2178571428571426e-05,player_country_club,available,1.0,0.9316794270039396
+96,Iran,Mohammad Mohebi,Rostov,0.4151910193690272,2.0595238095238094e-05,player_country_club,available,1.0,0.8226445041099578
+97,Netherlands,Wout Weghorst,Ajax,0.4101465500256721,1.967099567099567e-05,player_country_club,available,1.0,0.8780508174672221
+98,Switzerland,Granit Xhaka,Sunderland,0.4110657350889027,1.825e-05,player_country_club,available,1.0,0.7626303035856519
+99,Paraguay,Antonio Sanabria,Cremonese,0.3741000959048627,1.7e-05,player_country_club,available,1.0,0.7665300061804721
+100,Turkey,Merih Demiral,Al-Ahli,0.3120877087329903,2.361111111111111e-06,player_country_club,available,1.0,0.7

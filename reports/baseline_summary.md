@@ -114,21 +114,21 @@ Transfermarkt injury history is joined by player ID where possible and otherwise
 
 | team | scorer | weighted_goals | goal_share | expected_team_group_goals | expected_team_matches | expected_group_goals | expected_tournament_goals |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Norway | Erling Haaland | 23.321 | 0.415 | 5.010 | 4.993 | 2.080 | 3.462 |
-| England | Harry Kane | 19.530 | 0.310 | 5.512 | 5.493 | 1.709 | 3.129 |
-| Argentina | Lionel Messi | 10.507 | 0.243 | 4.632 | 6.036 | 1.127 | 2.268 |
-| Portugal | Cristiano Ronaldo | 19.517 | 0.279 | 4.329 | 5.031 | 1.208 | 2.027 |
-| Belgium | Romelu Lukaku | 13.071 | 0.201 | 5.386 | 5.191 | 1.084 | 1.875 |
-| France | Kylian Mbappé | 15.511 | 0.262 | 4.168 | 5.064 | 1.094 | 1.846 |
-| Argentina | Lautaro Martínez | 7.836 | 0.182 | 4.632 | 6.036 | 0.841 | 1.692 |
-| Netherlands | Memphis Depay | 13.250 | 0.186 | 5.385 | 4.888 | 0.999 | 1.628 |
-| Iran | Mehdi Taremi | 9.766 | 0.243 | 4.175 | 4.498 | 1.016 | 1.523 |
-| Spain | Mikel Oyarzabal | 9.848 | 0.133 | 5.689 | 5.967 | 0.756 | 1.504 |
-| Morocco | Ayoub El Kaabi | 6.237 | 0.163 | 5.030 | 5.303 | 0.820 | 1.450 |
-| Austria | Marko Arnautović | 11.669 | 0.227 | 4.044 | 4.577 | 0.920 | 1.403 |
-| Egypt | Mohamed Salah | 10.828 | 0.345 | 2.969 | 4.094 | 1.025 | 1.399 |
-| Croatia | Andrej Kramarić | 9.784 | 0.186 | 4.494 | 4.538 | 0.835 | 1.262 |
-| Belgium | Kevin De Bruyne | 8.597 | 0.132 | 5.386 | 5.191 | 0.713 | 1.234 |
+| Norway | Erling Haaland | 23.321 | 0.415 | 5.010 | 5.007 | 2.080 | 3.471 |
+| England | Harry Kane | 19.530 | 0.310 | 5.512 | 5.457 | 1.709 | 3.108 |
+| Argentina | Lionel Messi | 10.507 | 0.243 | 4.632 | 6.052 | 1.127 | 2.274 |
+| Portugal | Cristiano Ronaldo | 19.517 | 0.279 | 4.329 | 5.030 | 1.208 | 2.026 |
+| Belgium | Romelu Lukaku | 13.071 | 0.201 | 5.386 | 5.136 | 1.084 | 1.856 |
+| France | Kylian Mbappé | 15.511 | 0.262 | 4.168 | 5.025 | 1.094 | 1.832 |
+| Argentina | Lautaro Martínez | 7.836 | 0.182 | 4.632 | 6.052 | 0.841 | 1.696 |
+| Netherlands | Memphis Depay | 13.250 | 0.186 | 5.385 | 4.936 | 0.999 | 1.644 |
+| Iran | Mehdi Taremi | 9.766 | 0.243 | 4.175 | 4.527 | 1.016 | 1.533 |
+| Spain | Mikel Oyarzabal | 9.848 | 0.133 | 5.689 | 5.954 | 0.756 | 1.500 |
+| Morocco | Ayoub El Kaabi | 6.237 | 0.163 | 5.030 | 5.272 | 0.820 | 1.442 |
+| Egypt | Mohamed Salah | 10.828 | 0.345 | 2.969 | 4.092 | 1.025 | 1.399 |
+| Austria | Marko Arnautović | 11.669 | 0.227 | 4.044 | 4.548 | 0.920 | 1.394 |
+| Croatia | Andrej Kramarić | 9.784 | 0.186 | 4.494 | 4.529 | 0.835 | 1.260 |
+| Netherlands | Cody Gakpo | 9.932 | 0.139 | 5.385 | 4.936 | 0.749 | 1.232 |
 
 This scorer table uses national-team goalscorer history, 2026 squad filtering, and official-bracket expected-match exposure.
 
@@ -136,18 +136,18 @@ This scorer table uses national-team goalscorer history, 2026 squad filtering, a
 
 | team | round_of_32_probability | quarter_final_probability | semi_final_probability | final_probability | winner_probability |
 | --- | --- | --- | --- | --- | --- |
-| Argentina | 0.920 | 0.569 | 0.429 | 0.293 | 0.185 |
-| Spain | 0.949 | 0.531 | 0.401 | 0.285 | 0.182 |
-| France | 0.698 | 0.362 | 0.239 | 0.134 | 0.077 |
-| England | 0.947 | 0.418 | 0.247 | 0.133 | 0.068 |
-| Belgium | 0.884 | 0.365 | 0.172 | 0.094 | 0.047 |
-| Portugal | 0.817 | 0.326 | 0.176 | 0.097 | 0.046 |
-| Norway | 0.840 | 0.302 | 0.150 | 0.070 | 0.045 |
-| Germany | 0.772 | 0.324 | 0.181 | 0.087 | 0.039 |
-| Morocco | 0.948 | 0.363 | 0.202 | 0.086 | 0.037 |
-| Brazil | 0.662 | 0.304 | 0.174 | 0.088 | 0.037 |
-| Japan | 0.941 | 0.334 | 0.190 | 0.086 | 0.036 |
-| Colombia | 0.702 | 0.249 | 0.130 | 0.070 | 0.031 |
+| Spain | 0.947 | 0.523 | 0.402 | 0.297 | 0.195 |
+| Argentina | 0.926 | 0.572 | 0.428 | 0.294 | 0.192 |
+| France | 0.706 | 0.352 | 0.224 | 0.129 | 0.074 |
+| England | 0.953 | 0.405 | 0.232 | 0.123 | 0.063 |
+| Portugal | 0.819 | 0.318 | 0.175 | 0.099 | 0.048 |
+| Belgium | 0.884 | 0.341 | 0.159 | 0.088 | 0.041 |
+| Germany | 0.779 | 0.302 | 0.168 | 0.086 | 0.040 |
+| Brazil | 0.666 | 0.298 | 0.173 | 0.086 | 0.040 |
+| Morocco | 0.945 | 0.364 | 0.191 | 0.084 | 0.038 |
+| Japan | 0.941 | 0.356 | 0.197 | 0.085 | 0.037 |
+| Norway | 0.840 | 0.313 | 0.151 | 0.065 | 0.035 |
+| Netherlands | 0.844 | 0.292 | 0.157 | 0.072 | 0.035 |
 
 These probabilities use group-stage simulation, FIFA Annex C third-place assignments, and the official 2026 knockout bracket.
 
@@ -155,21 +155,21 @@ These probabilities use group-stage simulation, FIFA Annex C third-place assignm
 
 | team | scorer | status | expected_minutes_share | penalty_taker_rank | expected_tournament_goals | expected_tournament_goals_availability_adjusted |
 | --- | --- | --- | --- | --- | --- | --- |
-| Norway | Erling Haaland | available | 0.950 | 1.0 | 3.462 | 3.578 |
-| England | Harry Kane | available | 0.950 | 1.0 | 3.129 | 3.234 |
-| Argentina | Lionel Messi | available | 0.950 | 1.0 | 2.268 | 2.344 |
-| Portugal | Cristiano Ronaldo | available | 0.950 | 1.0 | 2.027 | 2.094 |
-| Belgium | Romelu Lukaku | available | 0.950 | 1.0 | 1.875 | 1.938 |
-| France | Kylian Mbappé | available | 0.950 | 1.0 | 1.846 | 1.908 |
-| Netherlands | Memphis Depay | available | 0.950 | 1.0 | 1.628 | 1.682 |
-| Argentina | Lautaro Martínez | available | 0.921 | NA | 1.692 | 1.625 |
-| Iran | Mehdi Taremi | available | 0.950 | 1.0 | 1.523 | 1.574 |
-| Spain | Mikel Oyarzabal | available | 0.922 | 1.0 | 1.504 | 1.532 |
-| Austria | Marko Arnautović | available | 0.950 | 1.0 | 1.403 | 1.450 |
-| Egypt | Mohamed Salah | available | 0.950 | 1.0 | 1.399 | 1.446 |
-| Morocco | Ayoub El Kaabi | available | 0.950 | NA | 1.450 | 1.414 |
-| Croatia | Andrej Kramarić | available | 0.894 | 2.0 | 1.262 | 1.231 |
-| Belgium | Kevin De Bruyne | available | 0.922 | 2.0 | 1.234 | 1.221 |
+| Norway | Erling Haaland | available | 0.950 | 1.0 | 3.471 | 3.588 |
+| England | Harry Kane | available | 0.950 | 1.0 | 3.108 | 3.213 |
+| Argentina | Lionel Messi | available | 0.950 | 1.0 | 2.274 | 2.351 |
+| Portugal | Cristiano Ronaldo | available | 0.950 | 1.0 | 2.026 | 2.094 |
+| Belgium | Romelu Lukaku | available | 0.950 | 1.0 | 1.856 | 1.918 |
+| France | Kylian Mbappé | available | 0.950 | 1.0 | 1.832 | 1.893 |
+| Netherlands | Memphis Depay | available | 0.950 | 1.0 | 1.644 | 1.699 |
+| Argentina | Lautaro Martínez | available | 0.921 | NA | 1.696 | 1.629 |
+| Iran | Mehdi Taremi | available | 0.950 | 1.0 | 1.533 | 1.584 |
+| Spain | Mikel Oyarzabal | available | 0.922 | 1.0 | 1.500 | 1.528 |
+| Egypt | Mohamed Salah | available | 0.950 | 1.0 | 1.399 | 1.445 |
+| Austria | Marko Arnautović | available | 0.950 | 1.0 | 1.394 | 1.441 |
+| Morocco | Ayoub El Kaabi | available | 0.950 | NA | 1.442 | 1.406 |
+| Croatia | Andrej Kramarić | available | 0.894 | 2.0 | 1.260 | 1.229 |
+| Belgium | Kevin De Bruyne | available | 0.922 | 2.0 | 1.220 | 1.208 |
 
 This table applies expected-minutes, penalty-role, and injury/suspension status adjustments before club-form enrichment.
 
@@ -177,21 +177,21 @@ This table applies expected-minutes, penalty-role, and injury/suspension status 
 
 | team | scorer | club | club_form_match_quality | club_form_goals | expected_tournament_goals | expected_tournament_goals_club_adjusted |
 | --- | --- | --- | --- | --- | --- | --- |
-| Norway | Erling Haaland | Manchester City | player_and_club | 27.000 | 3.578 | 4.472 |
-| England | Harry Kane | Bayern Munich | player_and_club | 36.000 | 3.234 | 4.042 |
+| Norway | Erling Haaland | Manchester City | player_and_club | 27.000 | 3.588 | 4.484 |
+| England | Harry Kane | Bayern Munich | player_and_club | 36.000 | 3.213 | 4.016 |
 | Portugal | Cristiano Ronaldo | Al-Nassr | player_and_club | 28.000 | 2.094 | 2.618 |
-| France | Kylian Mbappé | Real Madrid | player_and_club | 25.000 | 1.908 | 2.385 |
-| Argentina | Lionel Messi | Inter Miami CF | player_and_club | 12.000 | 2.344 | 1.962 |
-| Belgium | Romelu Lukaku | Napoli | unmatched | NA | 1.938 | 1.938 |
-| Argentina | Lautaro Martínez | Inter Milan | player_and_club | 17.000 | 1.625 | 1.691 |
-| Netherlands | Memphis Depay | Corinthians | unmatched | NA | 1.682 | 1.682 |
-| Iran | Mehdi Taremi | Olympiacos | unmatched | NA | 1.574 | 1.574 |
-| Spain | Mikel Oyarzabal | Real Sociedad | player_and_club | 15.000 | 1.532 | 1.469 |
-| Austria | Marko Arnautović | Red Star Belgrade | unmatched | NA | 1.450 | 1.450 |
-| Egypt | Mohamed Salah | Liverpool | unmatched | NA | 1.446 | 1.446 |
-| Morocco | Ayoub El Kaabi | Olympiacos | unmatched | NA | 1.414 | 1.414 |
-| Belgium | Kevin De Bruyne | Napoli | unmatched | NA | 1.221 | 1.221 |
-| Bosnia and Herzegovina | Edin Džeko | Schalke 04 | unmatched | NA | 1.218 | 1.218 |
+| France | Kylian Mbappé | Real Madrid | player_and_club | 25.000 | 1.893 | 2.367 |
+| Argentina | Lionel Messi | Inter Miami CF | player_and_club | 12.000 | 2.351 | 1.967 |
+| Belgium | Romelu Lukaku | Napoli | unmatched | NA | 1.918 | 1.918 |
+| Netherlands | Memphis Depay | Corinthians | unmatched | NA | 1.699 | 1.699 |
+| Argentina | Lautaro Martínez | Inter Milan | player_and_club | 17.000 | 1.629 | 1.695 |
+| Iran | Mehdi Taremi | Olympiacos | unmatched | NA | 1.584 | 1.584 |
+| Spain | Mikel Oyarzabal | Real Sociedad | player_and_club | 15.000 | 1.528 | 1.466 |
+| Egypt | Mohamed Salah | Liverpool | unmatched | NA | 1.445 | 1.445 |
+| Austria | Marko Arnautović | Red Star Belgrade | unmatched | NA | 1.441 | 1.441 |
+| Morocco | Ayoub El Kaabi | Olympiacos | unmatched | NA | 1.406 | 1.406 |
+| Belgium | Kevin De Bruyne | Napoli | unmatched | NA | 1.208 | 1.208 |
+| Bosnia and Herzegovina | Edin Džeko | Schalke 04 | unmatched | NA | 1.205 | 1.205 |
 
 Club form is sourced from curated public top-scorer tables and currently covers only matched top-100 candidates.
 
@@ -199,21 +199,21 @@ Club form is sourced from curated public top-scorer tables and currently covers 
 
 | team | scorer | transfermarkt_match_quality | club_goals_source | club_goals_model | club_weighted_goals_model | club_minutes_model | club_weighted_goals_per90 | transfermarkt_multiplier | latest_market_value_in_eur | expected_tournament_goals | expected_tournament_goals_transfermarkt_adjusted |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Norway | Erling Haaland | player_country_club | appearances | 39.000 | 16.110 | 4235.000 | 0.342 | 1.449 | 200000000.000 | 3.578 | 5.184 |
-| England | Harry Kane | player_country | appearances | 61.000 | 24.870 | 4140.000 | 0.541 | 1.450 | 65000000.000 | 3.234 | 4.689 |
-| Argentina | Lionel Messi | player_country | game_events | 31.000 | 9.321 | 1725.000 | 0.486 | 1.401 | 35000000.000 | 2.344 | 3.284 |
-| France | Kylian Mbappé | player_country_club | appearances | 43.000 | 16.140 | 3756.000 | 0.387 | 1.450 | 180000000.000 | 1.908 | 2.767 |
-| Portugal | Cristiano Ronaldo | player_country_club | game_events | 28.000 | 9.773 | 2250.000 | 0.391 | 1.207 | 15000000.000 | 2.094 | 2.528 |
-| Argentina | Lautaro Martínez | player_country | appearances | 22.000 | 10.350 | 2767.000 | 0.337 | 1.390 | 85000000.000 | 1.625 | 2.258 |
-| Belgium | Romelu Lukaku | player_country_club | appearances | 1.000 | 0.666 | 64.000 | 0.936 | 0.987 | 15000000.000 | 1.938 | 1.913 |
-| Spain | Mikel Oyarzabal | player_country_club | appearances | 18.000 | 9.342 | 3195.000 | 0.263 | 1.217 | 25000000.000 | 1.532 | 1.864 |
-| Iran | Mehdi Taremi | player_country | appearances | 15.000 | 4.635 | 1833.000 | 0.228 | 1.039 | 2500000.000 | 1.574 | 1.635 |
-| Morocco | Ayoub El Kaabi | player_country | appearances | 20.000 | 6.711 | 2429.000 | 0.249 | 1.112 | 5000000.000 | 1.414 | 1.572 |
-| Norway | Alexander Sørloth | player_country | appearances | 20.000 | 10.678 | 2816.000 | 0.341 | 1.330 | 20000000.000 | 1.172 | 1.559 |
-| Egypt | Mohamed Salah | player_country_club | appearances | 12.000 | 5.431 | 3150.000 | 0.155 | 1.050 | 30000000.000 | 1.446 | 1.519 |
-| Spain | Ferran Torres | player_country_club | appearances | 21.000 | 9.287 | 2692.000 | 0.310 | 1.298 | 30000000.000 | 1.058 | 1.373 |
-| Croatia | Andrej Kramarić | player_country | appearances | 15.000 | 6.856 | 2422.000 | 0.255 | 1.098 | 3000000.000 | 1.231 | 1.352 |
-| Sweden | Viktor Gyökeres | player_country_club | appearances | 21.000 | 10.552 | 3427.000 | 0.277 | 1.289 | 70000000.000 | 1.025 | 1.322 |
+| Norway | Erling Haaland | player_country_club | appearances | 39.000 | 16.110 | 4235.000 | 0.342 | 1.449 | 200000000.000 | 3.588 | 5.198 |
+| England | Harry Kane | player_country | appearances | 61.000 | 24.870 | 4140.000 | 0.541 | 1.450 | 65000000.000 | 3.213 | 4.658 |
+| Argentina | Lionel Messi | player_country | game_events | 31.000 | 9.321 | 1725.000 | 0.486 | 1.401 | 35000000.000 | 2.351 | 3.293 |
+| France | Kylian Mbappé | player_country_club | appearances | 43.000 | 16.140 | 3756.000 | 0.387 | 1.450 | 180000000.000 | 1.893 | 2.746 |
+| Portugal | Cristiano Ronaldo | player_country_club | game_events | 28.000 | 9.773 | 2250.000 | 0.391 | 1.207 | 15000000.000 | 2.094 | 2.527 |
+| Argentina | Lautaro Martínez | player_country | appearances | 22.000 | 10.350 | 2767.000 | 0.337 | 1.390 | 85000000.000 | 1.629 | 2.264 |
+| Belgium | Romelu Lukaku | player_country_club | appearances | 1.000 | 0.666 | 64.000 | 0.936 | 0.987 | 15000000.000 | 1.918 | 1.893 |
+| Spain | Mikel Oyarzabal | player_country_club | appearances | 18.000 | 9.342 | 3195.000 | 0.263 | 1.217 | 25000000.000 | 1.528 | 1.860 |
+| Iran | Mehdi Taremi | player_country | appearances | 15.000 | 4.635 | 1833.000 | 0.228 | 1.039 | 2500000.000 | 1.584 | 1.646 |
+| Norway | Alexander Sørloth | player_country | appearances | 20.000 | 10.678 | 2816.000 | 0.341 | 1.330 | 20000000.000 | 1.175 | 1.563 |
+| Morocco | Ayoub El Kaabi | player_country | appearances | 20.000 | 6.711 | 2429.000 | 0.249 | 1.112 | 5000000.000 | 1.406 | 1.563 |
+| Egypt | Mohamed Salah | player_country_club | appearances | 12.000 | 5.431 | 3150.000 | 0.155 | 1.050 | 30000000.000 | 1.445 | 1.518 |
+| Spain | Ferran Torres | player_country_club | appearances | 21.000 | 9.287 | 2692.000 | 0.310 | 1.298 | 30000000.000 | 1.056 | 1.370 |
+| Croatia | Andrej Kramarić | player_country | appearances | 15.000 | 6.856 | 2422.000 | 0.255 | 1.098 | 3000000.000 | 1.229 | 1.349 |
+| Sweden | Viktor Gyökeres | player_country_club | appearances | 21.000 | 10.552 | 3427.000 | 0.277 | 1.289 | 70000000.000 | 1.019 | 1.313 |
 
 ### Transfermarkt Match Coverage
 

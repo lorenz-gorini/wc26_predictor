@@ -1,49 +1,49 @@
 group,team,advance_probability,expected_team_matches
-A,Mexico,0.723,4.599
-A,Czech Republic,0.679,4.149
-A,South Korea,0.665,4.154
-A,South Africa,0.624,3.84
-B,Switzerland,0.86,4.8919999999999995
-B,Canada,0.839,4.54
-B,Bosnia and Herzegovina,0.6,3.791
-B,Qatar,0.382,3.436
-C,Morocco,0.948,5.303
-C,Brazil,0.662,4.748
-C,Haiti,0.603,3.764
-C,Scotland,0.433,3.681
-D,Australia,0.807,4.431
-D,Turkey,0.793,4.705
-D,United States,0.562,3.958
-D,Paraguay,0.546,3.957
-E,Ivory Coast,0.828,4.402
-E,Germany,0.772,4.971
-E,Ecuador,0.652,4.4190000000000005
-E,Curaçao,0.45,3.532
-F,Japan,0.941,5.184
-F,Netherlands,0.838,4.888
-F,Tunisia,0.569,3.744
-F,Sweden,0.297,3.43
-G,Belgium,0.884,5.191
-G,Iran,0.798,4.498
-G,Egypt,0.683,4.094
-G,New Zealand,0.299,3.384
-H,Spain,0.949,5.9670000000000005
-H,Uruguay,0.617,4.106
-H,Cape Verde,0.555,3.685
-H,Saudi Arabia,0.461,3.56
-I,Norway,0.84,4.993
-I,Senegal,0.79,4.425
-I,France,0.698,5.064
-I,Iraq,0.352,3.464
-J,Argentina,0.92,6.036
-J,Algeria,0.848,4.547
-J,Austria,0.783,4.577
-J,Jordan,0.167,3.237
-K,Portugal,0.817,5.031000000000001
-K,Colombia,0.702,4.656
-K,DR Congo,0.594,3.854
-K,Uzbekistan,0.563,3.864
-L,England,0.947,5.493
-L,Croatia,0.762,4.538
-L,Panama,0.534,3.773
-L,Ghana,0.364,3.445
+A,Mexico,0.708,4.5295000000000005
+A,Czech Republic,0.6775,4.1525
+A,South Korea,0.669,4.157
+A,South Africa,0.6345,3.8645
+B,Switzerland,0.8655,4.938
+B,Canada,0.8395,4.5895
+B,Bosnia and Herzegovina,0.5825,3.7515
+B,Qatar,0.3795,3.4315
+C,Morocco,0.9445,5.2725
+C,Brazil,0.666,4.734
+C,Haiti,0.6025,3.772
+C,Scotland,0.4485,3.7165
+D,Australia,0.8025,4.453
+D,Turkey,0.7825,4.667
+D,United States,0.568,3.96
+D,Paraguay,0.5395,3.9705
+E,Ivory Coast,0.813,4.4190000000000005
+E,Germany,0.779,4.9335
+E,Ecuador,0.6575,4.4285
+E,Curaçao,0.462,3.55
+F,Japan,0.941,5.234
+F,Netherlands,0.8435,4.9355
+F,Tunisia,0.5795,3.7585
+F,Sweden,0.287,3.408
+G,Belgium,0.8845,5.136
+G,Iran,0.8135,4.527
+G,Egypt,0.677,4.0920000000000005
+G,New Zealand,0.2965,3.3825
+H,Spain,0.9465,5.954000000000001
+H,Uruguay,0.6225,4.117
+H,Cape Verde,0.5435,3.652
+H,Saudi Arabia,0.4685,3.56
+I,Norway,0.84,5.007
+I,Senegal,0.796,4.4864999999999995
+I,France,0.7055,5.025
+I,Iraq,0.3455,3.4565
+J,Argentina,0.926,6.052
+J,Algeria,0.838,4.5515
+J,Austria,0.7755,4.548
+J,Jordan,0.1735,3.2455
+K,Portugal,0.8185,5.029999999999999
+K,Colombia,0.691,4.66
+K,DR Congo,0.606,3.87
+K,Uzbekistan,0.545,3.833
+L,England,0.9525,5.4575
+L,Croatia,0.7685,4.5285
+L,Panama,0.525,3.759
+L,Ghana,0.3685,3.443

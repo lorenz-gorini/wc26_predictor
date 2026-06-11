@@ -398,6 +398,9 @@ def _build_markdown_report(
             "- `reports/final_knockout_match_forecasts.csv`",
             "- `reports/final_full_match_forecasts.csv`",
             "",
+            "## Related validation review",
+            "- `reports/model_validation_review.md`",
+            "",
         ]
     )
 
