@@ -127,6 +127,21 @@ PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/ge
 This writes final group-advancement, round-by-round, winner, top-scorer, and
 match-forecast tables under `reports/`, plus `reports/final_report.md`.
 
+Generate the local model-performance dashboard:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/generate_validation_dashboard.py
+```
+
+This writes `reports/model_performance_dashboard.html`, a standalone dashboard
+with backtest plots, bookmaker comparisons, model contribution diagnostics, and
+future-match probability uncertainty. Open it directly in a browser or serve the
+reports directory locally:
+
+```bash
+/Users/lorenzogorini/anaconda3/envs/general/bin/python -m http.server 8000 --directory reports
+```
+
 ## Local Secrets
 
 Put API keys in a local `.env` file at the project root. The file is ignored by
