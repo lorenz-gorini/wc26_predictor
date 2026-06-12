@@ -60,6 +60,27 @@ def test_official_tournament_probabilities_are_coherent() -> None:
     assert probabilities["expected_team_matches"].between(3.0, 8.0).all()
 
 
+def test_official_tournament_holds_completed_group_scores_fixed() -> None:
+    results = load_results_csv(Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv")
+    forecasts = _synthetic_forecasts()
+    group_a = forecasts["group"] == "A"
+    forecasts.loc[group_a, "completed_home_score"] = [0, 0, 0, 0, 0, 0]
+    forecasts.loc[group_a, "completed_away_score"] = [0, 0, 5, 0, 5, 5]
+
+    probabilities = simulate_official_tournament(
+        results,
+        forecasts,
+        n_simulations=50,
+        seed=7,
+    )
+
+    a4_probability = probabilities.loc[
+        probabilities["team"] == "A4",
+        "round_of_32_probability",
+    ].item()
+    assert a4_probability == 1.0
+
+
 def test_official_knockout_match_forecasts_are_conditional_pairings() -> None:
     results = load_results_csv(Path(__file__).resolve().parents[1] / "data" / "raw" / "sample_results.csv")
     forecasts = _synthetic_forecasts()

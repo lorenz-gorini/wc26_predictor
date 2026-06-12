@@ -339,6 +339,9 @@ def _simulate_group(group: PreparedGroup, rng: np.random.Generator) -> list[tupl
 
     home_goals = rng.poisson(group.home_lambdas)
     away_goals = rng.poisson(group.away_lambdas)
+    completed = ~np.isnan(group.completed_home_scores)
+    home_goals = np.where(completed, group.completed_home_scores, home_goals).astype(int)
+    away_goals = np.where(completed, group.completed_away_scores, away_goals).astype(int)
 
     for home_idx, away_idx, home_score, away_score in zip(
         group.home_indices,

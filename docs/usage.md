@@ -150,6 +150,9 @@ data/processed/world_cup_2026_availability_impact.csv
 data/processed/world_cup_2026_availability_adjusted_forecasts.csv
 data/processed/world_cup_2026_knockout_match_forecasts.csv
 data/processed/world_cup_2026_full_match_forecasts.csv
+data/processed/world_cup_2026_upcoming_match_details.csv
+data/processed/world_cup_2026_match_prediction_drivers.csv
+data/processed/world_cup_2026_match_final_stage_impacts.csv
 data/processed/world_cup_2026_team_expected_matches.csv
 data/processed/world_cup_2026_official_tournament_probabilities.csv
 data/processed/world_cup_2026_top_scorer_baseline.csv
@@ -169,6 +172,26 @@ PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/ru
 The first baseline treats World Cup 2026 fixtures as venue-neutral. Host-country
 advantage should be added explicitly in the next modeling layer because FIFA
 fixture ordering is not the same as true home advantage.
+
+## Update Predictions After Matches
+
+After the tournament starts, refresh completed results and regenerate the
+forecast artifacts with:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/update_predictions.py
+```
+
+By default this refreshes the public international-results and goalscorers CSVs,
+keeps the existing static fixture/squad inputs, reruns the baseline pipeline,
+regenerates final reports, and rebuilds `reports/model_performance_dashboard.html`.
+Completed World Cup group matches found in `data/processed/international_results.csv`
+are held fixed inside tournament simulations, while unplayed fixtures are
+forecast with the latest fitted model state.
+
+Use `--refresh-static-data` when you also want to redownload fixtures, squads,
+and club-form tables. Use `--impact-simulations` to trade off speed versus
+Monte Carlo stability for the per-match final-stage impact plot.
 
 ## Generate Final Reports
 

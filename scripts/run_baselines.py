@@ -38,6 +38,7 @@ from wc26_predictor.models.market import (
 )
 from wc26_predictor.models.top_scorer import NationalTeamTopScorerModel
 from wc26_predictor.pipelines.baselines import (
+    attach_completed_fixture_results,
     build_full_match_forecast_table,
     build_pairwise_advancement_probabilities,
     collect_world_cup_validation_predictions,
@@ -47,6 +48,12 @@ from wc26_predictor.pipelines.baselines import (
     model_configs_to_frame,
     tune_baseline_model_configs,
     write_baseline_summary,
+)
+from wc26_predictor.reporting.upcoming_forecasts import (
+    UpcomingForecastConfig,
+    build_final_stage_match_impacts,
+    build_match_driver_table,
+    build_upcoming_match_details,
 )
 from wc26_predictor.simulation.official_tournament import (
     simulate_official_knockout_match_forecasts,
@@ -67,6 +74,12 @@ def main() -> None:
         type=int,
         default=2000,
         help="Monte Carlo simulations for tournament expected-match estimates.",
+    )
+    parser.add_argument(
+        "--impact-simulations",
+        type=int,
+        default=400,
+        help="Monte Carlo simulations for per-match final-stage impact diagnostics.",
     )
     args = parser.parse_args()
 
@@ -205,6 +218,8 @@ def main() -> None:
         forecasts_for_simulation["form_poisson_away_expected_goals"] = (
             availability_forecasts["availability_adjusted_away_expected_goals"]
         )
+    forecasts_with_completed_results = attach_completed_fixture_results(forecasts, results)
+    forecasts_for_simulation = attach_completed_fixture_results(forecasts_for_simulation, results)
     fixture_teams = set(forecasts["home_team"]).union(forecasts["away_team"])
     advancement_probabilities = build_pairwise_advancement_probabilities(
         results,
@@ -225,6 +240,24 @@ def main() -> None:
         advancement_probabilities=advancement_probabilities,
     )
     full_match_forecasts = build_full_match_forecast_table(forecasts, knockout_forecasts)
+    upcoming_match_details = build_upcoming_match_details(
+        forecasts_with_completed_results,
+        availability_forecasts=availability_forecasts,
+    )
+    match_drivers = build_match_driver_table(
+        results,
+        upcoming_match_details,
+        configs=model_configs,
+    )
+    final_stage_impacts = build_final_stage_match_impacts(
+        results,
+        forecasts_for_simulation,
+        advancement_probabilities=advancement_probabilities,
+        config=UpcomingForecastConfig(
+            impact_simulations=args.impact_simulations,
+            random_seed=2026,
+        ),
+    )
     team_expected_matches = tournament_probabilities[
         [
             "team",
@@ -299,6 +332,9 @@ def main() -> None:
     availability_forecast_path = output_dir / "world_cup_2026_availability_adjusted_forecasts.csv"
     knockout_forecast_path = output_dir / "world_cup_2026_knockout_match_forecasts.csv"
     full_match_forecast_path = output_dir / "world_cup_2026_full_match_forecasts.csv"
+    upcoming_match_details_path = output_dir / "world_cup_2026_upcoming_match_details.csv"
+    match_drivers_path = output_dir / "world_cup_2026_match_prediction_drivers.csv"
+    final_stage_impact_path = output_dir / "world_cup_2026_match_final_stage_impacts.csv"
     summary_path = report_dir / "baseline_summary.md"
     top_scorer_path = output_dir / "world_cup_2026_top_scorer_baseline.csv"
     availability_adjusted_top_scorer_path = (
@@ -350,6 +386,9 @@ def main() -> None:
         availability_forecasts.to_csv(availability_forecast_path, index=False)
     knockout_forecasts.to_csv(knockout_forecast_path, index=False)
     full_match_forecasts.to_csv(full_match_forecast_path, index=False)
+    upcoming_match_details.to_csv(upcoming_match_details_path, index=False)
+    match_drivers.to_csv(match_drivers_path, index=False)
+    final_stage_impacts.to_csv(final_stage_impact_path, index=False)
     team_expected_matches.to_csv(expected_matches_path, index=False)
     tournament_probabilities.to_csv(tournament_probabilities_path, index=False)
     if top_scorers is not None:
@@ -401,6 +440,9 @@ def main() -> None:
         print(f"Availability-adjusted forecasts -> {availability_forecast_path}")
     print(f"Knockout match forecasts -> {knockout_forecast_path}")
     print(f"Full match forecasts -> {full_match_forecast_path}")
+    print(f"Upcoming match details -> {upcoming_match_details_path}")
+    print(f"Match prediction drivers -> {match_drivers_path}")
+    print(f"Match final-stage impacts -> {final_stage_impact_path}")
     print(f"Team expected matches -> {expected_matches_path}")
     print(f"Official tournament probabilities -> {tournament_probabilities_path}")
     if top_scorers is not None:

@@ -26,6 +26,8 @@ class PreparedGroup:
     away_indices: np.ndarray
     home_lambdas: np.ndarray
     away_lambdas: np.ndarray
+    completed_home_scores: np.ndarray
+    completed_away_scores: np.ndarray
 
 
 def simulate_abstract_tournament(
@@ -108,6 +110,7 @@ def _prepare_groups(forecasts: pd.DataFrame) -> list[PreparedGroup]:
     for name, group_frame in forecasts.groupby("group"):
         teams = tuple(sorted(set(group_frame["home_team"]).union(group_frame["away_team"])))
         team_index = {team: index for index, team in enumerate(teams)}
+        completed_home_scores, completed_away_scores = _completed_scores(group_frame)
         groups.append(
             PreparedGroup(
                 name=str(name),
@@ -116,6 +119,8 @@ def _prepare_groups(forecasts: pd.DataFrame) -> list[PreparedGroup]:
                 away_indices=group_frame["away_team"].map(team_index).to_numpy(dtype=int),
                 home_lambdas=group_frame["form_poisson_home_expected_goals"].to_numpy(dtype=float),
                 away_lambdas=group_frame["form_poisson_away_expected_goals"].to_numpy(dtype=float),
+                completed_home_scores=completed_home_scores,
+                completed_away_scores=completed_away_scores,
             )
         )
     if len(groups) != 12:
@@ -143,6 +148,9 @@ def _simulate_group(group: PreparedGroup, rng: np.random.Generator) -> list[tupl
 
     home_goals = rng.poisson(group.home_lambdas)
     away_goals = rng.poisson(group.away_lambdas)
+    completed = ~np.isnan(group.completed_home_scores)
+    home_goals = np.where(completed, group.completed_home_scores, home_goals).astype(int)
+    away_goals = np.where(completed, group.completed_away_scores, away_goals).astype(int)
 
     for home_idx, away_idx, home_score, away_score in zip(
         group.home_indices,
@@ -171,6 +179,25 @@ def _simulate_group(group: PreparedGroup, rng: np.random.Generator) -> list[tupl
     return sorted(rows, key=lambda row: (-row[0], -row[1], -row[2], row[3]))
 
 
+def _completed_scores(group_frame: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
+    has_home = "completed_home_score" in group_frame.columns
+    has_away = "completed_away_score" in group_frame.columns
+    if not has_home and not has_away:
+        empty = np.full(len(group_frame), np.nan)
+        return empty, empty.copy()
+    required = {"completed_home_score", "completed_away_score"}
+    missing = required.difference(group_frame.columns)
+    if missing:
+        raise ValueError(f"Missing completed-score columns: {sorted(missing)}")
+
+    home_scores = pd.to_numeric(group_frame["completed_home_score"], errors="coerce")
+    away_scores = pd.to_numeric(group_frame["completed_away_score"], errors="coerce")
+    mismatch = home_scores.isna() != away_scores.isna()
+    if mismatch.any():
+        raise ValueError("Completed fixture scores must provide both home and away goals.")
+    return home_scores.to_numpy(dtype=float), away_scores.to_numpy(dtype=float)
+
+
 def _elo_probability_cache(teams: list[str], elo: EloRatings) -> dict[tuple[str, str], float]:
     probabilities = {}
     for first in teams:
@@ -187,4 +214,3 @@ def _simulate_knockout_winner(
     rng: np.random.Generator,
 ) -> str:
     return first if rng.random() < elo_probabilities[(first, second)] else second
-

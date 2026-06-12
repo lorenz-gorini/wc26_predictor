@@ -742,6 +742,48 @@ def build_pairwise_advancement_probabilities(
     return probabilities
 
 
+def attach_completed_fixture_results(
+    forecasts: pd.DataFrame,
+    results: pd.DataFrame,
+    tournament: str = "FIFA World Cup",
+) -> pd.DataFrame:
+    """Mark group fixtures that already have completed results.
+
+    Completed scores are used by the tournament simulators as fixed group-stage
+    outcomes, while still allowing the same forecast table to carry predictions
+    for matches that have not been played yet.
+    """
+
+    required_forecast_columns = {"date", "home_team", "away_team"}
+    missing = required_forecast_columns.difference(forecasts.columns)
+    if missing:
+        raise ValueError(f"Missing forecast columns: {sorted(missing)}")
+
+    validated_results = validate_results_frame(results)
+    completed = validated_results[validated_results["tournament"] == tournament].copy()
+    completed["date"] = pd.to_datetime(completed["date"], errors="raise").dt.date
+    completed = completed.loc[
+        :,
+        ["date", "home_team", "away_team", "home_score", "away_score"],
+    ].rename(
+        columns={
+            "home_score": "completed_home_score",
+            "away_score": "completed_away_score",
+        }
+    )
+
+    output = forecasts.copy()
+    output["date"] = pd.to_datetime(output["date"], errors="raise").dt.date
+    output = output.merge(
+        completed,
+        on=["date", "home_team", "away_team"],
+        how="left",
+        validate="many_to_one",
+    )
+    output["is_completed"] = output["completed_home_score"].notna()
+    return output
+
+
 def build_full_match_forecast_table(
     group_forecasts: pd.DataFrame,
     knockout_forecasts: pd.DataFrame,

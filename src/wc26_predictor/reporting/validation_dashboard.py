@@ -128,6 +128,15 @@ def generate_validation_dashboard(
         forecasts=forecasts,
         validation_match_count=validation_predictions["match_id"].nunique(),
     )
+    upcoming_match_details = _read_optional_csv(
+        processed_dir / "world_cup_2026_upcoming_match_details.csv"
+    )
+    match_drivers = _read_optional_csv(
+        processed_dir / "world_cup_2026_match_prediction_drivers.csv"
+    )
+    final_stage_impacts = _read_optional_csv(
+        processed_dir / "world_cup_2026_match_final_stage_impacts.csv"
+    )
 
     html = _build_dashboard_html(
         metric_summary=metric_summary,
@@ -138,6 +147,9 @@ def generate_validation_dashboard(
         market_delta_summary=market_delta_summary,
         score_strategy_summary=score_strategy_summary,
         future_uncertainty=future_uncertainty,
+        upcoming_match_details=upcoming_match_details,
+        match_drivers=match_drivers,
+        final_stage_impacts=final_stage_impacts,
         validation_match_count=validation_predictions["match_id"].nunique(),
         config=dashboard_config,
     )
@@ -514,6 +526,9 @@ def _build_dashboard_html(
     market_delta_summary: pd.DataFrame,
     score_strategy_summary: pd.DataFrame | None,
     future_uncertainty: pd.DataFrame,
+    upcoming_match_details: pd.DataFrame | None,
+    match_drivers: pd.DataFrame | None,
+    final_stage_impacts: pd.DataFrame | None,
     validation_match_count: int,
     config: ValidationDashboardConfig,
 ) -> str:
@@ -638,6 +653,33 @@ def _build_dashboard_html(
             "These are the group fixtures where current model-family disagreement is "
             "largest after adding the validation-sample term.",
             _future_uncertainty_table(future_uncertainty.head(12)),
+        ),
+        "</section>",
+        _panel(
+            "Next match forecasts",
+            "The list is capped to the next 16 unplayed group fixtures. Open a match to "
+            "inspect expected goals, exact-score probabilities, main drivers, and the "
+            "match's simulated final-stage impact.",
+            _upcoming_match_cards(
+                upcoming_match_details,
+                match_drivers,
+                final_stage_impacts,
+                limit=16,
+            ),
+            wide=True,
+        ),
+        '<section class="grid two">',
+        _panel(
+            "Group-match final-stage impact",
+            "Impact is the L1 movement in simulated advancement probabilities after "
+            "neutralizing one match's directional expected-goal edge.",
+            _final_stage_impact_chart(final_stage_impacts),
+        ),
+        _panel(
+            "Largest final-stage movers",
+            "Rows show the group matches whose directional forecast changes knockout-path "
+            "probabilities most in the current simulation.",
+            _final_stage_impact_table(final_stage_impacts),
         ),
         "</section>",
         '<section class="notes">',
@@ -940,6 +982,224 @@ def _future_uncertainty_table(frame: pd.DataFrame) -> str:
     )
 
 
+def _upcoming_match_cards(
+    details: pd.DataFrame | None,
+    drivers: pd.DataFrame | None,
+    impacts: pd.DataFrame | None,
+    limit: int,
+) -> str:
+    if details is None or details.empty:
+        return '<p class="empty">Run `scripts/run_baselines.py` to populate match details.</p>'
+    required = {
+        "date",
+        "time_local",
+        "group",
+        "match_number",
+        "home_team",
+        "away_team",
+        "predicted_score",
+        "predicted_score_probability",
+        "home_expected_goals",
+        "away_expected_goals",
+        "home_win_probability",
+        "draw_probability",
+        "away_win_probability",
+        "top_scorelines",
+    }
+    _require_columns(details, required, "upcoming match details")
+    upcoming = details.copy()
+    if "is_completed" in upcoming.columns:
+        upcoming = upcoming[~upcoming["is_completed"].map(_parse_boolish)].copy()
+    upcoming["date_sort"] = pd.to_datetime(upcoming["date"], errors="raise")
+    upcoming = upcoming.sort_values(["date_sort", "match_number"], ignore_index=True).head(limit)
+    if upcoming.empty:
+        return '<p class="empty">No unplayed group fixtures remain in the forecast file.</p>'
+
+    driver_lookup = _drivers_by_match(drivers)
+    impact_lookup = _impacts_by_match(impacts)
+    cards = []
+    for row in upcoming.itertuples(index=False):
+        match_number = int(row.match_number)
+        impact = impact_lookup.get(match_number)
+        cards.append(
+            '<details class="match-card">'
+            "<summary>"
+            '<span class="match-main">'
+            f"<strong>{escape(str(row.home_team))} vs {escape(str(row.away_team))}</strong>"
+            f"<small>Match {match_number} · Group {escape(str(row.group))} · "
+            f"{escape(str(row.date))} {escape(str(row.time_local))}</small>"
+            "</span>"
+            '<span class="score-pill">'
+            f"{escape(str(row.predicted_score))}"
+            f"<small>{float(row.predicted_score_probability):.1%}</small>"
+            "</span>"
+            "</summary>"
+            '<div class="match-detail">'
+            f"{_match_metric_grid(row, impact)}"
+            f"{_driver_bars(driver_lookup.get(match_number, pd.DataFrame()))}"
+            "</div>"
+            "</details>"
+        )
+    return '<div class="forecast-list">' + "".join(cards) + "</div>"
+
+
+def _match_metric_grid(row: object, impact: pd.Series | None) -> str:
+    impact_value = (
+        f"{float(impact['total_final_stage_impact']):.3f}"
+        if impact is not None
+        else "n/a"
+    )
+    impact_team = (
+        f"{impact['largest_winner_delta_team']} "
+        f"({float(impact['largest_winner_probability_delta']):+.2%})"
+        if impact is not None
+        else "n/a"
+    )
+    items = [
+        (
+            "Expected goals",
+            f"{float(row.home_expected_goals):.2f} - {float(row.away_expected_goals):.2f}",
+        ),
+        ("Home win", f"{float(row.home_win_probability):.1%}"),
+        ("Draw", f"{float(row.draw_probability):.1%}"),
+        ("Away win", f"{float(row.away_win_probability):.1%}"),
+        ("Top scorelines", str(row.top_scorelines)),
+        ("Final-stage impact", impact_value),
+        ("Largest winner move", impact_team),
+        ("Venue", f"{row.stadium}, {row.city}"),
+    ]
+    cells = [
+        '<div class="metric-cell">'
+        f"<span>{escape(label)}</span>"
+        f"<strong>{escape(value)}</strong>"
+        "</div>"
+        for label, value in items
+    ]
+    return '<div class="match-metrics">' + "".join(cells) + "</div>"
+
+
+def _driver_bars(frame: pd.DataFrame) -> str:
+    if frame.empty:
+        return '<p class="empty">No driver decomposition is available for this match.</p>'
+    display = frame[frame["driver"] != "base_goal_environment"].copy()
+    display = display.sort_values(
+        "abs_contribution_log_expected_goals",
+        ascending=False,
+    ).head(8)
+    if display.empty:
+        return '<p class="empty">Only the base goal environment contributes materially.</p>'
+    max_abs = max(float(display["contribution_log_expected_goals"].abs().max()), 1e-9)
+    rows = ['<div class="driver-list"><h3>Main score drivers</h3>']
+    for driver in display.itertuples(index=False):
+        contribution = float(driver.contribution_log_expected_goals)
+        width = abs(contribution) / max_abs * 100.0
+        side_class = "positive" if contribution >= 0 else "negative"
+        label = str(driver.driver).replace("_", " ")
+        rows.append(
+            '<div class="driver-row">'
+            '<div class="driver-label">'
+            f"<strong>{escape(str(driver.team))}</strong>"
+            f"<span>{escape(label)}</span>"
+            "</div>"
+            '<div class="driver-track">'
+            f'<span class="driver-fill {side_class}" style="width: {width:.1f}%"></span>'
+            "</div>"
+            f"<small>{contribution:+.3f} log goals · x{float(driver.multiplier):.2f}</small>"
+            "</div>"
+        )
+    rows.append("</div>")
+    return "".join(rows)
+
+
+def _final_stage_impact_chart(impacts: pd.DataFrame | None) -> str:
+    if impacts is None or impacts.empty:
+        return '<p class="empty">No final-stage impact file was available.</p>'
+    required = {
+        "match_number",
+        "home_team",
+        "away_team",
+        "total_final_stage_impact",
+    }
+    _require_columns(impacts, required, "final-stage impacts")
+    chart = impacts.head(12).copy()
+    chart["label"] = chart["home_team"] + " vs " + chart["away_team"]
+    chart["color"] = "#1f5fbf"
+    chart["lower"] = 0.0
+    chart["upper"] = chart["total_final_stage_impact"]
+    return _horizontal_bar_chart(
+        chart,
+        value_column="total_final_stage_impact",
+        lower_column="lower",
+        upper_column="upper",
+        title="Total final-stage impact",
+        x_format="{:.3f}",
+    )
+
+
+def _final_stage_impact_table(impacts: pd.DataFrame | None) -> str:
+    if impacts is None or impacts.empty:
+        return '<p class="empty">No final-stage impact file was available.</p>'
+    rows = []
+    for row in impacts.head(12).itertuples(index=False):
+        rows.append(
+            "<tr>"
+            f"<td>{int(row.match_number)}</td>"
+            f"<td>{escape(str(row.group))}</td>"
+            f"<td>{escape(str(row.home_team))}</td>"
+            f"<td>{escape(str(row.away_team))}</td>"
+            f"<td>{float(row.round_of_32_l1_impact):.3f}</td>"
+            f"<td>{float(row.final_l1_impact):.3f}</td>"
+            f"<td>{float(row.winner_l1_impact):.3f}</td>"
+            f"<td>{float(row.total_final_stage_impact):.3f}</td>"
+            f"<td>{escape(str(row.largest_winner_delta_team))}</td>"
+            f"<td>{float(row.largest_winner_probability_delta):+.2%}</td>"
+            "</tr>"
+        )
+    return (
+        '<div class="table-wrap compact"><table>'
+        "<thead><tr><th>#</th><th>Group</th><th>Home</th><th>Away</th>"
+        "<th>R32 L1</th><th>Final L1</th><th>Winner L1</th><th>Total</th>"
+        "<th>Team</th><th>Winner delta</th></tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody></table></div>"
+    )
+
+
+def _drivers_by_match(drivers: pd.DataFrame | None) -> dict[int, pd.DataFrame]:
+    if drivers is None or drivers.empty:
+        return {}
+    _require_columns(
+        drivers,
+        {
+            "match_number",
+            "team",
+            "driver",
+            "contribution_log_expected_goals",
+            "abs_contribution_log_expected_goals",
+            "multiplier",
+        },
+        "match drivers",
+    )
+    return {
+        int(match_number): frame.copy()
+        for match_number, frame in drivers.groupby("match_number", sort=False)
+    }
+
+
+def _impacts_by_match(impacts: pd.DataFrame | None) -> dict[int, pd.Series]:
+    if impacts is None or impacts.empty:
+        return {}
+    return {
+        int(row.match_number): pd.Series(row._asdict())
+        for row in impacts.itertuples(index=False)
+    }
+
+
+def _parse_boolish(value: object) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in {"true", "1", "yes"}
+
+
 def _svg_open(width: int, height: int) -> str:
     return (
         f'<svg viewBox="0 0 {width} {height}" role="img" '
@@ -1139,11 +1399,123 @@ tr:nth-child(even) td {
   border: 1px dashed var(--line);
   border-radius: 8px;
 }
+.forecast-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.match-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf0;
+  overflow: hidden;
+}
+.match-card summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.match-card summary::-webkit-details-marker { display: none; }
+.match-main strong,
+.match-main small,
+.score-pill,
+.score-pill small {
+  display: block;
+}
+.match-main strong {
+  font-size: 1rem;
+}
+.match-main small,
+.score-pill small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.score-pill {
+  min-width: 82px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7f2e8;
+  text-align: center;
+  font-weight: 800;
+}
+.match-detail {
+  padding: 0 16px 16px;
+}
+.match-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.metric-cell {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+.metric-cell span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+.metric-cell strong {
+  display: block;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+  font-size: 0.88rem;
+}
+.driver-list h3 {
+  margin: 6px 0 10px;
+  font-size: 1rem;
+}
+.driver-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.9fr) minmax(120px, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid rgba(222, 215, 202, 0.75);
+}
+.driver-label strong,
+.driver-label span {
+  display: block;
+}
+.driver-label span,
+.driver-row small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.driver-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #ebe4d8;
+}
+.driver-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+.driver-fill.positive { background: #2f6f73; }
+.driver-fill.negative { background: #b75d3b; }
 @media (max-width: 920px) {
   .page { padding: 18px; }
   .hero,
   .kpi-grid,
-  .grid.two {
+  .grid.two,
+  .forecast-list,
+  .match-metrics {
+    grid-template-columns: 1fr;
+  }
+  .driver-row {
     grid-template-columns: 1fr;
   }
 }
