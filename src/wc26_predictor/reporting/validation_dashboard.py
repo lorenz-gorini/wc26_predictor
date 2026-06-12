@@ -1403,6 +1403,7 @@ tr:nth-child(even) td {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+  align-items: start;
 }
 .match-card {
   border: 1px solid var(--line);

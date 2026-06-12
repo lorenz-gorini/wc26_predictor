@@ -9,7 +9,6 @@ from wc26_predictor.data.odds import team_key
 from wc26_predictor.data.schema import OutcomeProbabilities
 from wc26_predictor.evaluation.metrics import brier_score, multiclass_log_loss
 
-
 OUTCOMES = ("home_win", "draw", "away_win")
 
 
@@ -28,7 +27,9 @@ def match_validation_predictions_to_odds(
         "observed",
         *(f"{model_prefix}_{outcome}" for outcome in OUTCOMES),
     }
-    missing_predictions = required_predictions.difference(validation_predictions.columns)
+    missing_predictions = required_predictions.difference(
+        validation_predictions.columns
+    )
     if missing_predictions:
         raise ValueError(f"Missing prediction columns: {sorted(missing_predictions)}")
 
@@ -94,11 +95,12 @@ def match_validation_predictions_to_odds(
     )
 
     model_columns = {
-        f"{model_prefix}_{outcome}": f"model_{outcome}"
-        for outcome in OUTCOMES
+        f"{model_prefix}_{outcome}": f"model_{outcome}" for outcome in OUTCOMES
     }
     matched = matched.rename(columns=model_columns)
-    return matched.sort_values(["window", "date", "home_team", "away_team"]).reset_index(drop=True)
+    return matched.sort_values(
+        ["window", "date", "home_team", "away_team"]
+    ).reset_index(drop=True)
 
 
 def evaluate_market_models(
@@ -119,7 +121,9 @@ def evaluate_market_models(
                 "market_weight",
             ]
         )
-        empty_weights = pd.DataFrame(columns=["window", "model_weight", "market_weight"])
+        empty_weights = pd.DataFrame(
+            columns=["window", "model_weight", "market_weight"]
+        )
         return empty_metrics, empty_weights
 
     rows = []
@@ -140,8 +144,16 @@ def evaluate_market_models(
         )
 
         observed = frame["observed"].tolist()
-        rows.append(_metric_row(window_name, "model_only", _probabilities(frame, "model"), observed))
-        rows.append(_metric_row(window_name, "market_only", _probabilities(frame, "market"), observed))
+        rows.append(
+            _metric_row(
+                window_name, "model_only", _probabilities(frame, "model"), observed
+            )
+        )
+        rows.append(
+            _metric_row(
+                window_name, "market_only", _probabilities(frame, "market"), observed
+            )
+        )
 
         combined = _combined_probabilities(frame, model_weight)
         row = _metric_row(window_name, "model_market_lowo", combined, observed)
@@ -231,7 +243,9 @@ def _probabilities(frame: pd.DataFrame, prefix: str) -> list[OutcomeProbabilitie
     ]
 
 
-def _combined_probabilities(frame: pd.DataFrame, model_weight: float) -> list[OutcomeProbabilities]:
+def _combined_probabilities(
+    frame: pd.DataFrame, model_weight: float
+) -> list[OutcomeProbabilities]:
     if model_weight < 0 or model_weight > 1:
         raise ValueError("model_weight must be in [0, 1].")
     market_weight = 1.0 - model_weight
