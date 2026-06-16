@@ -10,6 +10,7 @@ from wc26_predictor.reporting.validation_dashboard import (
     ValidationDashboardConfig,
     generate_validation_dashboard,
 )
+from wc26_predictor.reporting.world_cup_dashboard import generate_world_cup_dashboard
 
 
 def main() -> None:
@@ -40,15 +41,31 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    reports_dir = args.project_root / "reports"
+    validation_destination = (
+        args.destination
+        if args.destination is not None
+        else reports_dir / "dashboard" / "model_performance.html"
+    )
+    validation_destination.parent.mkdir(parents=True, exist_ok=True)
     path = generate_validation_dashboard(
         project_root=args.project_root,
-        destination=args.destination,
+        destination=validation_destination,
         config=ValidationDashboardConfig(
             bootstrap_samples=args.bootstrap_samples,
             random_seed=args.seed,
         ),
     )
+    dashboard_paths = generate_world_cup_dashboard(
+        project_root=args.project_root,
+        index_path=reports_dir / "model_performance_dashboard.html",
+        dashboard_dir=reports_dir / "dashboard",
+    )
     print(f"Validation dashboard -> {path}")
+    print(f"World Cup dashboard -> {dashboard_paths.index}")
+    print(f"Future matches page -> {dashboard_paths.future_matches}")
+    print(f"Group-stage page -> {dashboard_paths.group_stage}")
+    print(f"Next-phases page -> {dashboard_paths.next_phases}")
 
 
 if __name__ == "__main__":

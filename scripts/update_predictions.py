@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from wc26_predictor.reporting.prediction_history import archive_latest_prediction_snapshot
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -50,6 +52,10 @@ def main() -> None:
 
     root = args.project_root.resolve()
     python = sys.executable
+    archived = archive_latest_prediction_snapshot(root / "data" / "processed")
+    if archived is not None:
+        print(f"Archived pre-update prediction snapshot -> {archived}")
+
     download_command = [
         python,
         str(root / "scripts" / "download_data.py"),

@@ -49,6 +49,14 @@ from wc26_predictor.pipelines.baselines import (
     tune_baseline_model_configs,
     write_baseline_summary,
 )
+from wc26_predictor.reporting.prediction_history import (
+    LATEST_SNAPSHOT_FILE,
+    PLAYED_CHECKS_FILE,
+    SNAPSHOT_HISTORY_FILE,
+    build_played_match_prediction_checks,
+    load_prediction_history,
+    write_latest_prediction_snapshot,
+)
 from wc26_predictor.reporting.upcoming_forecasts import (
     UpcomingForecastConfig,
     build_final_stage_match_impacts,
@@ -182,12 +190,15 @@ def main() -> None:
                 load_player_availability_csv(sportsgambler_availability_path)
             )
         if soccerdata_availability_path.exists():
-            availability_override_frames.append(load_player_availability_csv(soccerdata_availability_path))
+            availability_override_frames.append(
+                load_player_availability_csv(soccerdata_availability_path)
+            )
         if availability_path.exists():
             availability_override_frames.append(load_player_availability_csv(availability_path))
         availability_overrides = (
-            pd.concat(availability_override_frames, ignore_index=True)
-            .drop_duplicates(["team_key", "player_key"], keep="last")
+            pd.concat(availability_override_frames, ignore_index=True).drop_duplicates(
+                ["team_key", "player_key"], keep="last"
+            )
             if availability_override_frames
             else None
         )
@@ -212,12 +223,12 @@ def main() -> None:
             goal_penalty_per_burden=goal_penalty_per_burden,
         )
         forecasts_for_simulation = forecasts.copy()
-        forecasts_for_simulation["form_poisson_home_expected_goals"] = (
-            availability_forecasts["availability_adjusted_home_expected_goals"]
-        )
-        forecasts_for_simulation["form_poisson_away_expected_goals"] = (
-            availability_forecasts["availability_adjusted_away_expected_goals"]
-        )
+        forecasts_for_simulation["form_poisson_home_expected_goals"] = availability_forecasts[
+            "availability_adjusted_home_expected_goals"
+        ]
+        forecasts_for_simulation["form_poisson_away_expected_goals"] = availability_forecasts[
+            "availability_adjusted_away_expected_goals"
+        ]
     forecasts_with_completed_results = attach_completed_fixture_results(forecasts, results)
     forecasts_for_simulation = attach_completed_fixture_results(forecasts_for_simulation, results)
     fixture_teams = set(forecasts["home_team"]).union(forecasts["away_team"])
@@ -243,6 +254,11 @@ def main() -> None:
     upcoming_match_details = build_upcoming_match_details(
         forecasts_with_completed_results,
         availability_forecasts=availability_forecasts,
+    )
+    prediction_history = load_prediction_history(output_dir / SNAPSHOT_HISTORY_FILE)
+    played_match_checks = build_played_match_prediction_checks(
+        upcoming_match_details,
+        prediction_history,
     )
     match_drivers = build_match_driver_table(
         results,
@@ -335,6 +351,8 @@ def main() -> None:
     upcoming_match_details_path = output_dir / "world_cup_2026_upcoming_match_details.csv"
     match_drivers_path = output_dir / "world_cup_2026_match_prediction_drivers.csv"
     final_stage_impact_path = output_dir / "world_cup_2026_match_final_stage_impacts.csv"
+    latest_prediction_snapshot_path = output_dir / LATEST_SNAPSHOT_FILE
+    played_match_checks_path = output_dir / PLAYED_CHECKS_FILE
     summary_path = report_dir / "baseline_summary.md"
     top_scorer_path = output_dir / "world_cup_2026_top_scorer_baseline.csv"
     availability_adjusted_top_scorer_path = (
@@ -387,6 +405,11 @@ def main() -> None:
     knockout_forecasts.to_csv(knockout_forecast_path, index=False)
     full_match_forecasts.to_csv(full_match_forecast_path, index=False)
     upcoming_match_details.to_csv(upcoming_match_details_path, index=False)
+    write_latest_prediction_snapshot(
+        upcoming_match_details,
+        latest_prediction_snapshot_path,
+    )
+    played_match_checks.to_csv(played_match_checks_path, index=False)
     match_drivers.to_csv(match_drivers_path, index=False)
     final_stage_impacts.to_csv(final_stage_impact_path, index=False)
     team_expected_matches.to_csv(expected_matches_path, index=False)
@@ -441,6 +464,8 @@ def main() -> None:
     print(f"Knockout match forecasts -> {knockout_forecast_path}")
     print(f"Full match forecasts -> {full_match_forecast_path}")
     print(f"Upcoming match details -> {upcoming_match_details_path}")
+    print(f"Latest prediction snapshot -> {latest_prediction_snapshot_path}")
+    print(f"Played match prediction checks -> {played_match_checks_path}")
     print(f"Match prediction drivers -> {match_drivers_path}")
     print(f"Match final-stage impacts -> {final_stage_impact_path}")
     print(f"Team expected matches -> {expected_matches_path}")
@@ -449,15 +474,13 @@ def main() -> None:
         print(f"Top scorer baseline -> {top_scorer_path}")
     if availability_adjusted_top_scorers is not None:
         print(
-            "Availability-adjusted top scorer baseline -> "
-            f"{availability_adjusted_top_scorer_path}"
+            f"Availability-adjusted top scorer baseline -> {availability_adjusted_top_scorer_path}"
         )
     if club_adjusted_top_scorers is not None:
         print(f"Club-adjusted top scorer top 100 -> {club_adjusted_top_scorer_path}")
     if transfermarkt_adjusted_top_scorers is not None:
         print(
-            "Transfermarkt-adjusted top scorer top 100 -> "
-            f"{transfermarkt_adjusted_top_scorer_path}"
+            f"Transfermarkt-adjusted top scorer top 100 -> {transfermarkt_adjusted_top_scorer_path}"
         )
     print(f"Summary report -> {summary_path}")
 

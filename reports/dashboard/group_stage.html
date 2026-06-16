@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Group-Stage Pools</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --panel: #fffdf8;
+  --ink: #17201f;
+  --muted: #66706b;
+  --line: #ded7ca;
+  --blue: #1f5fbf;
+  --green: #2f6f73;
+  --red: #b75d3b;
+  --shadow: 0 14px 38px rgba(45, 38, 24, 0.10);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.page { width: min(1440px, 100%); margin: 0 auto; padding: 26px; }
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+nav a, .route-card {
+  color: var(--ink);
+  text-decoration: none;
+}
+nav a {
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+nav a.active { color: #fff; background: var(--blue); border-color: var(--blue); }
+.hero { padding: 42px 0 30px; border-bottom: 1px solid var(--line); }
+.hero p { margin: 0 0 8px; color: var(--blue); font-weight: 800; text-transform: uppercase; }
+.hero h1 { margin: 0; font-size: clamp(2.4rem, 6vw, 5.8rem); line-height: 0.95; }
+.hero span { display: block; margin-top: 14px; color: var(--muted); }
+.kpi-grid, .route-grid, .grid, .forecast-list, .group-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+.kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.route-grid, .grid.two, .forecast-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.group-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+.panel, .kpi, .route-card, .match-card, .group-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+.panel, .kpi, .route-card, .group-card { padding: 20px; }
+.panel.wide { margin-top: 18px; }
+.route-card strong, .route-card span, .kpi span, .kpi strong, .kpi small { display: block; }
+.route-card strong, .kpi strong { font-size: 1.35rem; margin: 8px 0; }
+.route-card span, .kpi span, .kpi small, .muted, .panel p { color: var(--muted); }
+h2, h3 { margin: 0 0 10px; }
+.match-card { overflow: hidden; }
+.match-card summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.match-card summary::-webkit-details-marker, .team-row summary::-webkit-details-marker { display: none; }
+.match-main strong, .match-main small, .score-pill, .score-pill small { display: block; }
+.match-main small, .score-pill small { margin-top: 4px; color: var(--muted); font-size: 0.78rem; }
+.score-pill {
+  min-width: 78px;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 800;
+  background: #f7f2e8;
+}
+.match-detail { padding: 0 16px 16px; }
+.match-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.metric-cell { padding: 10px; border: 1px solid var(--line); border-radius: 8px; }
+.metric-cell span { display: block; color: var(--muted); font-size: 0.74rem; font-weight: 700; }
+.metric-cell strong { display: block; margin-top: 4px; overflow-wrap: anywhere; font-size: 0.88rem; }
+.driver-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.9fr) minmax(120px, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.driver-label strong, .driver-label span { display: block; }
+.driver-label span, .driver-row small { color: var(--muted); font-size: 0.76rem; }
+.driver-track { height: 9px; overflow: hidden; border-radius: 999px; background: #ebe4d8; }
+.driver-fill { display: block; height: 100%; border-radius: 999px; }
+.driver-fill.positive { background: var(--green); }
+.driver-fill.negative { background: var(--red); }
+.team-header, .team-row summary {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 42px 52px 52px 64px;
+  gap: 8px;
+  align-items: center;
+}
+.team-header { color: var(--muted); font-size: 0.76rem; font-weight: 800; padding-bottom: 8px; }
+.team-row { border-top: 1px solid var(--line); }
+.team-row summary { padding: 10px 0; cursor: pointer; }
+.inset { margin: 0 0 10px 0; padding: 0 0 8px; }
+.match-list { margin: 0 0 12px; padding-left: 18px; color: var(--muted); }
+.match-list strong, .match-list span { display: block; color: var(--ink); }
+.match-list span { color: var(--muted); font-size: 0.86rem; }
+.table-wrap { max-height: 520px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+th { position: sticky; top: 0; background: #f7f2e8; z-index: 1; }
+code { background: #f7f2e8; padding: 2px 5px; border-radius: 5px; }
+@media (max-width: 1000px) {
+  .page { padding: 18px; }
+  .kpi-grid, .route-grid, .grid.two, .forecast-list, .group-grid, .match-metrics {
+    grid-template-columns: 1fr;
+  }
+  .driver-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<nav><a class="" href="../model_performance_dashboard.html">Home</a><a class="" href="future_matches.html">Future matches</a><a class="active" href="group_stage.html">Group stage</a><a class="" href="next_phases.html">Next phases</a><a class="" href="model_performance.html">Model performance</a></nav>
+<section class="panel wide"><h2>Group-stage pools</h2><p>Open a team row to inspect played matches and the archived prediction used for evaluation.</p><div class="group-grid"><article class="group-card"><h3>Group A</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Mexico</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 70.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Czech Republic</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 67.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>South Korea</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 66.9%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>South Africa</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 63.4%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group B</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Switzerland</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 86.6%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Canada</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 84.0%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Bosnia and Herzegovina</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 58.2%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Qatar</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 38.0%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group C</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Morocco</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 94.5%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Brazil</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 66.6%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Haiti</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 60.2%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Scotland</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 44.9%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group D</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Australia</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 80.2%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Turkey</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 78.2%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>United States</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 56.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Paraguay</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 53.9%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group E</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Ivory Coast</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 81.3%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Germany</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 77.9%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Ecuador</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 65.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Curaçao</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 46.2%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group F</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Japan</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 94.1%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Netherlands</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 84.4%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Tunisia</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 58.0%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Sweden</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 28.7%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group G</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Belgium</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 88.4%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Iran</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 81.3%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Egypt</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 67.7%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>New Zealand</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 29.6%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group H</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Spain</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 94.7%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Uruguay</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 62.3%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Cape Verde</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 54.4%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Saudi Arabia</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 46.9%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group I</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Norway</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 84.0%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Senegal</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 79.6%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>France</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 70.5%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Iraq</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 34.5%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group J</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Argentina</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 92.6%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Algeria</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 83.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Austria</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 77.5%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Jordan</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 17.3%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group K</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>Portugal</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 81.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Colombia</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 69.1%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>DR Congo</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 60.6%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Uzbekistan</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 54.5%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article><article class="group-card"><h3>Group L</h3><div class="team-header"><span>Team</span><span>P</span><span>Pts</span><span>GD</span><span>Adv</span></div><details class="team-row"><summary><strong>England</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 95.2%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Croatia</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 76.8%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Panama</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 52.5%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details><details class="team-row"><summary><strong>Ghana</strong><span>0P</span><span>0 pts</span><span>GD +0</span><span>Adv 36.9%</span></summary><p class="muted inset">No downloaded played matches for this team yet.</p></details></article></div></section><section class="panel wide"><h2>Past match prediction checks</h2><p>No completed World Cup matches with archived pre-match predictions are available yet. After running the update workflow once before new results arrive, later completed matches will appear here with exact-score and outcome diagnostics.</p></section><section class="panel wide"><h2>Past fixtures awaiting results</h2><p>These fixtures are before the dashboard date but are not present in the downloaded completed-results file yet.</p><div class="table-wrap"><table><thead><tr><th>#</th><th>Group</th><th>Date</th><th>Home</th><th>Away</th><th>Last prediction</th></tr></thead><tbody><tr><td>1</td><td>A</td><td>2026-06-11</td><td>Mexico</td><td>South Africa</td><td>0-0</td></tr><tr><td>2</td><td>A</td><td>2026-06-11</td><td>South Korea</td><td>Czech Republic</td><td>1-1</td></tr><tr><td>3</td><td>B</td><td>2026-06-12</td><td>Canada</td><td>Bosnia and Herzegovina</td><td>1-0</td></tr><tr><td>4</td><td>D</td><td>2026-06-12</td><td>United States</td><td>Paraguay</td><td>1-1</td></tr><tr><td>5</td><td>C</td><td>2026-06-13</td><td>Haiti</td><td>Scotland</td><td>1-1</td></tr><tr><td>6</td><td>D</td><td>2026-06-13</td><td>Australia</td><td>Turkey</td><td>1-1</td></tr><tr><td>7</td><td>C</td><td>2026-06-13</td><td>Brazil</td><td>Morocco</td><td>0-1</td></tr><tr><td>8</td><td>B</td><td>2026-06-13</td><td>Qatar</td><td>Switzerland</td><td>0-2</td></tr><tr><td>9</td><td>E</td><td>2026-06-14</td><td>Ivory Coast</td><td>Ecuador</td><td>0-0</td></tr><tr><td>10</td><td>E</td><td>2026-06-14</td><td>Germany</td><td>Curaçao</td><td>2-1</td></tr><tr><td>11</td><td>F</td><td>2026-06-14</td><td>Netherlands</td><td>Japan</td><td>1-1</td></tr><tr><td>12</td><td>F</td><td>2026-06-14</td><td>Sweden</td><td>Tunisia</td><td>1-1</td></tr><tr><td>13</td><td>H</td><td>2026-06-15</td><td>Saudi Arabia</td><td>Uruguay</td><td>0-0</td></tr><tr><td>14</td><td>H</td><td>2026-06-15</td><td>Spain</td><td>Cape Verde</td><td>2-0</td></tr><tr><td>15</td><td>G</td><td>2026-06-15</td><td>Iran</td><td>New Zealand</td><td>1-0</td></tr><tr><td>16</td><td>G</td><td>2026-06-15</td><td>Belgium</td><td>Egypt</td><td>1-0</td></tr></tbody></table></div></section>
+</main>
+</body>
+</html>

@@ -151,6 +151,8 @@ data/processed/world_cup_2026_availability_adjusted_forecasts.csv
 data/processed/world_cup_2026_knockout_match_forecasts.csv
 data/processed/world_cup_2026_full_match_forecasts.csv
 data/processed/world_cup_2026_upcoming_match_details.csv
+data/processed/world_cup_2026_latest_prediction_snapshot.csv
+data/processed/world_cup_2026_played_match_prediction_checks.csv
 data/processed/world_cup_2026_match_prediction_drivers.csv
 data/processed/world_cup_2026_match_final_stage_impacts.csv
 data/processed/world_cup_2026_team_expected_matches.csv
@@ -189,9 +191,42 @@ Completed World Cup group matches found in `data/processed/international_results
 are held fixed inside tournament simulations, while unplayed fixtures are
 forecast with the latest fitted model state.
 
+At the start of `scripts/update_predictions.py`, the previous
+`world_cup_2026_latest_prediction_snapshot.csv` is archived into
+`world_cup_2026_prediction_snapshots.csv` before new results are downloaded.
+This makes completed-match diagnostics compare results against the last saved
+pre-match prediction, not against a model refit after the result is known.
+
 Use `--refresh-static-data` when you also want to redownload fixtures, squads,
 and club-form tables. Use `--impact-simulations` to trade off speed versus
 Monte Carlo stability for the per-match final-stage impact plot.
+
+## Open the Dashboard
+
+Generate the split static dashboard with:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/generate_validation_dashboard.py
+```
+
+Serve the report folder locally:
+
+```bash
+/Users/lorenzogorini/anaconda3/envs/general/bin/python -m http.server 8000 --bind 127.0.0.1 --directory reports
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8000/model_performance_dashboard.html
+```
+
+The root page links to:
+
+- `dashboard/future_matches.html`: next unplayed match predictions and drivers;
+- `dashboard/group_stage.html`: group pools, played matches, prediction checks, and past fixtures awaiting downloaded results;
+- `dashboard/next_phases.html`: round-by-round, winner, and knockout-pairing forecasts;
+- `dashboard/model_performance.html`: historical validation diagnostics.
 
 ## Generate Final Reports
 
