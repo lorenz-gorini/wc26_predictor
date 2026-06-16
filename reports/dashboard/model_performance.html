@@ -28,6 +28,25 @@ body {
   margin: 0 auto;
   padding: 32px;
 }
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+nav a {
+  color: var(--ink);
+  text-decoration: none;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+nav a.active {
+  color: #fff;
+  background: var(--blue);
+  border-color: var(--blue);
+}
 .hero {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -320,6 +339,7 @@ tr:nth-child(even) td {
 </head>
 <body>
 <main class="page">
+<nav><a class="" href="../model_performance_dashboard.html">Home</a><a class="" href="future_matches.html">Future matches</a><a class="" href="group_stage.html">Group stage</a><a class="" href="next_phases.html">Next phases</a><a class="active" href="model_performance.html">Model performance</a></nav>
 <section class="hero">
 <div>
 <p class="eyebrow">World Cup 2026 predictor</p>

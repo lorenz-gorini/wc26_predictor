@@ -550,6 +550,7 @@ def _build_dashboard_html(
         "</head>",
         "<body>",
         '<main class="page">',
+        _dashboard_nav(),
         '<section class="hero">',
         "<div>",
         "<p class=\"eyebrow\">World Cup 2026 predictor</p>",
@@ -696,6 +697,20 @@ def _build_dashboard_html(
         "</html>",
     ]
     return "\n".join(parts)
+
+
+def _dashboard_nav() -> str:
+    links = [
+        ("../model_performance_dashboard.html", "Home", ""),
+        ("future_matches.html", "Future matches", ""),
+        ("group_stage.html", "Group stage", ""),
+        ("next_phases.html", "Next phases", ""),
+        ("model_performance.html", "Model performance", "active"),
+    ]
+    return "<nav>" + "".join(
+        f'<a class="{css_class}" href="{escape(href)}">{escape(label)}</a>'
+        for href, label, css_class in links
+    ) + "</nav>"
 
 
 def _market_average(market_metrics: pd.DataFrame | None) -> pd.DataFrame | None:
@@ -1231,6 +1246,25 @@ body {
   width: min(1440px, 100%);
   margin: 0 auto;
   padding: 32px;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+nav a {
+  color: var(--ink);
+  text-decoration: none;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+nav a.active {
+  color: #fff;
+  background: var(--blue);
+  border-color: var(--blue);
 }
 .hero {
   display: grid;
