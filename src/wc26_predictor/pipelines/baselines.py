@@ -347,6 +347,7 @@ def write_baseline_summary(
     selected_configs: pd.DataFrame | None = None,
     market_metrics: pd.DataFrame | None = None,
     market_decision: dict[str, object] | None = None,
+    contest_picks: pd.DataFrame | None = None,
 ) -> None:
     """Write a compact markdown summary of baseline outputs."""
 
@@ -454,6 +455,45 @@ def write_baseline_summary(
                 _markdown_table(average_market_metrics, float_digits=4),
                 "",
                 f"Gate decision: {market_decision['reason']}",
+                "",
+            ]
+        )
+    if contest_picks is not None:
+        contest_display = contest_picks.copy()
+        if "is_completed" in contest_display.columns:
+            contest_display = contest_display[
+                ~contest_display["is_completed"].map(_parse_boolish)
+            ].copy()
+        contest_display = contest_display.sort_values(
+            ["recommended_expected_points", "expected_points_gain_vs_modal"],
+            ascending=[False, False],
+        ).head(12)
+        lines.extend(
+            [
+                "## App Contest Picks",
+                "",
+                (
+                    "Picks maximize model probability times the app's posted 1X2 point "
+                    "offer. They can differ from the modal model outcome when the payoff "
+                    "compensates for lower probability."
+                ),
+                "",
+                _markdown_table(
+                    contest_display[
+                        [
+                            "match_number",
+                            "home_team",
+                            "away_team",
+                            "recommended_outcome",
+                            "recommended_model_probability",
+                            "recommended_app_points",
+                            "recommended_expected_points",
+                            "modal_model_outcome",
+                            "expected_points_gain_vs_modal",
+                        ]
+                    ],
+                    float_digits=3,
+                ),
                 "",
             ]
         )
@@ -1353,3 +1393,9 @@ def _markdown_table(frame: pd.DataFrame, float_digits: int) -> str:
         for row in formatted.itertuples(index=False, name=None)
     ]
     return "\n".join([header, separator, *rows])
+
+
+def _parse_boolish(value: object) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in {"true", "1", "yes"}

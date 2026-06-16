@@ -29,6 +29,10 @@ from wc26_predictor.data.transfermarkt_injuries import (
     aggregate_transfermarkt_team_injury_burden,
     build_transfermarkt_squad_injury_features,
 )
+from wc26_predictor.evaluation.contest_points import (
+    build_contest_pick_recommendations,
+    load_contest_points_csv,
+)
 from wc26_predictor.models.availability_impact import estimate_goal_penalty_per_burden
 from wc26_predictor.models.ensemble import add_weighted_ensemble_columns
 from wc26_predictor.models.market import (
@@ -109,6 +113,7 @@ def main() -> None:
     )
     club_form_path = args.project_root / "data" / "raw" / "club_top_scorers.csv"
     odds_path = args.project_root / "data" / "raw" / "odds" / "WorldCup2026.xlsx"
+    contest_points_path = args.project_root / "data" / "raw" / "world_cup_2026_app_points.csv"
     transfermarkt_dir = args.project_root / "data" / "raw" / "transfermarkt_kaggle"
     transfermarkt_injuries_path = (
         args.project_root / "data" / "raw" / "transfermarkt_injuries" / "player_injuries.csv"
@@ -255,6 +260,12 @@ def main() -> None:
         forecasts_with_completed_results,
         availability_forecasts=availability_forecasts,
     )
+    contest_picks = None
+    if contest_points_path.exists():
+        contest_picks = build_contest_pick_recommendations(
+            upcoming_match_details,
+            load_contest_points_csv(str(contest_points_path)),
+        )
     prediction_history = load_prediction_history(output_dir / SNAPSHOT_HISTORY_FILE)
     played_match_checks = build_played_match_prediction_checks(
         upcoming_match_details,
@@ -349,6 +360,7 @@ def main() -> None:
     knockout_forecast_path = output_dir / "world_cup_2026_knockout_match_forecasts.csv"
     full_match_forecast_path = output_dir / "world_cup_2026_full_match_forecasts.csv"
     upcoming_match_details_path = output_dir / "world_cup_2026_upcoming_match_details.csv"
+    contest_picks_path = output_dir / "world_cup_2026_app_contest_picks.csv"
     match_drivers_path = output_dir / "world_cup_2026_match_prediction_drivers.csv"
     final_stage_impact_path = output_dir / "world_cup_2026_match_final_stage_impacts.csv"
     latest_prediction_snapshot_path = output_dir / LATEST_SNAPSHOT_FILE
@@ -405,6 +417,8 @@ def main() -> None:
     knockout_forecasts.to_csv(knockout_forecast_path, index=False)
     full_match_forecasts.to_csv(full_match_forecast_path, index=False)
     upcoming_match_details.to_csv(upcoming_match_details_path, index=False)
+    if contest_picks is not None:
+        contest_picks.to_csv(contest_picks_path, index=False)
     write_latest_prediction_snapshot(
         upcoming_match_details,
         latest_prediction_snapshot_path,
@@ -441,6 +455,7 @@ def main() -> None:
         selected_configs=selected_configs,
         market_metrics=market_metrics,
         market_decision=market_decision,
+        contest_picks=contest_picks,
     )
 
     print(f"Backtest metrics -> {backtest_path}")
@@ -464,6 +479,8 @@ def main() -> None:
     print(f"Knockout match forecasts -> {knockout_forecast_path}")
     print(f"Full match forecasts -> {full_match_forecast_path}")
     print(f"Upcoming match details -> {upcoming_match_details_path}")
+    if contest_picks is not None:
+        print(f"App contest picks -> {contest_picks_path}")
     print(f"Latest prediction snapshot -> {latest_prediction_snapshot_path}")
     print(f"Played match prediction checks -> {played_match_checks_path}")
     print(f"Match prediction drivers -> {match_drivers_path}")

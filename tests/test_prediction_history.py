@@ -40,6 +40,11 @@ def test_snapshot_archive_and_played_match_checks(tmp_path) -> None:
     assert bool(checks.loc[0, "outcome_hit"])
     assert checks.loc[0, "observed_score_probability"] > 0
     assert checks.loc[0, "outcome_log_loss"] == pytest.approx(-math.log(0.55))
+    assert checks.loc[0, "most_likely_outcome"] == "home_win"
+    assert checks.loc[0, "observed_outcome_rank"] == 1
+    assert checks.loc[0, "predicted_outcome_probability"] == pytest.approx(0.55)
+    assert checks.loc[0, "outcome_probability_gap"] == pytest.approx(0.0)
+    assert checks.loc[0, "result_diagnostic"] == "right_outcome_wrong_score"
 
 
 def test_played_match_checks_empty_without_archived_prediction() -> None:

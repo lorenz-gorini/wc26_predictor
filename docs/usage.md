@@ -151,6 +151,7 @@ data/processed/world_cup_2026_availability_adjusted_forecasts.csv
 data/processed/world_cup_2026_knockout_match_forecasts.csv
 data/processed/world_cup_2026_full_match_forecasts.csv
 data/processed/world_cup_2026_upcoming_match_details.csv
+data/processed/world_cup_2026_app_contest_picks.csv
 data/processed/world_cup_2026_latest_prediction_snapshot.csv
 data/processed/world_cup_2026_played_match_prediction_checks.csv
 data/processed/world_cup_2026_match_prediction_drivers.csv
@@ -163,6 +164,9 @@ data/processed/world_cup_2026_top_scorer_club_adjusted_top100.csv
 data/processed/world_cup_2026_top_scorer_transfermarkt_adjusted_top100.csv
 reports/baseline_summary.md
 ```
+
+`world_cup_2026_app_contest_picks.csv` is written only when app point offers are
+available in `data/raw/world_cup_2026_app_points.csv`.
 
 For a more stable but slower top-scorer exposure estimate, increase the
 simulation count:
@@ -200,6 +204,33 @@ pre-match prediction, not against a model refit after the result is known.
 Use `--refresh-static-data` when you also want to redownload fixtures, squads,
 and club-form tables. Use `--impact-simulations` to trade off speed versus
 Monte Carlo stability for the per-match final-stage impact plot.
+
+## Optimize App Contest Picks
+
+If a prediction app rewards one 1X2 pick per match with event-specific point
+offers, add:
+
+```text
+data/raw/world_cup_2026_app_points.csv
+```
+
+Required columns:
+
+```text
+match_number,home_win_points,draw_points,away_win_points
+```
+
+Optional diagnostic columns:
+
+```text
+app_home_win_probability,app_draw_probability,app_away_win_probability
+```
+
+When this file exists, `scripts/run_baselines.py` writes
+`data/processed/world_cup_2026_app_contest_picks.csv` and adds an "App Contest
+Picks" section to `reports/baseline_summary.md`. The recommendation maximizes
+`model_probability * app_points`, so it may choose a draw or upset even when the
+modal model outcome is a favorite win.
 
 ## Open the Dashboard
 

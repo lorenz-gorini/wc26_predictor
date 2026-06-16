@@ -12,171 +12,171 @@ Availability: current nonzero burdens are Morocco (0.809, 2 players); Argentina 
 ## Winner probabilities
 | team | group | winner_probability | final_probability | semi_final_probability | quarter_final_probability | round_of_16_probability | round_of_32_probability | expected_team_matches |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Spain | H | 19.5% | 29.7% | 40.2% | 52.3% | 68.0% | 94.7% | 5.954 |
-| Argentina | J | 19.1% | 29.4% | 42.8% | 57.1% | 69.8% | 92.6% | 6.052 |
-| France | I | 7.4% | 12.8% | 22.4% | 35.2% | 51.9% | 70.5% | 5.025 |
-| England | L | 6.3% | 12.3% | 23.2% | 40.5% | 63.7% | 95.2% | 5.457 |
-| Portugal | K | 4.8% | 9.9% | 17.5% | 31.8% | 54.3% | 81.8% | 5.030 |
-| Belgium | G | 4.1% | 8.8% | 15.8% | 34.1% | 59.4% | 88.4% | 5.136 |
-| Germany | E | 4.0% | 8.6% | 16.8% | 30.2% | 51.6% | 77.9% | 4.934 |
-| Brazil | C | 4.0% | 8.6% | 17.3% | 29.8% | 42.4% | 66.6% | 4.734 |
-| Morocco | C | 3.8% | 8.3% | 19.1% | 36.4% | 58.2% | 94.5% | 5.272 |
-| Japan | F | 3.8% | 8.5% | 19.7% | 35.6% | 54.2% | 94.1% | 5.234 |
-| Norway | I | 3.5% | 6.5% | 15.1% | 31.3% | 55.2% | 84.0% | 5.007 |
-| Netherlands | F | 3.5% | 7.2% | 15.7% | 29.2% | 48.6% | 84.4% | 4.936 |
-| Colombia | K | 3.2% | 7.2% | 13.5% | 24.8% | 45.1% | 69.1% | 4.660 |
-| Switzerland | B | 1.9% | 5.1% | 11.7% | 28.1% | 55.8% | 86.6% | 4.938 |
-| Ecuador | E | 1.8% | 4.2% | 9.7% | 19.5% | 38.3% | 65.8% | 4.428 |
+| Argentina | J | 19.7% | 28.6% | 40.3% | 53.5% | 68.2% | 91.8% | 5.941 |
+| Spain | H | 19.6% | 28.7% | 39.1% | 50.6% | 66.6% | 94.5% | 5.899 |
+| England | L | 5.9% | 13.2% | 25.1% | 41.9% | 65.7% | 96.5% | 5.542 |
+| France | I | 5.9% | 11.3% | 20.3% | 33.2% | 49.1% | 71.8% | 4.947 |
+| Germany | E | 5.1% | 10.7% | 22.4% | 39.4% | 66.5% | 99.6% | 5.503 |
+| Brazil | C | 4.5% | 8.2% | 17.3% | 29.3% | 45.1% | 73.8% | 4.830 |
+| Portugal | K | 4.3% | 11.0% | 18.6% | 33.4% | 56.2% | 80.8% | 5.076 |
+| Morocco | C | 4.0% | 8.9% | 18.1% | 32.7% | 53.3% | 90.5% | 5.128 |
+| Japan | F | 3.8% | 7.4% | 16.4% | 31.1% | 50.2% | 92.0% | 5.060 |
+| Belgium | G | 3.7% | 7.6% | 15.8% | 34.5% | 60.8% | 89.5% | 5.163 |
+| Colombia | K | 3.6% | 7.6% | 13.6% | 26.1% | 46.5% | 69.3% | 4.691 |
+| Netherlands | F | 3.1% | 6.2% | 14.2% | 29.5% | 49.7% | 88.7% | 4.965 |
+| Norway | I | 3.0% | 6.3% | 14.0% | 27.4% | 50.3% | 82.0% | 4.877 |
+| Mexico | A | 2.1% | 5.2% | 13.9% | 29.3% | 60.9% | 96.4% | 5.144 |
+| Algeria | J | 1.9% | 4.7% | 10.7% | 24.2% | 45.5% | 86.7% | 4.777 |
 
 ## Group advancement probabilities
 | group | team | advance_probability | expected_team_matches |
 | --- | --- | --- | --- |
-| A | Mexico | 70.8% | 4.530 |
-| A | Czech Republic | 67.8% | 4.152 |
-| A | South Korea | 66.9% | 4.157 |
-| A | South Africa | 63.4% | 3.865 |
-| B | Switzerland | 86.6% | 4.938 |
-| B | Canada | 84.0% | 4.590 |
-| B | Bosnia and Herzegovina | 58.2% | 3.752 |
-| B | Qatar | 38.0% | 3.432 |
-| C | Morocco | 94.5% | 5.272 |
-| C | Brazil | 66.6% | 4.734 |
-| C | Haiti | 60.2% | 3.772 |
-| C | Scotland | 44.9% | 3.716 |
-| D | Australia | 80.2% | 4.453 |
-| D | Turkey | 78.2% | 4.667 |
-| D | United States | 56.8% | 3.960 |
-| D | Paraguay | 53.9% | 3.970 |
-| E | Ivory Coast | 81.3% | 4.419 |
-| E | Germany | 77.9% | 4.934 |
-| E | Ecuador | 65.8% | 4.428 |
-| E | Curaçao | 46.2% | 3.550 |
-| F | Japan | 94.1% | 5.234 |
-| F | Netherlands | 84.4% | 4.936 |
-| F | Tunisia | 58.0% | 3.759 |
-| F | Sweden | 28.7% | 3.408 |
-| G | Belgium | 88.4% | 5.136 |
-| G | Iran | 81.3% | 4.527 |
-| G | Egypt | 67.7% | 4.092 |
-| G | New Zealand | 29.6% | 3.382 |
-| H | Spain | 94.7% | 5.954 |
-| H | Uruguay | 62.3% | 4.117 |
-| H | Cape Verde | 54.4% | 3.652 |
-| H | Saudi Arabia | 46.9% | 3.560 |
-| I | Norway | 84.0% | 5.007 |
-| I | Senegal | 79.6% | 4.486 |
-| I | France | 70.5% | 5.025 |
-| I | Iraq | 34.5% | 3.457 |
-| J | Argentina | 92.6% | 6.052 |
-| J | Algeria | 83.8% | 4.551 |
-| J | Austria | 77.5% | 4.548 |
-| J | Jordan | 17.3% | 3.245 |
-| K | Portugal | 81.8% | 5.030 |
-| K | Colombia | 69.1% | 4.660 |
-| K | DR Congo | 60.6% | 3.870 |
-| K | Uzbekistan | 54.5% | 3.833 |
-| L | England | 95.2% | 5.457 |
-| L | Croatia | 76.8% | 4.529 |
-| L | Panama | 52.5% | 3.759 |
-| L | Ghana | 36.9% | 3.443 |
+| A | Mexico | 96.4% | 5.144 |
+| A | South Korea | 93.2% | 4.759 |
+| A | Czech Republic | 49.1% | 3.825 |
+| A | South Africa | 32.6% | 3.428 |
+| B | Canada | 76.7% | 4.429 |
+| B | Switzerland | 76.2% | 4.609 |
+| B | Bosnia and Herzegovina | 61.2% | 3.776 |
+| B | Qatar | 50.2% | 3.579 |
+| C | Morocco | 90.5% | 5.128 |
+| C | Scotland | 78.8% | 4.259 |
+| C | Brazil | 73.8% | 4.830 |
+| C | Haiti | 27.5% | 3.351 |
+| D | Australia | 98.4% | 4.929 |
+| D | United States | 94.8% | 4.735 |
+| D | Turkey | 58.2% | 4.088 |
+| D | Paraguay | 18.1% | 3.271 |
+| E | Germany | 99.6% | 5.503 |
+| E | Ivory Coast | 98.2% | 4.752 |
+| E | Ecuador | 50.3% | 4.034 |
+| E | Curaçao | 11.1% | 3.131 |
+| F | Japan | 92.0% | 5.060 |
+| F | Netherlands | 88.7% | 4.965 |
+| F | Sweden | 87.4% | 4.277 |
+| F | Tunisia | 11.4% | 3.143 |
+| G | Belgium | 89.5% | 5.163 |
+| G | Iran | 80.8% | 4.535 |
+| G | Egypt | 64.5% | 4.034 |
+| G | New Zealand | 29.2% | 3.378 |
+| H | Spain | 94.5% | 5.899 |
+| H | Uruguay | 61.7% | 4.053 |
+| H | Cape Verde | 54.0% | 3.635 |
+| H | Saudi Arabia | 47.8% | 3.552 |
+| I | Norway | 82.0% | 4.877 |
+| I | Senegal | 80.4% | 4.441 |
+| I | France | 71.8% | 4.947 |
+| I | Iraq | 33.1% | 3.422 |
+| J | Argentina | 91.8% | 5.941 |
+| J | Algeria | 86.7% | 4.777 |
+| J | Austria | 76.8% | 4.530 |
+| J | Jordan | 15.3% | 3.208 |
+| K | Portugal | 80.8% | 5.076 |
+| K | Colombia | 69.3% | 4.691 |
+| K | DR Congo | 61.4% | 3.874 |
+| K | Uzbekistan | 52.6% | 3.795 |
+| L | England | 96.5% | 5.542 |
+| L | Croatia | 77.8% | 4.491 |
+| L | Panama | 52.6% | 3.723 |
+| L | Ghana | 34.8% | 3.412 |
 
 ## Round-by-round probabilities
 | team | group | round_of_32_probability | round_of_16_probability | quarter_final_probability | semi_final_probability | final_probability | third_place_match_probability | winner_probability | expected_knockout_matches | expected_team_matches |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Spain | H | 94.7% | 68.0% | 52.3% | 40.2% | 29.7% | 10.5% | 19.5% | 2.954 | 5.954 |
-| Argentina | J | 92.6% | 69.8% | 57.1% | 42.8% | 29.4% | 13.4% | 19.1% | 3.052 | 6.052 |
-| France | I | 70.5% | 51.9% | 35.2% | 22.4% | 12.8% | 9.6% | 7.4% | 2.025 | 5.025 |
-| England | L | 95.2% | 63.7% | 40.5% | 23.2% | 12.3% | 10.8% | 6.3% | 2.458 | 5.457 |
-| Portugal | K | 81.8% | 54.3% | 31.8% | 17.5% | 9.9% | 7.6% | 4.8% | 2.030 | 5.030 |
-| Belgium | G | 88.4% | 59.4% | 34.1% | 15.8% | 8.8% | 7.0% | 4.1% | 2.136 | 5.136 |
-| Germany | E | 77.9% | 51.6% | 30.2% | 16.8% | 8.6% | 8.2% | 4.0% | 1.933 | 4.934 |
-| Brazil | C | 66.6% | 42.4% | 29.8% | 17.3% | 8.6% | 8.6% | 4.0% | 1.734 | 4.734 |
-| Morocco | C | 94.5% | 58.2% | 36.4% | 19.1% | 8.3% | 10.8% | 3.8% | 2.272 | 5.272 |
-| Japan | F | 94.1% | 54.2% | 35.6% | 19.7% | 8.5% | 11.2% | 3.8% | 2.234 | 5.234 |
-| Norway | I | 84.0% | 55.2% | 31.3% | 15.1% | 6.5% | 8.6% | 3.5% | 2.007 | 5.007 |
-| Netherlands | F | 84.4% | 48.6% | 29.2% | 15.7% | 7.2% | 8.5% | 3.5% | 1.935 | 4.936 |
-| Colombia | K | 69.1% | 45.1% | 24.8% | 13.5% | 7.2% | 6.2% | 3.2% | 1.660 | 4.660 |
-| Switzerland | B | 86.6% | 55.8% | 28.1% | 11.7% | 5.1% | 6.6% | 1.9% | 1.938 | 4.938 |
-| Ecuador | E | 65.8% | 38.3% | 19.5% | 9.7% | 4.2% | 5.5% | 1.8% | 1.429 | 4.428 |
+| Argentina | J | 91.8% | 68.2% | 53.5% | 40.3% | 28.6% | 11.7% | 19.7% | 2.941 | 5.941 |
+| Spain | H | 94.5% | 66.6% | 50.6% | 39.1% | 28.7% | 10.4% | 19.6% | 2.899 | 5.899 |
+| England | L | 96.5% | 65.7% | 41.9% | 25.1% | 13.2% | 11.9% | 5.9% | 2.542 | 5.542 |
+| France | I | 71.8% | 49.1% | 33.2% | 20.3% | 11.3% | 9.0% | 5.9% | 1.948 | 4.947 |
+| Germany | E | 99.6% | 66.5% | 39.4% | 22.4% | 10.7% | 11.8% | 5.1% | 2.503 | 5.503 |
+| Brazil | C | 73.8% | 45.1% | 29.3% | 17.3% | 8.2% | 9.1% | 4.5% | 1.830 | 4.830 |
+| Portugal | K | 80.8% | 56.2% | 33.4% | 18.6% | 11.0% | 7.6% | 4.3% | 2.076 | 5.076 |
+| Morocco | C | 90.5% | 53.3% | 32.7% | 18.1% | 8.9% | 9.2% | 4.0% | 2.128 | 5.128 |
+| Japan | F | 92.0% | 50.2% | 31.1% | 16.4% | 7.4% | 8.9% | 3.8% | 2.060 | 5.060 |
+| Belgium | G | 89.5% | 60.8% | 34.5% | 15.8% | 7.6% | 8.2% | 3.7% | 2.163 | 5.163 |
+| Colombia | K | 69.3% | 46.5% | 26.1% | 13.6% | 7.6% | 5.9% | 3.6% | 1.691 | 4.691 |
+| Netherlands | F | 88.7% | 49.7% | 29.5% | 14.2% | 6.2% | 8.1% | 3.1% | 1.964 | 4.965 |
+| Norway | I | 82.0% | 50.3% | 27.4% | 14.0% | 6.3% | 7.7% | 3.0% | 1.877 | 4.877 |
+| Mexico | A | 96.4% | 60.9% | 29.3% | 13.9% | 5.2% | 8.7% | 2.1% | 2.144 | 5.144 |
+| Algeria | J | 86.7% | 45.5% | 24.2% | 10.7% | 4.7% | 5.9% | 1.9% | 1.776 | 4.777 |
 
 ## Top-scorer probabilities
 | rank | team | scorer | club | expected_tournament_goals | top_scorer_probability | transfermarkt_match_quality | status | availability_multiplier | transfermarkt_multiplier |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Norway | Erling Haaland | Manchester City | 5.198 | 39.3% | player_country_club | available | 1.000 | 1.449 |
-| 2 | England | Harry Kane | Bayern Munich | 4.658 | 28.6% | player_country | available | 1.000 | 1.450 |
-| 3 | Argentina | Lionel Messi | Inter Miami CF | 3.293 | 9.4% | player_country | available | 1.000 | 1.401 |
-| 4 | France | Kylian Mbappé | Real Madrid | 2.746 | 5.1% | player_country_club | available | 1.000 | 1.450 |
-| 5 | Portugal | Cristiano Ronaldo | Al-Nassr | 2.527 | 3.8% | player_country_club | available | 1.000 | 1.207 |
-| 6 | Argentina | Lautaro Martínez | Inter Milan | 2.264 | 2.6% | player_country | available | 1.000 | 1.390 |
-| 7 | Belgium | Romelu Lukaku | Napoli | 1.893 | 1.3% | player_country_club | available | 1.000 | 0.987 |
-| 8 | Spain | Mikel Oyarzabal | Real Sociedad | 1.860 | 1.3% | player_country_club | available | 1.000 | 1.217 |
-| 9 | Iran | Mehdi Taremi | Olympiacos | 1.646 | 0.8% | player_country | available | 1.000 | 1.039 |
-| 10 | Norway | Alexander Sørloth | Atlético Madrid | 1.563 | 0.7% | player_country | available | 1.000 | 1.330 |
-| 11 | Morocco | Ayoub El Kaabi | Olympiacos | 1.563 | 0.7% | player_country | available | 1.000 | 1.112 |
-| 12 | Egypt | Mohamed Salah | Liverpool | 1.518 | 0.6% | player_country_club | available | 1.000 | 1.050 |
-| 13 | Spain | Ferran Torres | Barcelona | 1.370 | 0.4% | player_country_club | available | 1.000 | 1.298 |
-| 14 | Croatia | Andrej Kramarić | TSG Hoffenheim | 1.349 | 0.4% | player_country | available | 1.000 | 1.098 |
-| 15 | Sweden | Viktor Gyökeres | Arsenal | 1.313 | 0.3% | player_country_club | available | 1.000 | 1.289 |
-| 16 | Japan | Ayase Ueda | Feyenoord | 1.261 | 0.3% | player_country_club | available | 1.000 | 1.122 |
-| 17 | Turkey | Kerem Aktürkoğlu | Fenerbahçe | 1.231 | 0.3% | player_country_club | available | 1.000 | 1.149 |
-| 18 | Switzerland | Breel Embolo | Rennes | 1.192 | 0.3% | player_country | available | 1.000 | 1.038 |
-| 19 | Colombia | Luis Díaz | Bayern Munich | 1.245 | 0.3% | player_country | available | 1.000 | 1.209 |
-| 20 | Netherlands | Cody Gakpo | Liverpool | 1.199 | 0.2% | player_country_club | available | 1.000 | 0.998 |
+| 1 | Norway | Erling Haaland | Manchester City | 4.976 | 35.4% | player_country_club | available | 1.000 | 1.431 |
+| 2 | England | Harry Kane | Bayern Munich | 4.886 | 33.4% | player_country | available | 1.000 | 1.450 |
+| 3 | Argentina | Lionel Messi | Inter Miami CF | 3.142 | 8.3% | player_country | available | 1.000 | 1.382 |
+| 4 | France | Kylian Mbappé | Real Madrid | 2.691 | 4.9% | player_country_club | available | 1.000 | 1.450 |
+| 5 | Portugal | Cristiano Ronaldo | Al-Nassr | 2.479 | 3.7% | player_country_club | available | 1.000 | 1.184 |
+| 6 | Argentina | Lautaro Martínez | Inter Milan | 2.158 | 2.2% | player_country | available | 1.000 | 1.370 |
+| 7 | Sweden | Viktor Gyökeres | Arsenal | 1.957 | 1.6% | player_country_club | available | 1.000 | 1.268 |
+| 8 | Belgium | Romelu Lukaku | Napoli | 1.885 | 1.4% | player_country_club | available | 1.000 | 0.982 |
+| 9 | Spain | Mikel Oyarzabal | Real Sociedad | 1.799 | 1.2% | player_country_club | available | 1.000 | 1.193 |
+| 10 | Iran | Mehdi Taremi | Olympiacos | 1.592 | 0.7% | player_country | available | 1.000 | 1.010 |
+| 11 | Norway | Alexander Sørloth | Atlético Madrid | 1.490 | 0.6% | player_country | available | 1.000 | 1.308 |
+| 12 | Egypt | Mohamed Salah | Liverpool | 1.448 | 0.5% | player_country_club | available | 1.000 | 1.024 |
+| 13 | Germany | Kai Havertz | Arsenal | 1.449 | 0.5% | player_country_club | available | 1.000 | 1.363 |
+| 14 | Morocco | Ayoub El Kaabi | Olympiacos | 1.370 | 0.4% | player_country | available | 1.000 | 1.085 |
+| 15 | Spain | Ferran Torres | Barcelona | 1.329 | 0.4% | player_country_club | available | 1.000 | 1.276 |
+| 16 | Croatia | Andrej Kramarić | TSG Hoffenheim | 1.286 | 0.3% | player_country | available | 1.000 | 1.070 |
+| 17 | Netherlands | Memphis Depay | Corinthians | 1.234 | 0.3% | player_country_club | available | 1.000 | 0.700 |
+| 18 | South Korea | Son Heung-min | Los Angeles FC | 1.209 | 0.3% | unmatched | available | 1.000 | 1.000 |
+| 19 | Colombia | Luis Díaz | Bayern Munich | 1.217 | 0.3% | player_country | available | 1.000 | 1.186 |
+| 20 | Netherlands | Cody Gakpo | Liverpool | 1.210 | 0.3% | player_country_club | available | 1.000 | 0.971 |
 
 ## Most decisive group matches
 | match_number | date | time_local | group | home_team | away_team | predicted_score | predicted_score_outcome | predicted_score_probability | top_scorelines | ensemble_home_win | ensemble_draw | ensemble_away_win | form_poisson_home_expected_goals | form_poisson_away_expected_goals | most_likely_outcome | most_likely_probability |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 14 | 2026-06-15 | 12:00 p.m. | H | Spain | Cape Verde | 2-0 | home_win | 12.0% | 2-0 (0.120); 1-0 (0.114); 2-1 (0.097); 1-1 (0.093); 3-0 (0.084) | 74.3% | 21.6% | 4.1% | 2.100 | 0.813 | home_win | 74.3% |
-| 38 | 2026-06-21 | 12:00 p.m. | H | Spain | Saudi Arabia | 2-0 | home_win | 13.7% | 2-0 (0.137); 1-0 (0.136); 2-1 (0.093); 1-1 (0.093); 3-0 (0.092) | 74.1% | 21.7% | 4.3% | 2.014 | 0.681 | home_win | 74.1% |
-| 70 | 2026-06-27 | 9:00 p.m. | J | Jordan | Argentina | 0-2 | away_win | 15.2% | 0-2 (0.152); 0-1 (0.132); 0-3 (0.116); 1-2 (0.085); 1-1 (0.074) | 5.4% | 21.1% | 73.5% | 0.560 | 2.301 | away_win | 73.5% |
-| 45 | 2026-06-23 | 4:00 p.m. | L | England | Ghana | 1-0 | home_win | 15.8% | 1-0 (0.158); 2-0 (0.154); 3-0 (0.100); 1-1 (0.089); 2-1 (0.087) | 72.9% | 21.7% | 5.4% | 1.946 | 0.564 | home_win | 72.9% |
-| 8 | 2026-06-13 | 12:00 p.m. | B | Qatar | Switzerland | 0-2 | away_win | 10.8% | 0-2 (0.108); 0-1 (0.104); 1-2 (0.099); 1-1 (0.095); 0-3 (0.075) | 5.8% | 21.7% | 72.5% | 0.914 | 2.079 | away_win | 72.5% |
-| 10 | 2026-06-14 | 12:00 p.m. | E | Germany | Curaçao | 2-1 | home_win | 9.1% | 2-1 (0.091); 1-1 (0.079); 3-1 (0.070); 2-0 (0.065); 2-2 (0.064) | 71.8% | 21.7% | 6.5% | 2.301 | 1.414 | home_win | 71.8% |
-| 64 | 2026-06-26 | 8:00 p.m. | G | New Zealand | Belgium | 0-2 | away_win | 9.9% | 0-2 (0.099); 1-2 (0.094); 0-3 (0.083); 1-3 (0.079); 0-1 (0.078) | 8.6% | 21.2% | 70.3% | 0.951 | 2.528 | away_win | 70.3% |
-| 42 | 2026-06-22 | 5:00 p.m. | I | France | Iraq | 1-0 | home_win | 14.4% | 1-0 (0.144); 1-1 (0.121); 2-0 (0.109); 0-0 (0.095); 2-1 (0.091) | 69.7% | 22.6% | 7.7% | 1.513 | 0.837 | home_win | 69.7% |
-| 27 | 2026-06-18 | 3:00 p.m. | B | Canada | Qatar | 1-0 | home_win | 17.5% | 1-0 (0.175); 2-0 (0.128); 0-0 (0.119); 1-1 (0.115); 2-1 (0.085) | 69.5% | 22.7% | 7.8% | 1.468 | 0.661 | home_win | 69.5% |
-| 50 | 2026-06-24 | 6:00 p.m. | C | Morocco | Haiti | 1-0 | home_win | 16.5% | 1-0 (0.165); 2-0 (0.147); 1-1 (0.099); 0-0 (0.093); 2-1 (0.088) | 68.7% | 22.0% | 9.3% | 1.777 | 0.598 | home_win | 68.7% |
-| 34 | 2026-06-20 | 7:00 p.m. | E | Ecuador | Curaçao | 1-0 | home_win | 15.5% | 1-0 (0.155); 0-0 (0.141); 1-1 (0.133); 0-1 (0.121); 2-0 (0.086) | 68.6% | 23.3% | 8.1% | 1.103 | 0.857 | home_win | 68.6% |
-| 68 | 2026-06-27 | 5:00 p.m. | L | Croatia | Ghana | 1-0 | home_win | 11.1% | 1-0 (0.111); 1-1 (0.109); 2-0 (0.100); 2-1 (0.099); 0-0 (0.061) | 67.9% | 22.1% | 10.0% | 1.805 | 0.985 | home_win | 67.9% |
-| 29 | 2026-06-19 | 8:30 p.m. | C | Brazil | Haiti | 1-1 | draw | 10.5% | 1-1 (0.105); 2-1 (0.088); 1-2 (0.079); 1-0 (0.070); 2-2 (0.066) | 67.7% | 22.2% | 10.0% | 1.677 | 1.501 | home_win | 67.7% |
-| 18 | 2026-06-16 | 6:00 p.m. | I | Iraq | Norway | 0-1 | away_win | 13.7% | 0-1 (0.137); 0-2 (0.122); 1-1 (0.108); 1-2 (0.096); 0-0 (0.077) | 10.9% | 22.1% | 67.0% | 0.786 | 1.777 | away_win | 67.0% |
-| 67 | 2026-06-27 | 5:00 p.m. | L | Panama | England | 0-2 | away_win | 12.9% | 0-2 (0.129); 0-1 (0.129); 1-2 (0.096); 1-1 (0.095); 0-3 (0.086) | 11.7% | 21.7% | 66.6% | 0.743 | 2.004 | away_win | 66.6% |
+| 10 | 2026-06-14 | 12:00 p.m. | E | Germany | Curaçao | 3-1 | home_win | 7.7% | 3-1 (0.077); 2-1 (0.071); 4-1 (0.063); 3-0 (0.057); 3-2 (0.053) | 74.6% | 20.7% | 4.7% | 3.281 | 1.364 | home_win | 74.6% |
+| 14 | 2026-06-15 | 12:00 p.m. | H | Spain | Cape Verde | 2-0 | home_win | 12.0% | 2-0 (0.120); 1-0 (0.114); 2-1 (0.097); 1-1 (0.093); 3-0 (0.084) | 74.3% | 21.6% | 4.1% | 2.097 | 0.813 | home_win | 74.3% |
+| 38 | 2026-06-21 | 12:00 p.m. | H | Spain | Saudi Arabia | 2-0 | home_win | 13.7% | 2-0 (0.137); 1-0 (0.136); 2-1 (0.093); 1-1 (0.093); 3-0 (0.092) | 74.1% | 21.7% | 4.3% | 2.012 | 0.681 | home_win | 74.1% |
+| 70 | 2026-06-27 | 9:00 p.m. | J | Jordan | Argentina | 0-2 | away_win | 15.1% | 0-2 (0.151); 0-1 (0.132); 0-3 (0.116); 1-2 (0.085); 1-1 (0.074) | 5.4% | 21.1% | 73.5% | 0.560 | 2.297 | away_win | 73.5% |
+| 45 | 2026-06-23 | 4:00 p.m. | L | England | Ghana | 2-0 | home_win | 15.8% | 2-0 (0.158); 1-0 (0.157); 3-0 (0.106); 2-1 (0.085); 1-1 (0.084) | 73.4% | 21.5% | 5.1% | 2.017 | 0.537 | home_win | 73.4% |
+| 8 | 2026-06-13 | 12:00 p.m. | B | Qatar | Switzerland | 0-1 | away_win | 11.3% | 0-1 (0.113); 0-2 (0.110); 1-1 (0.101); 1-2 (0.099); 0-3 (0.072) | 6.7% | 21.9% | 71.4% | 0.898 | 1.953 | away_win | 71.4% |
+| 64 | 2026-06-26 | 8:00 p.m. | G | New Zealand | Belgium | 0-2 | away_win | 9.9% | 0-2 (0.099); 1-2 (0.094); 0-3 (0.083); 1-3 (0.079); 0-1 (0.078) | 8.6% | 21.2% | 70.3% | 0.950 | 2.524 | away_win | 70.3% |
+| 42 | 2026-06-22 | 5:00 p.m. | I | France | Iraq | 1-0 | home_win | 14.4% | 1-0 (0.144); 1-1 (0.121); 2-0 (0.109); 0-0 (0.096); 2-1 (0.091) | 69.7% | 22.6% | 7.7% | 1.512 | 0.836 | home_win | 69.7% |
+| 55 | 2026-06-25 | 4:00 p.m. | E | Curaçao | Ivory Coast | 0-2 | away_win | 11.3% | 0-2 (0.113); 0-1 (0.101); 1-2 (0.097); 1-1 (0.088); 0-3 (0.083) | 9.3% | 21.5% | 69.2% | 0.866 | 2.221 | away_win | 69.2% |
+| 50 | 2026-06-24 | 6:00 p.m. | C | Morocco | Haiti | 1-0 | home_win | 17.0% | 1-0 (0.170); 2-0 (0.147); 1-1 (0.100); 0-0 (0.099); 2-1 (0.087) | 69.1% | 22.1% | 8.8% | 1.728 | 0.589 | home_win | 69.1% |
+| 34 | 2026-06-20 | 7:00 p.m. | E | Ecuador | Curaçao | 1-0 | home_win | 14.7% | 1-0 (0.147); 1-1 (0.128); 0-0 (0.109); 2-0 (0.099); 0-1 (0.095) | 69.1% | 22.9% | 8.0% | 1.347 | 0.866 | home_win | 69.1% |
+| 27 | 2026-06-18 | 3:00 p.m. | B | Canada | Qatar | 1-0 | home_win | 18.0% | 1-0 (0.180); 0-0 (0.130); 2-0 (0.125); 1-1 (0.118); 0-1 (0.085) | 68.2% | 22.9% | 8.9% | 1.390 | 0.652 | home_win | 68.2% |
+| 29 | 2026-06-19 | 8:30 p.m. | C | Brazil | Haiti | 1-1 | draw | 11.0% | 1-1 (0.110); 2-1 (0.089); 1-2 (0.078); 1-0 (0.077); 0-1 (0.068) | 67.9% | 22.3% | 9.8% | 1.621 | 1.427 | home_win | 67.9% |
+| 68 | 2026-06-27 | 5:00 p.m. | L | Croatia | Ghana | 1-0 | home_win | 11.1% | 1-0 (0.111); 1-1 (0.109); 2-0 (0.100); 2-1 (0.099); 0-0 (0.062) | 67.9% | 22.2% | 10.0% | 1.803 | 0.985 | home_win | 67.9% |
+| 36 | 2026-06-20 | 10:00 p.m. | F | Tunisia | Japan | 0-1 | away_win | 14.4% | 0-1 (0.144); 0-2 (0.130); 1-1 (0.104); 1-2 (0.094); 0-0 (0.080) | 10.2% | 22.0% | 67.8% | 0.722 | 1.808 | away_win | 67.8% |
 
 ## Most likely knockout pairings
 | match_number | round | first_team | second_team | pairing_probability | first_advancement_probability | second_advancement_probability | simulation_count | most_likely_advancing_team | most_likely_advancement_probability |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 73 | round_of_32 | Mexico | Canada | 9.6% | 57.9% | 42.1% | 191 | Mexico | 57.9% |
-| 74 | round_of_32 | Ivory Coast | Brazil | 5.1% | 26.4% | 73.6% | 103 | Brazil | 73.6% |
-| 75 | round_of_32 | Japan | Brazil | 17.6% | 44.8% | 55.2% | 352 | Brazil | 55.2% |
-| 76 | round_of_32 | Morocco | Netherlands | 24.6% | 51.4% | 48.6% | 491 | Morocco | 51.4% |
-| 77 | round_of_32 | Norway | Tunisia | 7.5% | 83.4% | 16.6% | 150 | Norway | 83.4% |
-| 78 | round_of_32 | Ivory Coast | Norway | 9.3% | 31.6% | 68.4% | 186 | Norway | 68.4% |
-| 79 | round_of_32 | Czech Republic | Ecuador | 3.6% | 30.3% | 69.7% | 73 | Ecuador | 69.7% |
-| 80 | round_of_32 | England | DR Congo | 11.1% | 85.3% | 14.7% | 222 | England | 85.3% |
-| 81 | round_of_32 | Australia | Bosnia and Herzegovina | 8.1% | 76.9% | 23.1% | 162 | Australia | 76.9% |
-| 82 | round_of_32 | Belgium | South Korea | 8.9% | 72.3% | 27.7% | 178 | Belgium | 72.3% |
-| 83 | round_of_32 | Colombia | Croatia | 10.6% | 63.1% | 36.9% | 212 | Colombia | 63.1% |
-| 84 | round_of_32 | Spain | Algeria | 22.5% | 80.6% | 19.4% | 450 | Spain | 80.6% |
-| 85 | round_of_32 | Switzerland | Egypt | 7.6% | 71.9% | 28.1% | 152 | Switzerland | 71.9% |
-| 86 | round_of_32 | Argentina | Cape Verde | 14.3% | 95.3% | 4.7% | 287 | Argentina | 95.3% |
-| 87 | round_of_32 | Portugal | Panama | 8.4% | 83.7% | 16.3% | 168 | Portugal | 83.7% |
-| 88 | round_of_32 | Australia | Iran | 9.7% | 45.4% | 54.6% | 193 | Iran | 54.6% |
-| 89 | round_of_16 | Switzerland | Japan | 7.1% | 42.8% | 57.2% | 142 | Japan | 57.2% |
-| 90 | round_of_16 | Germany | Norway | 5.1% | 53.6% | 46.4% | 102 | Germany | 53.6% |
-| 91 | round_of_16 | Morocco | France | 8.3% | 39.5% | 60.5% | 167 | France | 60.5% |
-| 92 | round_of_16 | Mexico | England | 8.1% | 35.8% | 64.2% | 162 | England | 64.2% |
-| 93 | round_of_16 | Croatia | Spain | 9.2% | 20.5% | 79.5% | 185 | Spain | 79.5% |
-| 94 | round_of_16 | Australia | Belgium | 7.5% | 30.2% | 69.8% | 151 | Belgium | 69.8% |
-| 95 | round_of_16 | Argentina | Iran | 7.7% | 82.8% | 17.2% | 154 | Argentina | 82.8% |
-| 96 | round_of_16 | Switzerland | Portugal | 7.9% | 39.7% | 60.3% | 158 | Portugal | 60.3% |
-| 97 | quarter_final | Japan | Norway | 4.2% | 52.5% | 47.5% | 85 | Japan | 52.5% |
-| 98 | quarter_final | Spain | Belgium | 10.0% | 71.8% | 28.2% | 200 | Spain | 71.8% |
-| 99 | quarter_final | Morocco | England | 6.4% | 44.3% | 55.7% | 128 | England | 55.7% |
-| 100 | quarter_final | Argentina | Portugal | 6.3% | 68.8% | 31.2% | 126 | Argentina | 68.8% |
-| 101 | semi_final | Japan | Spain | 4.9% | 29.2% | 70.8% | 98 | Spain | 70.8% |
-| 102 | semi_final | England | Argentina | 4.8% | 33.8% | 66.2% | 95 | Argentina | 66.2% |
-| 103 | final | Spain | Argentina | 5.3% | 50.4% | 49.6% | 106 | Spain | 50.4% |
-| 104 | third_place | Spain | Argentina | 0.9% | 50.4% | 49.6% | 19 | Spain | 50.4% |
+| 73 | round_of_32 | South Korea | Canada | 10.2% | 46.4% | 53.6% | 205 | Canada | 53.6% |
+| 74 | round_of_32 | Germany | Turkey | 10.5% | 67.5% | 32.5% | 211 | Germany | 67.5% |
+| 75 | round_of_32 | Japan | Brazil | 14.2% | 44.9% | 55.1% | 284 | Brazil | 55.1% |
+| 76 | round_of_32 | Morocco | Netherlands | 18.4% | 52.0% | 48.0% | 369 | Morocco | 52.0% |
+| 77 | round_of_32 | Norway | Sweden | 13.4% | 75.1% | 24.9% | 267 | Norway | 75.1% |
+| 78 | round_of_32 | Ivory Coast | Senegal | 13.7% | 50.0% | 50.0% | 274 | Ivory Coast | 50.0% |
+| 79 | round_of_32 | Mexico | Ecuador | 8.2% | 50.7% | 49.3% | 163 | Mexico | 50.7% |
+| 80 | round_of_32 | England | DR Congo | 12.2% | 85.9% | 14.1% | 243 | England | 85.9% |
+| 81 | round_of_32 | Australia | Bosnia and Herzegovina | 9.4% | 79.8% | 20.2% | 188 | Australia | 79.8% |
+| 82 | round_of_32 | Belgium | Czech Republic | 10.8% | 75.6% | 24.4% | 215 | Belgium | 75.6% |
+| 83 | round_of_32 | Colombia | Croatia | 9.8% | 63.1% | 36.9% | 197 | Colombia | 63.1% |
+| 84 | round_of_32 | Spain | Argentina | 23.4% | 50.4% | 49.6% | 469 | Spain | 50.4% |
+| 85 | round_of_32 | Canada | Egypt | 5.8% | 62.2% | 37.8% | 115 | Canada | 62.2% |
+| 86 | round_of_32 | Argentina | Uruguay | 13.5% | 82.4% | 17.6% | 269 | Argentina | 82.4% |
+| 87 | round_of_32 | Portugal | Panama | 8.4% | 84.2% | 15.8% | 168 | Portugal | 84.2% |
+| 88 | round_of_32 | United States | Iran | 11.8% | 47.0% | 53.0% | 235 | Iran | 53.0% |
+| 89 | round_of_16 | South Korea | Japan | 5.1% | 29.4% | 70.6% | 103 | Japan | 70.6% |
+| 90 | round_of_16 | Germany | Norway | 9.3% | 55.1% | 44.9% | 187 | Germany | 55.1% |
+| 91 | round_of_16 | Morocco | Germany | 7.4% | 47.9% | 52.1% | 149 | Germany | 52.1% |
+| 92 | round_of_16 | Mexico | England | 14.3% | 35.6% | 64.4% | 286 | England | 64.4% |
+| 93 | round_of_16 | Croatia | Spain | 9.7% | 20.5% | 79.5% | 193 | Spain | 79.5% |
+| 94 | round_of_16 | Australia | Belgium | 10.7% | 35.4% | 64.6% | 213 | Belgium | 64.6% |
+| 95 | round_of_16 | Argentina | Australia | 7.2% | 82.3% | 17.7% | 145 | Argentina | 82.3% |
+| 96 | round_of_16 | Switzerland | Portugal | 5.3% | 36.5% | 63.5% | 107 | Portugal | 63.5% |
+| 97 | quarter_final | Brazil | Germany | 3.5% | 51.2% | 48.8% | 69 | Brazil | 51.2% |
+| 98 | quarter_final | Spain | Belgium | 8.5% | 71.8% | 28.2% | 170 | Spain | 71.8% |
+| 99 | quarter_final | Morocco | England | 5.0% | 43.3% | 56.7% | 100 | England | 56.7% |
+| 100 | quarter_final | Argentina | Portugal | 5.9% | 67.9% | 32.1% | 117 | Argentina | 67.9% |
+| 101 | semi_final | Germany | Spain | 3.6% | 31.1% | 68.9% | 73 | Spain | 68.9% |
+| 102 | semi_final | England | Argentina | 4.4% | 35.0% | 65.0% | 88 | Argentina | 65.0% |
+| 103 | final | Spain | Argentina | 5.3% | 50.4% | 49.6% | 107 | Spain | 50.4% |
+| 104 | third_place | Spain | Argentina | 0.9% | 50.4% | 49.6% | 17 | Spain | 50.4% |
 
 ## Generated files
 - `reports/final_group_advancement_probabilities.csv`

@@ -151,13 +151,28 @@ def build_played_match_prediction_checks(
             "draw": float(row.draw_probability),
             "away_win": float(row.away_win_probability),
         }
+        if predicted_outcome not in outcome_probabilities:
+            raise ValueError(f"Unknown predicted outcome: {predicted_outcome!r}")
         observed_outcome_probability = outcome_probabilities[observed_outcome]
+        predicted_outcome_probability = outcome_probabilities[predicted_outcome]
+        most_likely_outcome = max(outcome_probabilities, key=outcome_probabilities.get)
+        sorted_outcomes = sorted(
+            outcome_probabilities,
+            key=outcome_probabilities.get,
+            reverse=True,
+        )
+        observed_outcome_rank = sorted_outcomes.index(observed_outcome) + 1
         score_probability = _observed_score_probability(
             home_expected_goals=float(row.home_expected_goals),
             away_expected_goals=float(row.away_expected_goals),
             observed_home=observed_home,
             observed_away=observed_away,
         )
+        exact_score_hit = (
+            row.predicted_home_score == observed_home
+            and row.predicted_away_score == observed_away
+        )
+        outcome_hit = predicted_outcome == observed_outcome
         rows.append(
             {
                 "match_number": int(row.match_number),
@@ -171,11 +186,17 @@ def build_played_match_prediction_checks(
                 "predicted_score": row.predicted_score,
                 "predicted_score_probability": float(row.predicted_score_probability),
                 "predicted_outcome": predicted_outcome,
+                "most_likely_outcome": most_likely_outcome,
                 "observed_score_probability": score_probability,
                 "observed_outcome_probability": observed_outcome_probability,
-                "exact_score_hit": row.predicted_home_score == observed_home
-                and row.predicted_away_score == observed_away,
-                "outcome_hit": predicted_outcome == observed_outcome,
+                "predicted_outcome_probability": predicted_outcome_probability,
+                "observed_outcome_rank": observed_outcome_rank,
+                "outcome_probability_gap": (
+                    predicted_outcome_probability - observed_outcome_probability
+                ),
+                "result_diagnostic": _result_diagnostic(exact_score_hit, outcome_hit),
+                "exact_score_hit": exact_score_hit,
+                "outcome_hit": outcome_hit,
                 "home_goal_error": int(row.predicted_home_score) - observed_home,
                 "away_goal_error": int(row.predicted_away_score) - observed_away,
                 "goal_abs_error": (
@@ -235,8 +256,13 @@ def _empty_played_checks() -> pd.DataFrame:
             "predicted_score",
             "predicted_score_probability",
             "predicted_outcome",
+            "most_likely_outcome",
             "observed_score_probability",
             "observed_outcome_probability",
+            "predicted_outcome_probability",
+            "observed_outcome_rank",
+            "outcome_probability_gap",
+            "result_diagnostic",
             "exact_score_hit",
             "outcome_hit",
             "home_goal_error",
@@ -255,6 +281,14 @@ def _scoreline_outcome(home_score: int, away_score: int) -> str:
     if home_score < away_score:
         return "away_win"
     return "draw"
+
+
+def _result_diagnostic(exact_score_hit: bool, outcome_hit: bool) -> str:
+    if exact_score_hit:
+        return "exact_score_hit"
+    if outcome_hit:
+        return "right_outcome_wrong_score"
+    return "outcome_miss"
 
 
 def _timestamp(value: datetime | None) -> str:
