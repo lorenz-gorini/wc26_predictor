@@ -29,6 +29,8 @@ def test_snapshot_archive_and_played_match_checks(tmp_path) -> None:
     history = pd.read_csv(history_path)
     assert len(history) == 1
     assert history.loc[0, "predicted_score"] == "1-0"
+    assert pd.isna(history.loc[0, "known_results_through"])
+    assert pd.isna(history.loc[0, "known_results_count"])
 
     completed = _match_details(is_completed=True)
     checks = build_played_match_prediction_checks(completed, history)
@@ -45,6 +47,7 @@ def test_snapshot_archive_and_played_match_checks(tmp_path) -> None:
     assert checks.loc[0, "predicted_outcome_probability"] == pytest.approx(0.55)
     assert checks.loc[0, "outcome_probability_gap"] == pytest.approx(0.0)
     assert checks.loc[0, "result_diagnostic"] == "right_outcome_wrong_score"
+    assert checks.loc[0, "prediction_knowledge_cutoff_date"].isoformat() == "2026-06-10"
 
 
 def test_played_match_checks_empty_without_archived_prediction() -> None:
@@ -71,6 +74,29 @@ def test_played_match_checks_ignore_snapshots_after_fixture_date(tmp_path) -> No
     )
 
     assert checks.empty
+
+
+def test_played_match_checks_use_known_results_cutoff_not_snapshot_date(tmp_path) -> None:
+    details = _match_details(is_completed=False)
+    snapshot = write_latest_prediction_snapshot(
+        details,
+        tmp_path / "latest_prediction_snapshot_with_cutoff.csv",
+        generated_at=datetime(2026, 6, 16, 12, tzinfo=UTC),
+        known_results_through="2026-06-10",
+        known_results_count=50_000,
+    )
+    history = pd.read_csv(snapshot)
+
+    checks = build_played_match_prediction_checks(
+        _match_details(is_completed=True),
+        history,
+    )
+
+    assert len(checks) == 1
+    assert checks.loc[0, "snapshot_generated_at"] == "2026-06-16T12:00:00+00:00"
+    assert checks.loc[0, "known_results_through"] == "2026-06-10"
+    assert checks.loc[0, "known_results_count"] == 50_000
+    assert checks.loc[0, "prediction_knowledge_cutoff_date"].isoformat() == "2026-06-10"
 
 
 def _match_details(is_completed: bool) -> pd.DataFrame:

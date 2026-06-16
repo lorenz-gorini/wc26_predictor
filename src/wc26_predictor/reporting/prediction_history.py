@@ -14,8 +14,13 @@ LATEST_SNAPSHOT_FILE = "world_cup_2026_latest_prediction_snapshot.csv"
 SNAPSHOT_HISTORY_FILE = "world_cup_2026_prediction_snapshots.csv"
 PLAYED_CHECKS_FILE = "world_cup_2026_played_match_prediction_checks.csv"
 
-SNAPSHOT_COLUMNS = [
+SNAPSHOT_METADATA_COLUMNS = [
     "snapshot_generated_at",
+    "known_results_through",
+    "known_results_count",
+]
+
+SNAPSHOT_MATCH_COLUMNS = [
     "date",
     "time_local",
     "utc_offset",
@@ -36,21 +41,29 @@ SNAPSHOT_COLUMNS = [
     "away_win_probability",
 ]
 
+SNAPSHOT_COLUMNS = [*SNAPSHOT_METADATA_COLUMNS, *SNAPSHOT_MATCH_COLUMNS]
+
 
 def write_latest_prediction_snapshot(
     match_details: pd.DataFrame,
     destination: str | Path,
     generated_at: datetime | None = None,
+    known_results_through: object | None = None,
+    known_results_count: int | None = None,
 ) -> Path:
-    """Write the current unplayed-fixture predictions as the latest snapshot."""
+    """Write current unplayed-fixture predictions with data-availability metadata."""
 
-    _require_columns(
-        match_details, set(SNAPSHOT_COLUMNS).difference({"snapshot_generated_at"}), "match details"
-    )
+    _require_columns(match_details, set(SNAPSHOT_MATCH_COLUMNS), "match details")
     output = match_details.copy()
     if "is_completed" in output.columns:
         output = output[~output["is_completed"].map(_parse_boolish)].copy()
     output.insert(0, "snapshot_generated_at", _timestamp(generated_at))
+    output.insert(1, "known_results_through", _date_or_na(known_results_through))
+    output.insert(
+        2,
+        "known_results_count",
+        known_results_count if known_results_count is not None else pd.NA,
+    )
     output = output.loc[:, SNAPSHOT_COLUMNS].sort_values("match_number", ignore_index=True)
 
     path = Path(destination)
@@ -73,14 +86,13 @@ def archive_latest_prediction_snapshot(
     latest = pd.read_csv(latest_path)
     if latest.empty:
         return None
-    _require_columns(latest, set(SNAPSHOT_COLUMNS), "latest prediction snapshot")
+    latest = _normalize_snapshot_frame(latest, "latest prediction snapshot")
 
     destination = (
         Path(history_path) if history_path is not None else processed_path / SNAPSHOT_HISTORY_FILE
     )
     if destination.exists():
-        history = pd.read_csv(destination)
-        _require_columns(history, set(SNAPSHOT_COLUMNS), "prediction snapshot history")
+        history = _normalize_snapshot_frame(pd.read_csv(destination), "prediction snapshot history")
         combined = pd.concat([history, latest], ignore_index=True)
     else:
         combined = latest.copy()
@@ -117,10 +129,10 @@ def build_played_match_prediction_checks(
         return empty
     if prediction_history is None or prediction_history.empty:
         return empty
-    _require_columns(prediction_history, set(SNAPSHOT_COLUMNS), "prediction history")
+    normalized_history = _normalize_snapshot_frame(prediction_history, "prediction history")
 
     joined = completed.merge(
-        prediction_history,
+        normalized_history,
         on="match_number",
         how="inner",
         suffixes=("", "_prediction"),
@@ -131,7 +143,8 @@ def build_played_match_prediction_checks(
         joined["snapshot_generated_at"],
         errors="raise",
     ).dt.date
-    joined = joined[joined["snapshot_date"] <= joined["match_date"]].copy()
+    joined["knowledge_cutoff_date"] = _knowledge_cutoff_dates(joined)
+    joined = joined[joined["knowledge_cutoff_date"] < joined["match_date"]].copy()
     if joined.empty:
         return empty
     joined = (
@@ -183,6 +196,9 @@ def build_played_match_prediction_checks(
                 "observed_score": f"{observed_home}-{observed_away}",
                 "observed_outcome": observed_outcome,
                 "snapshot_generated_at": row.snapshot_generated_at,
+                "known_results_through": row.known_results_through,
+                "known_results_count": row.known_results_count,
+                "prediction_knowledge_cutoff_date": row.knowledge_cutoff_date,
                 "predicted_score": row.predicted_score,
                 "predicted_score_probability": float(row.predicted_score_probability),
                 "predicted_outcome": predicted_outcome,
@@ -225,9 +241,7 @@ def load_prediction_history(path: str | Path) -> pd.DataFrame | None:
     history_path = Path(path)
     if not history_path.exists():
         return None
-    history = pd.read_csv(history_path)
-    _require_columns(history, set(SNAPSHOT_COLUMNS), "prediction history")
-    return history
+    return _normalize_snapshot_frame(pd.read_csv(history_path), "prediction history")
 
 
 def _observed_score_probability(
@@ -253,6 +267,9 @@ def _empty_played_checks() -> pd.DataFrame:
             "observed_score",
             "observed_outcome",
             "snapshot_generated_at",
+            "known_results_through",
+            "known_results_count",
+            "prediction_knowledge_cutoff_date",
             "predicted_score",
             "predicted_score_probability",
             "predicted_outcome",
@@ -296,6 +313,37 @@ def _timestamp(value: datetime | None) -> str:
     if timestamp.tzinfo is None:
         timestamp = timestamp.replace(tzinfo=UTC)
     return timestamp.isoformat(timespec="seconds")
+
+
+def _date_or_na(value: object | None) -> object:
+    if value is None or pd.isna(value):
+        return pd.NA
+    return pd.to_datetime(value, errors="raise").date().isoformat()
+
+
+def _knowledge_cutoff_dates(frame: pd.DataFrame) -> pd.Series:
+    known = pd.Series(
+        pd.to_datetime(frame["known_results_through"], errors="coerce").dt.date,
+        index=frame.index,
+        dtype="object",
+    )
+    fallback = pd.Series(
+        pd.to_datetime(frame["snapshot_generated_at"], errors="raise").dt.date,
+        index=frame.index,
+        dtype="object",
+    )
+    return known.where(known.notna(), fallback)
+
+
+def _normalize_snapshot_frame(frame: pd.DataFrame, label: str) -> pd.DataFrame:
+    required = {"snapshot_generated_at", *SNAPSHOT_MATCH_COLUMNS}
+    _require_columns(frame, required, label)
+    normalized = frame.copy()
+    if "known_results_through" not in normalized.columns:
+        normalized["known_results_through"] = pd.NA
+    if "known_results_count" not in normalized.columns:
+        normalized["known_results_count"] = pd.NA
+    return normalized.loc[:, SNAPSHOT_COLUMNS]
 
 
 def _parse_boolish(value: object) -> bool:

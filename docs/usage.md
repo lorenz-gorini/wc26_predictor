@@ -200,6 +200,11 @@ At the start of `scripts/update_predictions.py`, the previous
 `world_cup_2026_prediction_snapshots.csv` before new results are downloaded.
 This makes completed-match diagnostics compare results against the last saved
 pre-match prediction, not against a model refit after the result is known.
+Each snapshot row stores both `snapshot_generated_at` and `known_results_through`.
+The first is when the forecast artifact was written; the second is the latest
+completed result date included in the model fit. Played-match diagnostics use
+`known_results_through` when available, so a prediction generated later can still
+be audited if it was fit only on pre-match data.
 
 Use `--refresh-static-data` when you also want to redownload fixtures, squads,
 and club-form tables. Use `--impact-simulations` to trade off speed versus

@@ -422,6 +422,8 @@ def main() -> None:
     write_latest_prediction_snapshot(
         upcoming_match_details,
         latest_prediction_snapshot_path,
+        known_results_through=results["date"].max(),
+        known_results_count=len(results),
     )
     played_match_checks.to_csv(played_match_checks_path, index=False)
     match_drivers.to_csv(match_drivers_path, index=False)
