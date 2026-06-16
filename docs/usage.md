@@ -237,6 +237,45 @@ Picks" section to `reports/baseline_summary.md`. The recommendation maximizes
 `model_probability * app_points`, so it may choose a draw or upset even when the
 modal model outcome is a favorite win.
 
+## Evaluate Recent World Cup Holdouts
+
+After updating predictions, evaluate the latest completed World Cup matches with
+chronological last-k holdouts:
+
+```bash
+PYTHONPATH=src /Users/lorenzogorini/anaconda3/envs/general/bin/python scripts/run_recent_world_cup_backtest.py
+```
+
+By default the script evaluates the last 5, 10, and 20 completed 2026 World Cup
+matches. If fewer than 20 are available, the last-20 block uses all completed
+matches. Outputs:
+
+```text
+data/processed/world_cup_2026_recent_holdout_predictions.csv
+reports/world_cup_2026_recent_holdout_summary.csv
+reports/world_cup_2026_recent_holdout_report.md
+```
+
+The script also estimates a historical model-market blend weight from matched
+2014-2022 World Cup odds when `data/raw/odds/WorldCup2026.xlsx` is available.
+To evaluate market-only and model+market performance on current 2026 matches,
+add current market probabilities:
+
+```text
+data/raw/world_cup_2026_market_probabilities.csv
+```
+
+Required columns:
+
+```text
+match_number,market_home_win,market_draw,market_away_win
+```
+
+If `data/raw/world_cup_2026_app_points.csv` includes
+`app_home_win_probability`, `app_draw_probability`, and
+`app_away_win_probability`, the recent-holdout script can use those app-implied
+probabilities instead.
+
 ## Open the Dashboard
 
 Generate the split static dashboard with:
